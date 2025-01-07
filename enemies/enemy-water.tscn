@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfuetyq0f4wfn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_us2oe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j14c1"]
+radius = 30.0167
+
+[node name="Enemy Water" type="CharacterBody2D"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+self_modulate = Color(0.3519, 0.549125, 0.69, 1)
+scale = Vector2(60, 60)
+mesh = SubResource("SphereMesh_us2oe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j14c1")

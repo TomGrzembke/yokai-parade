@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://cousa8q6m7wmj"]
+
+[ext_resource type="PackedScene" uid="uid://dyumet0q0u0ew" path="res://levels/ground-neutral.tscn" id="1_u0l32"]
+[ext_resource type="PackedScene" uid="uid://bye48sqw05tq" path="res://levels/ground-fire.tscn" id="2_jujb4"]
+[ext_resource type="PackedScene" uid="uid://bfuetyq0f4wfn" path="res://enemies/enemy-water.tscn" id="3_vtwk6"]
+[ext_resource type="PackedScene" uid="uid://dfjkroxbqv577" path="res://levels/wall-neutral.tscn" id="4_0ihaq"]
+[ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/player-spawn-point.tscn" id="5_xftf8"]
+
+[node name="Level 00" type="Node2D"]
+
+[node name="Ground Neutral" parent="." instance=ExtResource("1_u0l32")]
+position = Vector2(80, 710)
+
+[node name="Ground Fire" parent="." instance=ExtResource("2_jujb4")]
+position = Vector2(239, 710)
+
+[node name="Enemy Water" parent="." instance=ExtResource("3_vtwk6")]
+position = Vector2(160, 482)
+
+[node name="Wall Neutral" parent="." instance=ExtResource("4_0ihaq")]
+position = Vector2(606, 563)
+
+[node name="SpawnPoint" parent="." instance=ExtResource("5_xftf8")]

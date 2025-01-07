@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxgxdinu0kjs8"]
+
+[ext_resource type="PackedScene" uid="uid://dyumet0q0u0ew" path="res://levels/ground-neutral.tscn" id="1_je3ns"]
+[ext_resource type="PackedScene" uid="uid://bye48sqw05tq" path="res://levels/ground-fire.tscn" id="2_i0bhb"]
+[ext_resource type="PackedScene" uid="uid://dfjkroxbqv577" path="res://levels/wall-neutral.tscn" id="4_27hqb"]
+[ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/player-spawn-point.tscn" id="5_c8oug"]
+[ext_resource type="PackedScene" uid="uid://cfnhlackt0u25" path="res://levels/wall-wood.tscn" id="6_3j2ip"]
+[ext_resource type="PackedScene" uid="uid://c4sff4auhgxi8" path="res://enemies/enemy-air.tscn" id="6_ssfpt"]
+[ext_resource type="PackedScene" uid="uid://bh0c2087eabtb" path="res://enemies/enemy-fire.tscn" id="7_la1fj"]
+[ext_resource type="PackedScene" uid="uid://suwtwwgmcgju" path="res://levels/ground-wood.tscn" id="9_ieeo4"]
+
+[node name="Level 01" type="Node2D"]
+
+[node name="Ground Neutral" parent="." instance=ExtResource("1_je3ns")]
+position = Vector2(80, 710)
+
+[node name="Ground Fire" parent="." instance=ExtResource("2_i0bhb")]
+position = Vector2(239, 710)
+
+[node name="Wall Neutral" parent="." instance=ExtResource("4_27hqb")]
+position = Vector2(364, 656)
+
+[node name="Player Spawn Point" parent="." instance=ExtResource("5_c8oug")]
+position = Vector2(65, 578)
+
+[node name="Wall Breakable" parent="." instance=ExtResource("6_3j2ip")]
+position = Vector2(600, 656)
+
+[node name="Enemy Air" parent="." instance=ExtResource("6_ssfpt")]
+position = Vector2(434, 186)
+
+[node name="Enemy Fire" parent="." instance=ExtResource("7_la1fj")]
+position = Vector2(743, 256)
+
+[node name="Ground Wood" parent="." instance=ExtResource("9_ieeo4")]
+position = Vector2(923, 740)
