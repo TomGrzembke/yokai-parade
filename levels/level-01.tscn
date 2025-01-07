@@ -1,36 +1,58 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxgxdinu0kjs8"]
+[gd_scene load_steps=7 format=3 uid="uid://dxgxdinu0kjs8"]
 
 [ext_resource type="PackedScene" uid="uid://dyumet0q0u0ew" path="res://levels/ground-neutral.tscn" id="1_je3ns"]
-[ext_resource type="PackedScene" uid="uid://bye48sqw05tq" path="res://levels/ground-fire.tscn" id="2_i0bhb"]
 [ext_resource type="PackedScene" uid="uid://dfjkroxbqv577" path="res://levels/wall-neutral.tscn" id="4_27hqb"]
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/player-spawn-point.tscn" id="5_c8oug"]
 [ext_resource type="PackedScene" uid="uid://cfnhlackt0u25" path="res://levels/wall-wood.tscn" id="6_3j2ip"]
 [ext_resource type="PackedScene" uid="uid://c4sff4auhgxi8" path="res://enemies/enemy-air.tscn" id="6_ssfpt"]
 [ext_resource type="PackedScene" uid="uid://bh0c2087eabtb" path="res://enemies/enemy-fire.tscn" id="7_la1fj"]
-[ext_resource type="PackedScene" uid="uid://suwtwwgmcgju" path="res://levels/ground-wood.tscn" id="9_ieeo4"]
 
 [node name="Level 01" type="Node2D"]
 
-[node name="Ground Neutral" parent="." instance=ExtResource("1_je3ns")]
-position = Vector2(80, 710)
+[node name="Grounds & Walls" type="Node2D" parent="."]
 
-[node name="Ground Fire" parent="." instance=ExtResource("2_i0bhb")]
-position = Vector2(239, 710)
+[node name="Interacting" type="Node2D" parent="Grounds & Walls"]
 
-[node name="Wall Neutral" parent="." instance=ExtResource("4_27hqb")]
-position = Vector2(364, 656)
+[node name="Wall Breakable" parent="Grounds & Walls/Interacting" instance=ExtResource("6_3j2ip")]
+position = Vector2(441, 266)
+scale = Vector2(1, 2.16)
+
+[node name="Wall Breakable2" parent="Grounds & Walls/Interacting" instance=ExtResource("6_3j2ip")]
+position = Vector2(711, 786)
+scale = Vector2(1, 2.36)
+
+[node name="Neutral" type="Node2D" parent="Grounds & Walls"]
+
+[node name="Ground Neutral" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
+position = Vector2(162, 593)
+scale = Vector2(2, 1)
+
+[node name="Ground Neutral4" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
+position = Vector2(790, 981)
+scale = Vector2(6.48, 1)
+
+[node name="Ground Neutral3" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
+position = Vector2(400, 72)
+scale = Vector2(2, 1)
+
+[node name="Ground Neutral2" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
+position = Vector2(576, 415)
+scale = Vector2(2, 1)
+
+[node name="Wall Neutral" parent="Grounds & Walls/Neutral" instance=ExtResource("4_27hqb")]
+position = Vector2(711, 518)
+
+[node name="Wall Neutral2" parent="Grounds & Walls/Neutral" instance=ExtResource("4_27hqb")]
+position = Vector2(297, 789)
+scale = Vector2(1, 2.16)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy Air" parent="Enemies" instance=ExtResource("6_ssfpt")]
+position = Vector2(663, 355)
+
+[node name="Enemy Fire" parent="Enemies" instance=ExtResource("7_la1fj")]
+position = Vector2(259, 536)
 
 [node name="Player Spawn Point" parent="." instance=ExtResource("5_c8oug")]
-position = Vector2(65, 578)
-
-[node name="Wall Breakable" parent="." instance=ExtResource("6_3j2ip")]
-position = Vector2(600, 656)
-
-[node name="Enemy Air" parent="." instance=ExtResource("6_ssfpt")]
-position = Vector2(189, 389)
-
-[node name="Enemy Fire" parent="." instance=ExtResource("7_la1fj")]
-position = Vector2(365, 130)
-
-[node name="Ground Wood" parent="." instance=ExtResource("9_ieeo4")]
-position = Vector2(923, 740)
+position = Vector2(70, 290)
