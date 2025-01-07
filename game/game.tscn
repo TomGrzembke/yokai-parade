@@ -7,3 +7,8 @@
 script = ExtResource("1_g4chm")
 
 [node name="Level 01" parent="." instance=ExtResource("1_i7bh5")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(706, 542)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
