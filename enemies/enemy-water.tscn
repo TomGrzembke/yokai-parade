@@ -5,7 +5,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_j14c1"]
 radius = 30.0167
 
-[node name="Enemy Water" type="CharacterBody2D"]
+[node name="Enemy Water" type="RigidBody2D"]
+gravity_scale = 0.0
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 self_modulate = Color(0.3519, 0.549125, 0.69, 1)

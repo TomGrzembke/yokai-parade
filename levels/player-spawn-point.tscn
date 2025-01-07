@@ -1,7 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxb7rgxfvtxf2"]
-
-[ext_resource type="Script" path="res://levels/player-spawn-point.gd" id="1_latxc"]
+[gd_scene format=3 uid="uid://bxb7rgxfvtxf2"]
 
 [node name="Player Spawn Point" type="Marker2D"]
 position = Vector2(76, 622)
-script = ExtResource("1_latxc")
