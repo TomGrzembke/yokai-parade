@@ -117,30 +117,39 @@ scale = Vector2(1, 2.16)
 
 [node name="Enemy Air" parent="Enemies" instance=ExtResource("6_ssfpt")]
 position = Vector2(663, 355)
+script = null
 
 [node name="Enemy Air3" parent="Enemies" instance=ExtResource("6_ssfpt")]
 position = Vector2(963, 924)
+script = null
 
 [node name="Enemy Air4" parent="Enemies" instance=ExtResource("6_ssfpt")]
 position = Vector2(1684, 637)
+script = null
 
 [node name="Enemy Air5" parent="Enemies" instance=ExtResource("6_ssfpt")]
 position = Vector2(1961, -61)
+script = null
 
 [node name="Enemy Air2" parent="Enemies" instance=ExtResource("6_ssfpt")]
 position = Vector2(679, -202)
+script = null
 
 [node name="Enemy Fire" parent="Enemies" instance=ExtResource("7_la1fj")]
 position = Vector2(137, 538)
+script = null
 
 [node name="Enemy Fire3" parent="Enemies" instance=ExtResource("7_la1fj")]
 position = Vector2(2006, 314)
+script = null
 
 [node name="Enemy Fire2" parent="Enemies" instance=ExtResource("7_la1fj")]
 position = Vector2(471, 16)
+script = null
 
 [node name="Enemy Fire4" parent="Enemies" instance=ExtResource("7_la1fj")]
 position = Vector2(413, -581)
+script = null
 
 [node name="PlayerSpawnPoint" parent="." instance=ExtResource("5_c8oug")]
 position = Vector2(71, 536)
