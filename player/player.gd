@@ -11,8 +11,8 @@ const COLOR_WATER = Color("#5a8cb0")
 @export var jump_velocity = 600.0
 
 var body_in_catch_radius = null
-var current_ability = null:
-	set = _set_current_ability
+var current_power = null:
+	set = _set_current_power
 
 
 func _physics_process(delta: float) -> void:
@@ -45,25 +45,30 @@ func _on_catch_radius_body_exited(body: Node2D) -> void:
 
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("abililty") \
+	if Input.is_action_just_pressed("catch_power") \
 	and body_in_catch_radius != null \
 	and body_in_catch_radius.has_method("caught"):
-		current_ability = body_in_catch_radius.caught()
+		current_power = body_in_catch_radius.caught()
+		
+	if Input.is_action_just_pressed("use_power") \
+	and current_power != null:
+		_use_power()
 
 
-func _set_current_ability(ability):
-	current_ability = ability
+func _set_current_power(ability):
+	current_power = ability
 	var color = COLOR_PLAIN
 	
 	match ability:
 		ENEMY_SCRIPT.EnemyType.AIR:
-			print("caught air power")
 			color = COLOR_AIR
 		ENEMY_SCRIPT.EnemyType.FIRE:
-			print("caught fire power")
 			color = COLOR_FIRE
 		ENEMY_SCRIPT.EnemyType.WATER:
-			print("caught water power")
 			color = COLOR_WATER
 		
 	$MeshInstance2D.self_modulate = color
+
+
+func _use_power():
+	current_power = null
