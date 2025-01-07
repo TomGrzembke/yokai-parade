@@ -9,6 +9,8 @@ const COLOR_WATER = Color("#5a8cb0")
 
 @export var speed = 300.0
 @export var jump_velocity = 600.0
+@export var air_power_jump_velocity = 800.0
+
 
 var body_in_catch_radius = null
 var current_power = null:
@@ -55,11 +57,11 @@ func _unhandled_input(_event: InputEvent) -> void:
 		_use_power()
 
 
-func _set_current_power(ability):
-	current_power = ability
+func _set_current_power(power):
+	current_power = power
 	var color = COLOR_PLAIN
 	
-	match ability:
+	match power:
 		ENEMY_SCRIPT.EnemyType.AIR:
 			color = COLOR_AIR
 		ENEMY_SCRIPT.EnemyType.FIRE:
@@ -71,4 +73,12 @@ func _set_current_power(ability):
 
 
 func _use_power():
+	match current_power:
+		ENEMY_SCRIPT.EnemyType.AIR:
+			_use_air_power()
+			
 	current_power = null
+
+
+func _use_air_power():
+	velocity.y = -air_power_jump_velocity
