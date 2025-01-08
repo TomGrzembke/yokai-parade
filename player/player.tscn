@@ -19,7 +19,7 @@ size = Vector2(150, 100)
 script = ExtResource("1_uybn7")
 speed = 350.0
 jump_velocity = 735.0
-fire_power_dash_velocity = 1500.0
+fire_power_dash_velocity = 1400.0
 fire_power_dash_duration = 0.25
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]

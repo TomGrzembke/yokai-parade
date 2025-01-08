@@ -83,8 +83,8 @@ position = Vector2(3910, -386)
 scale = Vector2(3.12, 1)
 
 [node name="Ground Neutral14" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
-position = Vector2(944, -701)
-scale = Vector2(0.800002, 1)
+position = Vector2(970, -701)
+scale = Vector2(1.72, 1)
 
 [node name="Ground Neutral10" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
 position = Vector2(1840, 563)
