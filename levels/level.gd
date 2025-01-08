@@ -21,10 +21,19 @@ func _spawn_player():
 	get_parent().add_child.call_deferred(player)
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("reset_level"):
+		_reload_level()
+
+
 func _on_despawn_area_body_entered(body: Node2D) -> void:
 	if body.has_method("despawn"):
 		body.despawn()
 
 
 func _on_player_despawn():
-	_spawn_player()
+	_reload_level()
+
+
+func _reload_level():
+	get_tree().reload_current_scene()
