@@ -17,7 +17,7 @@ script = ExtResource("1_l58d4")
 [node name="Interacting" type="Node2D" parent="Grounds & Walls"]
 
 [node name="Wall Breakable" parent="Grounds & Walls/Interacting" instance=ExtResource("6_3j2ip")]
-position = Vector2(540, -262)
+position = Vector2(471, -262)
 scale = Vector2(1, 2)
 
 [node name="Wall Breakable3" parent="Grounds & Walls/Interacting" instance=ExtResource("6_3j2ip")]
@@ -39,32 +39,32 @@ scale = Vector2(1, 3.32)
 [node name="Neutral" type="Node2D" parent="Grounds & Walls"]
 
 [node name="Ground Neutral" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
-position = Vector2(152, 593)
-scale = Vector2(2.12, 1)
+position = Vector2(-0.999939, 448)
+scale = Vector2(2.28, 1)
 
 [node name="Ground Neutral5" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
-position = Vector2(44, 3)
-scale = Vector2(0.559998, 1)
+position = Vector2(-56, 3)
+scale = Vector2(1.2, 1)
 
 [node name="Ground Neutral8" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
 position = Vector2(1416, 120)
 scale = Vector2(0.559998, 1)
 
 [node name="Ground Neutral4" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
-position = Vector2(704, 981)
-scale = Vector2(5.4, 1)
+position = Vector2(604, 981)
+scale = Vector2(5.92, 1)
 
 [node name="Ground Neutral3" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
-position = Vector2(270, 145)
-scale = Vector2(3.4, 1)
+position = Vector2(194, 145)
+scale = Vector2(4.48, 1)
 
 [node name="Ground Neutral6" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
 position = Vector2(582, -93)
 scale = Vector2(3.12, 1)
 
 [node name="Ground Neutral16" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
-position = Vector2(289, -409)
-scale = Vector2(3.64, 1)
+position = Vector2(218, -409)
+scale = Vector2(4.72, 1)
 
 [node name="Ground Neutral7" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
 position = Vector2(1588, -582)
@@ -103,8 +103,8 @@ position = Vector2(1314, 274)
 scale = Vector2(5.43999, 1)
 
 [node name="Ground Neutral19" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
-position = Vector2(2455, -1235)
-scale = Vector2(31.36, 1)
+position = Vector2(2379, -1235)
+scale = Vector2(32.32, 1)
 
 [node name="Ground Neutral20" parent="Grounds & Walls/Neutral" instance=ExtResource("1_je3ns")]
 position = Vector2(2455, 1355)
@@ -131,11 +131,11 @@ position = Vector2(1364, -155)
 scale = Vector2(1, 5.12)
 
 [node name="Wall Neutral2" parent="Grounds & Walls/Neutral" instance=ExtResource("4_27hqb")]
-position = Vector2(297, 789)
-scale = Vector2(1, 2.16)
+position = Vector2(156, 713)
+scale = Vector2(1, 3.56)
 
 [node name="Wall Neutral6" parent="Grounds & Walls/Neutral" instance=ExtResource("4_27hqb")]
-position = Vector2(-27, 81)
+position = Vector2(-178, 81)
 scale = Vector2(1, 16.28)
 
 [node name="Wall Neutral8" parent="Grounds & Walls/Neutral" instance=ExtResource("4_27hqb")]
@@ -180,7 +180,7 @@ position = Vector2(679, -149)
 position = Vector2(353, -466)
 
 [node name="Enemy Fire" parent="Enemies" instance=ExtResource("7_la1fj")]
-position = Vector2(216, 538)
+position = Vector2(120, 395)
 
 [node name="Enemy Fire3" parent="Enemies" instance=ExtResource("7_la1fj")]
 position = Vector2(1867, 122)
@@ -195,7 +195,7 @@ position = Vector2(2112, -392)
 position = Vector2(391, 89)
 
 [node name="PlayerSpawnPoint" parent="." instance=ExtResource("5_c8oug")]
-position = Vector2(66, 467)
+position = Vector2(-70, 314)
 
 [connection signal="body_entered" from="Grounds & Walls/DespawnArea" to="." method="_on_despawn_area_body_entered"]
 [connection signal="body_entered" from="Grounds & Walls/DespawnArea2" to="." method="_on_despawn_area_body_entered"]
