@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmxf5jucqf3tn"]
+[gd_scene load_steps=4 format=3 uid="uid://w7srany1jy50"]
 
 [ext_resource type="PackedScene" uid="uid://dyumet0q0u0ew" path="res://levels/ground-neutral.tscn" id="1_1gvy1"]
+[ext_resource type="Script" path="res://levels/level.gd" id="1_ubpj7"]
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/player-spawn-point.tscn" id="2_uayi1"]
 
 [node name="Tutorial Level" type="Node2D"]
+script = ExtResource("1_ubpj7")
 
 [node name="Ground & Walls" type="Node2D" parent="."]
 
@@ -17,4 +19,4 @@ scale = Vector2(5.2, 1)
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Player Spawn Point" parent="." instance=ExtResource("2_uayi1")]
+[node name="PlayerSpawnPoint" parent="." instance=ExtResource("2_uayi1")]
