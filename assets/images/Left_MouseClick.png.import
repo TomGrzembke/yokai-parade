@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1c1vwwj2b3el"
-path="res://.godot/imported/A_Key.png-77aeeb51d7b15449d96cb326e23152b5.ctex"
+uid="uid://cb6slbsk5umig"
+path="res://.godot/imported/Left_MouseClick.png-a590092aa741d81104ac84f7ff8664c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/A_Key.png"
-dest_files=["res://.godot/imported/A_Key.png-77aeeb51d7b15449d96cb326e23152b5.ctex"]
+source_file="res://assets/images/Left_MouseClick.png"
+dest_files=["res://.godot/imported/Left_MouseClick.png-a590092aa741d81104ac84f7ff8664c9.ctex"]
 
 [params]
 

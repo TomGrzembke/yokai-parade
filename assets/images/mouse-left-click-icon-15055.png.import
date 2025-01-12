@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fy0cyfkd4tn6"
-path="res://.godot/imported/mouse-left-click-icon-15055.png-d08f3cd447abddf4a3fd0ce1ac891db8.ctex"
+path="res://.godot/imported/mouse-left-click-icon-15055.png-bd76dae24ae7199282e32b9831c4ef55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/mouse-left-click-icon-15055.png"
-dest_files=["res://.godot/imported/mouse-left-click-icon-15055.png-d08f3cd447abddf4a3fd0ce1ac891db8.ctex"]
+source_file="res://assets/images/mouse-left-click-icon-15055.png"
+dest_files=["res://.godot/imported/mouse-left-click-icon-15055.png-bd76dae24ae7199282e32b9831c4ef55.ctex"]
 
 [params]
 

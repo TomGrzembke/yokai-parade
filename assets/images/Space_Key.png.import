@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnr0u46o8642r"
-path="res://.godot/imported/Screenshot 2025-01-10 152952.png-1fe73a9322f019a1e76496a02d86ab96.ctex"
+uid="uid://dgns6i6jlvwpa"
+path="res://.godot/imported/Space_Key.png-d7d3f5fb957b65aa30797658bcdff95e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Screenshot 2025-01-10 152952.png"
-dest_files=["res://.godot/imported/Screenshot 2025-01-10 152952.png-1fe73a9322f019a1e76496a02d86ab96.ctex"]
+source_file="res://assets/images/Space_Key.png"
+dest_files=["res://.godot/imported/Space_Key.png-d7d3f5fb957b65aa30797658bcdff95e.ctex"]
 
 [params]
 
