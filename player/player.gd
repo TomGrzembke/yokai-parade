@@ -21,47 +21,62 @@ const COLOR_WATER = Color("#5a8cb0")
 @export var fire_power_dash_duration = 1.0
 
 var coyote_timer = 0.15
-var body_in_catch_radius = null
-var body_in_damage_radius = null
-var is_dashing = false
-var dash_direction = null
+var body_in_catch_radius
+var body_in_damage_radius
+var is_dashing := false
+var dash_direction
+var move_direction
 
 var current_power:
 	set = _set_current_power
 
-func set_current_power(value):
-	current_power = value
-
-func get_current_power():
-	return current_power
-
 func _physics_process(delta):
-	if !is_dashing:
-		if is_on_floor():
-			coyote_timer = 0.0
-		else:
-			coyote_timer += delta
-			velocity += get_gravity() * delta
-
-		# Handle jump.
-		if Input.is_action_just_pressed("jump") \
-		and coyote_timer < jump_coyote_time:
-			velocity.y = -jump_velocity
-
-		var direction = sign(Input.get_axis("left", "right"))
-		if direction != 0.0:
-			dash_direction = direction
-
-		if direction:
-			velocity.x = move_toward(velocity.x, direction * speed, acceleration)
-		else:
-			velocity.x = move_toward(velocity.x, 0, deceleration)
+	if is_dashing:
+		apply_dash_damage()
 	else:
-		if body_in_damage_radius != null \
-		and body_in_damage_radius.has_method("take_damage"):
-			body_in_damage_radius.take_damage()
-
+		move_direction = sign(Input.get_axis("left", "right"))
+		
+		handle_run()
+		handle_coyote_time(delta)
+		handle_jump()
+		calc_dash_direction()
+	
 	move_and_slide()
+
+
+func handle_run():
+	if move_direction:
+		velocity.x = move_toward(velocity.x, move_direction * speed, acceleration)
+	else:
+		velocity.x = move_toward(velocity.x, 0, deceleration)
+
+
+func handle_coyote_time(delta):
+	if is_on_floor():
+		coyote_timer = 0.0
+	else:
+		coyote_timer += delta
+		velocity += get_gravity() * delta
+
+
+func handle_jump():
+	if Input.is_action_just_pressed("jump") \
+	and coyote_timer < jump_coyote_time:
+		velocity.y = -jump_velocity
+
+
+func apply_dash_damage():
+	if body_in_damage_radius == null: return
+	if !body_in_damage_radius.has_method("take_damage"): return
+	
+	body_in_damage_radius.take_damage()
+
+
+
+func calc_dash_direction():
+	if move_direction != 0.0:
+			dash_direction = move_direction
+
 
 
 func _on_catch_radius_body_entered(body):
