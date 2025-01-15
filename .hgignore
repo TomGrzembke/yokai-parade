@@ -1,2 +1,4 @@
 syntax: glob
+*.orig
 .godot/
+build/
