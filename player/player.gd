@@ -14,13 +14,16 @@ const COLOR_WATER = Color("#5a8cb0")
 @export var acceleration = 80.0
 @export var deceleration = 50.0
 @export var jump_velocity = 600.0
+@export_category("Movement extras")
 @export_range(0.0, 1.0, 0.01) var jump_coyote_time = 0.15
+@export_range(0.0, 1.0, 0.01) var jump_buffer_time = 0.15
 @export_category("Powers")
 @export var air_power_jump_velocity = 800.0
 @export var fire_power_dash_velocity = 300.0
 @export var fire_power_dash_duration = 1.0
 
 var coyote_timer = 0.15
+var jump_buffer_timer = 0.0
 var body_in_catch_radius
 var body_in_damage_radius
 var is_dashing := false
@@ -37,7 +40,9 @@ func _physics_process(delta):
 		move_direction = sign(Input.get_axis("left", "right"))
 		
 		handle_run()
+		handle_jump_buffer_time(delta)
 		handle_coyote_time(delta)
+		
 		handle_jump()
 		calc_dash_direction()
 		handle_gravity(delta)
@@ -52,16 +57,36 @@ func handle_run():
 		velocity.x = move_toward(velocity.x, 0, deceleration)
 
 
+func handle_jump_buffer_time(delta):
+	if is_on_floor():
+		jump_buffer_timer = 0.0
+	elif Input.is_action_just_pressed("jump"):
+		jump_buffer_timer += delta
+		print("jump_buffer_timer: " + str(jump_buffer_timer))
+
+
 func handle_coyote_time(delta):
 	if is_on_floor():
 		coyote_timer = 0.0
 	else:
 		coyote_timer += delta
 
+
 func handle_jump():
-	if Input.is_action_just_pressed("jump") \
-	and coyote_timer < jump_coyote_time:
+	var jump_input = Input.is_action_just_pressed("jump") 
+	var should_jump_normally = jump_input && is_on_floor()
+	var should_assist_jump = evaluate_coyote_time()
+	print("should_assist_jump: " + str(should_assist_jump))
+	
+	if should_jump_normally || should_assist_jump:
+		should_assist_jump = false
 		velocity.y = -jump_velocity
+
+
+func evaluate_coyote_time():
+	if jump_coyote_time == 0: return false
+	if coyote_timer == 0: return false
+	return coyote_timer < jump_coyote_time 
 
 
 func apply_dash_damage():
@@ -69,7 +94,6 @@ func apply_dash_damage():
 	if !body_in_damage_radius.has_method("take_damage"): return
 	
 	body_in_damage_radius.take_damage()
-
 
 
 func calc_dash_direction():
