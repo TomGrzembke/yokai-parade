@@ -37,7 +37,7 @@ func _physics_process(delta):
 	if is_dashing:
 		apply_dash_damage()
 	else:
-		move_direction = sign(Input.get_axis("left", "right"))
+		calc_move_dir()
 		
 		handle_run()
 		
@@ -47,6 +47,10 @@ func _physics_process(delta):
 		handle_gravity(delta)
 	
 	move_and_slide()
+
+
+func calc_move_dir():
+	move_direction = sign(Input.get_axis("left", "right"))
 
 
 func handle_run():
