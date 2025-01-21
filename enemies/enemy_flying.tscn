@@ -12,6 +12,7 @@ point_count = 2
 radius = 31.0161
 
 [node name="EnemyFlying" type="PathFollow2D"]
+rotates = false
 script = ExtResource("1_jwi5c")
 easing_curve = SubResource("Curve_lxy51")
 
