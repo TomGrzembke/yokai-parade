@@ -35,12 +35,12 @@ func _physics_process(delta):
 		apply_dash_damage()
 	else:
 		move_direction = sign(Input.get_axis("left", "right"))
-		
+
 		handle_run()
 		handle_coyote_time(delta)
 		handle_jump()
 		calc_dash_direction()
-	
+
 	move_and_slide()
 
 
@@ -68,7 +68,7 @@ func handle_jump():
 func apply_dash_damage():
 	if body_in_damage_radius == null: return
 	if !body_in_damage_radius.has_method("take_damage"): return
-	
+
 	body_in_damage_radius.take_damage()
 
 
