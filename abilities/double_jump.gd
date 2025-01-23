@@ -5,7 +5,7 @@ const ELEMENT_TYPE = ELEMENTS.ElementType.AIR
 
 @export var double_jump_vel = 800.0
 @export var double_jump_duration = 0.0
-@export var disable_player_movement := true
+@export var disable_player_movement := false
 
 
 func use(player_manager):
