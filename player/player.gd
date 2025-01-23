@@ -36,7 +36,7 @@ func _physics_process(delta):
 		handle_run()
 		handle_jump(delta)
 		handle_gravity(delta)
-	
+
 	velocity = player_input_vel + velocity_outer_sources
 
 	move_and_slide()
@@ -152,10 +152,10 @@ func calc_vel_mods(velocity_mod, clear_mod):
 	var highest_prioty = 5
 	for i in range(velocity_mod_instigator.size() -1, -1, -1):
 		highest_prioty = reapply_velocity_mods(velocity_mod, highest_prioty)
-	
+
 		if clear_mod && velocity_mod == velocity_mod_instigator[i]:
 			velocity_mod_instigator.remove_at(i)
-	
+
 	if velocity_mod_instigator.size() == 0:
 		reset_velocity_mod_effects()
 
@@ -172,7 +172,7 @@ func delete_timer(given_timer):
 
 func reapply_velocity_mods(velocity_mod, current_priority):
 	if velocity_mod.priority > current_priority: return current_priority
-	
+
 	velocity_outer_sources = velocity_mod.amount
 	player_control = !velocity_mod.disable_player_movement
 	return velocity_mod.priority
