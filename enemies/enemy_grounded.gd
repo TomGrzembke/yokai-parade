@@ -1,5 +1,11 @@
 extends CharacterBody2D
 
+enum EnemyState {
+	IDLING = 100,
+	MOVING = 200,
+	RECOVERING = 300,
+}
+
 signal enemy_caught
 
 enum Direction {
@@ -7,14 +13,18 @@ enum Direction {
 	RIGHT = 1,
 }
 
+@export var starting_state: EnemyState = EnemyState.MOVING
+@export var recovery_time = 3.0
 @export var speed = 100.0
 @export var initial_direction = Direction.RIGHT
 @export var element_type: EnemyElementType
 
+var state
 var direction
 
 
 func _ready():
+	state = starting_state
 	direction = initial_direction
 	if element_type != null:
 		%MeshInstance2D.modulate = element_type.get_color()
@@ -41,7 +51,10 @@ func handle_turn():
 
 
 func handle_movement(_delta):
-	velocity.x = direction * speed
+	match state:
+		EnemyState.MOVING:
+			velocity.x = direction * speed
+		_: velocity.x = 0.0
 
 
 func flip_horizontally():
@@ -52,12 +65,44 @@ func flip_horizontally():
 func is_on_cliff():
 	return not %RayCast2D.is_colliding()
 
+func enter_state(new_state):
+	match new_state:
+		EnemyState.IDLING:
+			enter_state_idling()
+		EnemyState.MOVING:
+			enter_state_moving()
+		EnemyState.RECOVERING:
+			enter_state_recovering()
 
-func on_despawn():
-	queue_free()
+
+func enter_state_idling():
+	set_alpha(1.0)
+	state = EnemyState.IDLING
+
+
+func enter_state_moving():
+	set_alpha(1.0)
+	state = EnemyState.MOVING
+
+
+func enter_state_recovering():
+	var last_state = state
+	set_alpha(0.1)
+	state = EnemyState.RECOVERING
+	var recovery_timer = get_tree().create_timer(recovery_time)
+	recovery_timer.timeout.connect(enter_state.bind(last_state))
+
+
+func set_alpha(alpha):
+	var color = %MeshInstance2D.modulate
+	color.a = alpha
+	%MeshInstance2D.modulate = color
 
 
 func got_caught():
+	if state == EnemyState.RECOVERING:
+		return null
+
 	enemy_caught.emit()
-	# TODO: Stun enemy, start timer for recovery
+	enter_state(EnemyState.RECOVERING)
 	return element_type.spawning_ability
