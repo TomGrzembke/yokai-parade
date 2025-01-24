@@ -14,6 +14,8 @@ signal enemy_caught
 @export var max_speed = 200.0
 @export var element_type: EnemyElementType
 
+@onready var deal_damage_area: Area2D = $DealDamageArea
+
 var state
 var speed = 0.0
 var path_length = 0.0
@@ -86,6 +88,8 @@ func enter_state(new_state):
 		EnemyState.RECOVERING:
 			enter_state_recovering()
 
+	refresh_hitbox()
+
 
 func enter_state_idling():
 	set_alpha(1.0)
@@ -118,3 +122,6 @@ func got_caught():
 	enemy_caught.emit()
 	enter_state(EnemyState.RECOVERING)
 	return element_type.spawning_ability
+
+func refresh_hitbox():
+	deal_damage_area.monitoring = state != EnemyState.RECOVERING

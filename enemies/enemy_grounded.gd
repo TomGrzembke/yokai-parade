@@ -19,6 +19,8 @@ enum Direction {
 @export var initial_direction = Direction.RIGHT
 @export var element_type: EnemyElementType
 
+@onready var deal_damage_area: Area2D = $DealDamageArea
+
 var state
 var direction
 
@@ -74,6 +76,8 @@ func enter_state(new_state):
 		EnemyState.RECOVERING:
 			enter_state_recovering()
 
+	refresh_hitbox()
+
 
 func enter_state_idling():
 	set_alpha(1.0)
@@ -106,3 +110,7 @@ func got_caught():
 	enemy_caught.emit()
 	enter_state(EnemyState.RECOVERING)
 	return element_type.spawning_ability
+
+
+func refresh_hitbox():
+	deal_damage_area.monitoring = state != EnemyState.RECOVERING
