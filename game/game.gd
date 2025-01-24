@@ -121,7 +121,11 @@ func get_player_spawn_position():
 
 
 func on_player_despawned():
+	if get_node_or_null("Player") != null:
+		await $Player.tree_exited
+
 	load_level(current_level_index)
+	spawn_player()
 
 
 func on_player_reached_goal():

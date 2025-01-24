@@ -6,13 +6,14 @@ var duration
 var priority #1 = abilities, 2 = enemy attacks
 var disable_player_movement = false
 var ability
+var invert_with_look_dir
 
-func _init(_amount, _duration, _priority, _disable_player_movement):
+func _init(_amount, _duration, _priority, _disable_player_movement, _invert_with_look_dir = false):
 	amount = _amount
 	duration = _duration
 	priority = _priority
 	disable_player_movement = _disable_player_movement
-
+	invert_with_look_dir = _invert_with_look_dir
 
 func set_ability(_ability):
 	ability = _ability
