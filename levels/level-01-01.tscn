@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c725ohihulje0"]
+[gd_scene load_steps=16 format=3 uid="uid://c725ohihulje0"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_rdt8q"]
 [ext_resource type="PackedScene" uid="uid://dyumet0q0u0ew" path="res://levels/ground_neutral.tscn" id="1_v52v0"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dfjkroxbqv577" path="res://levels/wall_neutral.tscn" id="6_hw8va"]
 [ext_resource type="Resource" uid="uid://be56k4m11w44j" path="res://enemies/types/enemy_element_type_fire.tres" id="7_qq2i5"]
 [ext_resource type="PackedScene" uid="uid://bomxlv8ndomnc" path="res://enemies/enemy_grounded.tscn" id="7_shv8i"]
-[ext_resource type="PackedScene" uid="uid://dotrddyc18eeh" path="res://levels/checkpoint.tscn" id="12_uk7r0"]
 
 [sub_resource type="Curve2D" id="Curve2D_knhc2"]
 _data = {
@@ -1069,6 +1068,3 @@ position = Vector2(111, 383)
 
 [node name="Goal" parent="." instance=ExtResource("4_a3ims")]
 position = Vector2(37814, -503)
-
-[node name="Checkpoint" parent="." instance=ExtResource("12_uk7r0")]
-position = Vector2(736, 440)

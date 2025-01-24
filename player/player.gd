@@ -208,6 +208,7 @@ func refresh_needed_local_vel(velocity_mod):
 
 	if velocity_mod.amount.x != 0:
 		local_velocity.x = 0
+		local_velocity.y = 0
 
 
 func flip_outer_velocity_logic():
@@ -233,7 +234,7 @@ func on_took_damage(source):
 	if source != null \
 	and source.position != null:
 
-		#add_velocity_modifier(VelocityModifier.new(Vector2(-300, -20), .2, 3, false, null))
+		add_velocity_modifier(VelocityModifier.new(Vector2(-300, -20), .2, 3, false))
 		print("Player hit!") # TODO: Stumble back and make invincible for a while, see GDD
 		#note: temporary implementation, just moves you in the flipped look_dir rn
 		#note: stun locks player rn even when theyre dead (ask chris for fix with enemies)
