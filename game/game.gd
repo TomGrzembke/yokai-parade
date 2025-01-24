@@ -7,6 +7,9 @@ var _play_time = 0.0:
 	set(new_value):
 		_play_time = new_value
 		%PlayTimeLabel.text = "%5.2f" % _play_time
+var _current_level:
+	get:
+		return
 
 
 func _ready() -> void:
@@ -63,6 +66,7 @@ func _spawn_player(player_position):
 	player.position = player_position
 	player.player_despawned.connect(_on_player_despawned)
 	player.player_reached_goal.connect(_on_player_reached_goal)
+	player.player_reached_checkpoint.connect(on_player_reached_checkpoint)
 
 	var camera_node = get_tree().root.get_node_or_null("Game/Camera2D")
 
@@ -79,6 +83,10 @@ func _on_player_despawned():
 
 func _on_player_reached_goal():
 	_is_play_timer_running = false
+
+
+func on_player_reached_checkpoint(position):
+	%LevelManager.set_player_spawn_position(position)
 
 
 func _on_level_manager_level_loaded(player_spawn_position):

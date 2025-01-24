@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxgxdinu0kjs8"]
+[gd_scene load_steps=14 format=3 uid="uid://dxgxdinu0kjs8"]
 
 [ext_resource type="PackedScene" uid="uid://dyumet0q0u0ew" path="res://levels/ground_neutral.tscn" id="1_je3ns"]
 [ext_resource type="Script" path="res://levels/level.gd" id="1_l58d4"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://tvyt8dx4csl5" path="res://enemies/types/enemy_element_type_air.tres" id="9_s8x4f"]
 [ext_resource type="Resource" uid="uid://be56k4m11w44j" path="res://enemies/types/enemy_element_type_fire.tres" id="10_cq81o"]
 [ext_resource type="PackedScene" uid="uid://b5s4b6xdudwso" path="res://enemies/enemy_flying.tscn" id="11_cjp3s"]
+[ext_resource type="PackedScene" uid="uid://dotrddyc18eeh" path="res://levels/checkpoint.tscn" id="12_is3mh"]
 
 [sub_resource type="Curve2D" id="Curve2D_kfeqc"]
 _data = {
@@ -172,6 +173,7 @@ curve = SubResource("Curve2D_kfeqc")
 [node name="EnemyFlying" parent="Enemies/Path2D" instance=ExtResource("11_cjp3s")]
 position = Vector2(0, -224)
 starting_state = 100
+max_speed = 200.0
 element_type = ExtResource("9_s8x4f")
 
 [node name="PlayerSpawnPoint" parent="." instance=ExtResource("5_c8oug")]
@@ -179,3 +181,9 @@ position = Vector2(-70, 346)
 
 [node name="Goal" parent="." instance=ExtResource("9_k2mnv")]
 position = Vector2(4729, -555)
+
+[node name="Checkpoint" parent="." instance=ExtResource("12_is3mh")]
+position = Vector2(0, 424)
+
+[node name="Checkpoint2" parent="." instance=ExtResource("12_is3mh")]
+position = Vector2(408, 960)
