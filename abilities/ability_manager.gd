@@ -44,6 +44,12 @@ func set_current_ability(ability_scene):
 		visual.self_modulate = ability.get_color()
 
 
+func clear_abilities():
+	for child in get_children():
+		child.queue_free()
+	reset_color()
+
+
 func reset_color():
 	visual.self_modulate = COLOR_PLAIN
 

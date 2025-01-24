@@ -18,6 +18,9 @@ const INFINITY = 1e20
 @export_category("Enemey Push")
 @export var push_back = 500.0
 
+@onready var ability_manager: Node2D = $AbilityManager
+
+
 var current_delta
 var coyote_timer = 0.15
 var jump_buffer_timer = 0.0
@@ -140,6 +143,7 @@ func handle_ability_dissolve():
 		if is_on_floor():
 			outer_velocity_sources.y = 0
 
+
 func add_velocity_modifier(velocity_mod):
 	velocity_mod_instigator.append(velocity_mod)
 	calc_vel_mods()
@@ -178,9 +182,14 @@ func delete_vel_mod(velocity_mod):
 
 
 func reset_velocity_mod_effects(velocity_mod):
+
 	player_control = true
 	if velocity_mod.ability != null:
 		velocity_mod.ability.queue_free()
+
+
+func clear_abilities():
+	ability_manager.clear_abilities()
 
 
 func check_movement_mods_empty():
@@ -194,7 +203,7 @@ func refresh_velocity_mods(velocity_mod, current_priority):
 
 	refresh_needed_local_vel(velocity_mod)
 
-	flip_outer_velocity_logic()
+	flip_outer_velocity_logic(velocity_mod)
 
 	return velocity_mod.priority
 
@@ -213,7 +222,9 @@ func refresh_needed_local_vel(velocity_mod):
 		local_velocity.y = 0
 
 
-func flip_outer_velocity_logic():
+func flip_outer_velocity_logic(velocity_mod):
+	if !velocity_mod.invert_with_look_dir: return
+
 	if look_direction < 0:
 		outer_velocity_sources.x = -outer_velocity_sources.x
 
@@ -235,6 +246,6 @@ func on_reached_checkpoint(checkpoint_position):
 func on_took_damage(source):
 	if source != null \
 	and source != $DealDamageArea:
-		add_velocity_modifier(VelocityModifier.new((source.position - position).normalized() * push_back, .2, 3, true))
-		print(position - source.position) # TODO: Stumble back and make invincible for a while, see GDD
+		add_velocity_modifier(VelocityModifier.new(-(source.global_position - position).normalized() * push_back, .2, 3, true))
+		# TODO: Stumble back and make invincible for a while, see GDD
 		#note: temporary implementation, just moves you in the flipped look_dir rn
