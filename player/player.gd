@@ -19,13 +19,11 @@ var current_delta
 var coyote_timer = 0.15
 var jump_buffer_timer = 0.0
 
-var look_direction
+var look_direction = 0.0
 var move_direction
 
-var velocity_outer_sources := Vector2(0,0)
 var local_velocity := Vector2(0,0)
-
-@onready var ability_manager: Node2D = $AbilityManager
+var outer_velocity_sources := Vector2(0,0)
 
 var velocity_mod_instigator = []
 var player_control := true
@@ -39,8 +37,10 @@ func _physics_process(delta):
 		handle_gravity()
 		handle_jump()
 
-	handle_ability_smoothing()
-	velocity = local_velocity + velocity_outer_sources
+	handle_ability_dissolve()
+
+	velocity = local_velocity + outer_velocity_sources
+
 	clamp_fall_speed()
 	move_and_slide()
 
@@ -70,12 +70,6 @@ func handle_jump():
 	handle_jump_buffer_time()
 
 
-func reset_y_vel_on_ground():
-	if !is_on_floor(): return
-
-	local_velocity.y = 0
-
-
 func handle_coyote_time():
 	if is_on_floor():
 		coyote_timer = 0.0
@@ -94,12 +88,11 @@ func jump_logic():
 func handle_jump_buffer_time():
 	var jump_input = Input.is_action_just_pressed("jump")
 
-	if jump_input && jump_buffer_timer > 0:
+	if jump_input:
 		jump_buffer_timer = current_delta
 
-	elif jump_input || jump_buffer_timer > 0:
+	elif jump_buffer_timer > 0:
 		jump_buffer_timer += current_delta
-
 
 	if is_on_floor():
 		jump_buffer_timer = 0.0
@@ -110,12 +103,14 @@ func can_use_coyote_time(should_jump):
 	if coyote_timer == 0: return false
 	if !should_jump: return false
 	if local_velocity.y < 0: return false
+
 	return coyote_timer < jump_coyote_time
 
 
 func can_use_jump_buffer():
 	if jump_buffer_time == 0: return false
 	if jump_buffer_timer == 0: return false
+
 	return jump_buffer_timer < jump_buffer_time
 
 
@@ -124,17 +119,23 @@ func handle_gravity():
 	reset_y_vel_on_ground()
 
 
+func reset_y_vel_on_ground():
+	if !is_on_floor(): return
+
+	local_velocity.y = 0
+
+
 func clamp_fall_speed():
 	if fall_speed_clamp == 0: return;
 	velocity.y = clampf(velocity.y, -INFINITY, fall_speed_clamp)
 
 
-func handle_ability_smoothing():
+func handle_ability_dissolve():
 	if check_movement_mods_empty():
-		velocity_outer_sources.x = move_toward(velocity_outer_sources.x, 0, deceleration)
+		outer_velocity_sources.x = move_toward(outer_velocity_sources.x, 0, deceleration)
 
 		if is_on_floor():
-			velocity_outer_sources.y = 0
+			outer_velocity_sources.y = 0
 
 func add_velocity_modifier(velocity_mod):
 	velocity_mod_instigator.append(velocity_mod)
@@ -144,11 +145,12 @@ func add_velocity_modifier(velocity_mod):
 
 func create_vel_duration_timer(velocity_mod):
 	var duration_timer = Timer.new()
+	add_child(duration_timer)
+
 	duration_timer.wait_time = velocity_mod.duration
 	duration_timer.one_shot = true
-	add_child(duration_timer)
 	duration_timer.timeout.connect(on_vel_mod_ended.bind(velocity_mod))
-	duration_timer.timeout.connect(delete_timer.bind(duration_timer))
+	duration_timer.timeout.connect(duration_timer.queue_free)
 	duration_timer.start()
 
 
@@ -174,23 +176,32 @@ func delete_vel_mod(velocity_mod):
 
 func reset_velocity_mod_effects(velocity_mod):
 	player_control = true
-	velocity_mod.ability.queue_free()
+	if velocity_mod.ability != null:
+		velocity_mod.ability.queue_free()
 
 
 func check_movement_mods_empty():
 	return velocity_mod_instigator.size() == 0
 
 
-func delete_timer(given_timer):
-	given_timer.queue_free()
-
-
 func refresh_velocity_mods(velocity_mod, current_priority):
 	if velocity_mod.priority > current_priority: return current_priority
 
-	player_control = !velocity_mod.disable_player_movement
-	velocity_outer_sources = velocity_mod.amount
+	apply_vel_mod(velocity_mod)
 
+	refresh_needed_local_vel(velocity_mod)
+
+	flip_outer_velocity_logic()
+
+	return velocity_mod.priority
+
+
+func apply_vel_mod(velocity_mod):
+	player_control = !velocity_mod.disable_player_movement
+	outer_velocity_sources = velocity_mod.amount
+
+
+func refresh_needed_local_vel(velocity_mod):
 	if velocity_mod.amount.y != 0:
 		local_velocity.y = 0
 
@@ -198,14 +209,9 @@ func refresh_velocity_mods(velocity_mod, current_priority):
 		local_velocity.x = 0
 
 
-	flip_velocity_outer_logic()
-
-	return velocity_mod.priority
-
-
-func flip_velocity_outer_logic():
+func flip_outer_velocity_logic():
 	if look_direction < 0:
-		velocity_outer_sources.x = -velocity_outer_sources.x
+		outer_velocity_sources.x = -outer_velocity_sources.x
 
 
 func on_despawn():
@@ -220,4 +226,9 @@ func on_goal_reached():
 func on_took_damage(source):
 	if source != null \
 	and source.position != null:
+
+		#add_velocity_modifier(VelocityModifier.new(Vector2(-300, -20), .2, 3, false, null))
 		print("Player hit!") # TODO: Stumble back and make invincible for a while, see GDD
+		#note: temporary implementation, just moves you in the flipped look_dir rn
+		#note: stun locks player rn even when theyre dead (ask chris for fix with enemies)
+		#note: also possible to just slow the player
