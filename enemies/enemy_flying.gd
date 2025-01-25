@@ -1,12 +1,12 @@
 extends PathFollow2D
 
+signal enemy_caught
+
 enum EnemyState {
 	IDLING = 100,
 	MOVING = 200,
 	RECOVERING = 300,
 }
-
-signal enemy_caught
 
 @export var starting_state: EnemyState = EnemyState.MOVING
 @export var recovery_time = 3.0
