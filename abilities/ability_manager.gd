@@ -1,7 +1,7 @@
 extends Node2D
 
 var current_ability
-var area_taking_damage_in_radius
+var target_area
 
 @onready var player: CharacterBody2D = $".."
 @onready var visual: MeshInstance2D = $"../Visual"
@@ -13,20 +13,18 @@ func _unhandled_input(_event):
 		use_ability(player)
 
 	if Input.is_action_just_pressed("catch_power") \
-	and area_taking_damage_in_radius != null:
-		if area_taking_damage_in_radius.has_method("get_parent"):
-			var parent = area_taking_damage_in_radius.get_parent()
-			if parent != null \
-			and parent.has_method("got_caught"):
-				var ability = parent.got_caught()
-				set_current_ability(ability)
+	and target_area != null:
+		var targetParent = target_area.get_parent()
+		if targetParent.has_method("got_caught"):
+			var ability = targetParent.got_caught()
+			set_current_ability(ability)
 
 
-func use_ability(player_manager):
+func use_ability(player):
 	if current_ability == null: return
 
 	if current_ability.has_method("use"):
-		current_ability.use(player_manager)
+		current_ability.use(player)
 
 	reset_color()
 	current_ability = null
@@ -60,9 +58,9 @@ func get_current_ability():
 
 func _on_deal_damage_area_entered(other):
 	if other.has_method("take_damage"):
-		area_taking_damage_in_radius = other
+		target_area = other
 
 
 func _on_deal_damage_area_exited(other):
-	if other == area_taking_damage_in_radius:
-		area_taking_damage_in_radius = null
+	if other == target_area:
+		target_area = null
