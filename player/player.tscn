@@ -52,12 +52,12 @@ region_rect = Rect2(0, 0, 160, 120)
 script = ExtResource("2_es05j")
 
 [node name="Attack" type="Node2D" parent="."]
-position = Vector2(81, -62)
+position = Vector2(51, -76)
 script = ExtResource("4_iki6t")
 trail_points_max = 20
 
 [node name="AttackTarget" type="Node2D" parent="."]
-position = Vector2(61, 62)
+position = Vector2(86, 21)
 
 [node name="AbilityVisual" type="MeshInstance2D" parent="."]
 unique_name_in_owner = true
