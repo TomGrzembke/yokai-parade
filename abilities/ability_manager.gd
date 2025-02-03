@@ -7,7 +7,7 @@ var current_ability
 var target_area
 
 @onready var player: CharacterBody2D = $".."
-@onready var visual: MeshInstance2D = $"../Visual"
+@onready var visual: MeshInstance2D = %AbilityVisual
 
 
 func _unhandled_input(_event):

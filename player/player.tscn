@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnxi2gyvo83ec"]
+[gd_scene load_steps=11 format=3 uid="uid://dnxi2gyvo83ec"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_uybn7"]
 [ext_resource type="Script" path="res://abilities/ability_manager.gd" id="2_es05j"]
@@ -19,6 +19,8 @@ height = 168.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4pm2j"]
 radius = 18.0
 height = 74.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_046n8"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_uybn7")
@@ -66,6 +68,13 @@ position = Vector2(32, -10)
 texture = ExtResource("5_eow6v")
 region_enabled = true
 region_rect = Rect2(0, 0, 160, 120)
+
+[node name="AbilityVisual" type="MeshInstance2D" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0.580392, 0.580392, 0.580392, 1)
+position = Vector2(28, 14)
+scale = Vector2(32.1261, 32.1261)
+mesh = SubResource("SphereMesh_046n8")
 
 [connection signal="area_entered" from="DealDamageArea" to="." method="on_deal_damage_area_entered"]
 [connection signal="area_entered" from="DealDamageArea" to="AbilityManager" method="_on_deal_damage_area_entered"]
