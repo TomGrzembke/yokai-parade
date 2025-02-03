@@ -27,7 +27,7 @@ const INFINITY = 1e20
 var coyote_timer = 0.15
 var jump_buffer_timer = 0.0
 
-var look_direction = 0.0
+var look_direction = 1.0
 var move_direction
 
 var local_velocity := Vector2(0,0)
@@ -61,6 +61,8 @@ func run():
 	else:
 		local_velocity.x = move_toward(local_velocity.x, 0, deceleration)
 
+	flip()
+
 
 func update_gravity(delta):
 	local_velocity.y += get_gravity().y * delta
@@ -93,6 +95,13 @@ func calc_look_direction():
 	if move_direction == 0.0: return
 
 	look_direction = move_direction
+
+
+func flip():
+	if look_direction == 0: return
+
+	set_rotation_degrees(0 if look_direction == 1 else -180.0)
+	scale.y = look_direction
 
 
 func fall_on_ceiling(delta):
@@ -215,7 +224,6 @@ func delete_vel_mod(velocity_mod):
 
 
 func reset_velocity_mod_effects(velocity_mod):
-
 	player_control = true
 	if velocity_mod.ability != null:
 		velocity_mod.ability.queue_free()
