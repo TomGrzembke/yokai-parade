@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6d0ik4xybkfd"
-path="res://.godot/imported/s_wall_bamboo.png-bab2eecc3b6652f78eba611326e1bdd4.ctex"
+uid="uid://m1tnyobaeawn"
+path="res://.godot/imported/foreground.png-d3b67b594e54bf136ee302fe0bc9242a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/area_01/s_wall_bamboo.png"
-dest_files=["res://.godot/imported/s_wall_bamboo.png-bab2eecc3b6652f78eba611326e1bdd4.ctex"]
+source_file="res://levels/area_01/foreground.png"
+dest_files=["res://.godot/imported/foreground.png-d3b67b594e54bf136ee302fe0bc9242a.ctex"]
 
 [params]
 

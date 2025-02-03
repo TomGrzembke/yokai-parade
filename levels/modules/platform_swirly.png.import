@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gxi2kaj7h5fr"
-path="res://.godot/imported/clouds_white.png-2c4278ba8a0e9f35f7240b0e77383dd5.ctex"
+uid="uid://btuhde0syvbty"
+path="res://.godot/imported/platform_swirly.png-c7af78624cacaf98bc7d59921ed4b15d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/clouds_white.png"
-dest_files=["res://.godot/imported/clouds_white.png-2c4278ba8a0e9f35f7240b0e77383dd5.ctex"]
+source_file="res://levels/modules/platform_swirly.png"
+dest_files=["res://.godot/imported/platform_swirly.png-c7af78624cacaf98bc7d59921ed4b15d.ctex"]
 
 [params]
 

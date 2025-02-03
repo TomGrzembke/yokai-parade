@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m1tnyobaeawn"
-path="res://.godot/imported/foreground.png-2f36b55fcb8e2eb170e2c0d71e115607.ctex"
+uid="uid://dd4dbqeurgyvx"
+path="res://.godot/imported/clouds_red.png-559f444ca09d60a21963b2771af11aa1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/foreground.png"
-dest_files=["res://.godot/imported/foreground.png-2f36b55fcb8e2eb170e2c0d71e115607.ctex"]
+source_file="res://levels/area_01/clouds_red.png"
+dest_files=["res://.godot/imported/clouds_red.png-559f444ca09d60a21963b2771af11aa1.ctex"]
 
 [params]
 
