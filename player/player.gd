@@ -104,7 +104,7 @@ func fall_on_ceiling(delta):
 
 
 func handle_coyote_time(delta):
-	if is_on_floor() || receives_outer_vertical_velocity():
+	if is_on_floor() || receives_outer_vertical_velocity() || is_cancelling_jump:
 		coyote_timer = 0.0
 	else:
 		coyote_timer += delta
@@ -123,15 +123,16 @@ func jump_logic():
 
 
 func variable_jump_heigth():
-	if Input.is_action_just_released("jump") && player_control && local_velocity.y < 0:
+	var is_falling = local_velocity.y < 0
+	if Input.is_action_just_released("jump") && player_control && is_falling:
+		is_cancelling_jump = true
 		if initial_jump_heigth_smooth != 0:
 			local_velocity.y *= initial_jump_heigth_smooth
-		is_cancelling_jump = true
 
 	if is_on_floor():
 		is_cancelling_jump = false
 
-	if is_cancelling_jump && local_velocity.y < 0:
+	if is_cancelling_jump && is_falling:
 		if jump_heigth_smooth != 0:
 			local_velocity.y *= jump_heigth_smooth
 
