@@ -10,6 +10,7 @@ const INFINITY = 1e20
 @export var speed = 300.0
 @export var acceleration = 80.0
 @export var deceleration = 50.0
+@export var outer_deceleration = 50.0
 @export var jump_velocity = 600.0
 @export var fall_speed_clamp = 600.0
 @export_category("Movement extras")
@@ -74,7 +75,7 @@ func update_gravity(delta):
 
 func ability_smoothing():
 	if check_movement_mods_empty():
-		outer_velocity_sources.x = move_toward(outer_velocity_sources.x, 0, deceleration)
+		outer_velocity_sources.x = move_toward(outer_velocity_sources.x, 0, outer_deceleration)
 
 		if is_on_floor():
 			outer_velocity_sources.y = 0
@@ -113,7 +114,7 @@ func fall_on_ceiling(delta):
 
 
 func handle_coyote_time(delta):
-	if is_on_floor() || receives_outer_vertical_velocity():
+	if is_on_floor() || receives_outer_vertical_velocity() || is_cancelling_jump:
 		coyote_timer = 0.0
 	else:
 		coyote_timer += delta
@@ -132,15 +133,16 @@ func jump_logic():
 
 
 func variable_jump_heigth():
-	if Input.is_action_just_released("jump") && player_control && local_velocity.y < 0:
+	var is_falling = local_velocity.y < 0
+	if Input.is_action_just_released("jump") && player_control && is_falling:
+		is_cancelling_jump = true
 		if initial_jump_heigth_smooth != 0:
 			local_velocity.y *= initial_jump_heigth_smooth
-		is_cancelling_jump = true
 
 	if is_on_floor():
 		is_cancelling_jump = false
 
-	if is_cancelling_jump && local_velocity.y < 0:
+	if is_cancelling_jump && is_falling:
 		if jump_heigth_smooth != 0:
 			local_velocity.y *= jump_heigth_smooth
 

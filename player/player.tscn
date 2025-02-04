@@ -1,12 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnxi2gyvo83ec"]
+[gd_scene load_steps=12 format=3 uid="uid://dnxi2gyvo83ec"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_uybn7"]
 [ext_resource type="Script" path="res://abilities/ability_manager.gd" id="2_es05j"]
 [ext_resource type="PackedScene" uid="uid://cp6b4v14u8stv" path="res://components/deal_damage_area.tscn" id="4_cn11c"]
 [ext_resource type="PackedScene" uid="uid://bpccb0pqmr7r5" path="res://components/take_damage_area.tscn" id="4_y0ly5"]
 [ext_resource type="Texture2D" uid="uid://dylr0e5cupavl" path="res://player/player.png" id="5_eow6v"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_idevo"]
+[ext_resource type="Script" path="res://player/attack.gd" id="6_dwlkh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mi2e"]
 radius = 25.0
@@ -19,6 +18,12 @@ height = 168.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4pm2j"]
 radius = 18.0
 height = 74.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ovhno"]
+
+[sub_resource type="Curve" id="Curve_xeqma"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -37,12 +42,6 @@ push_heigth_percentage = 0.4
 
 [node name="AbilityManager" type="Node2D" parent="."]
 script = ExtResource("2_es05j")
-
-[node name="Visual" type="MeshInstance2D" parent="."]
-visible = false
-self_modulate = Color(0.58, 0.58, 0.58, 1)
-scale = Vector2(50, 50)
-mesh = SubResource("CapsuleMesh_idevo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1mi2e")
@@ -67,6 +66,29 @@ position = Vector2(32, -10)
 texture = ExtResource("5_eow6v")
 region_enabled = true
 region_rect = Rect2(0, 0, 160, 120)
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="AttackVisualizer" type="Node2D" parent="Visuals"]
+position = Vector2(51, -76)
+script = ExtResource("6_dwlkh")
+trail_points_max = 20
+
+[node name="AttackTarget" type="Node2D" parent="Visuals"]
+position = Vector2(86, 21)
+
+[node name="AbilityVisual" type="MeshInstance2D" parent="Visuals"]
+unique_name_in_owner = true
+self_modulate = Color(0.580392, 0.580392, 0.580392, 1)
+position = Vector2(36, -61)
+scale = Vector2(32.1261, 32.1261)
+mesh = SubResource("SphereMesh_ovhno")
+
+[node name="AbilityTarget" type="Node2D" parent="Visuals"]
+position = Vector2(29, 16)
+
+[node name="AttackLine" type="Line2D" parent="Visuals"]
+width_curve = SubResource("Curve_xeqma")
 
 [connection signal="deal_damage_area_entered" from="DealDamageArea" to="AbilityManager" method="on_deal_damage_area_entered"]
 [connection signal="deal_damage_area_exited" from="DealDamageArea" to="AbilityManager" method="on_deal_damage_area_exited"]
