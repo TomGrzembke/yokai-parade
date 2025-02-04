@@ -1,16 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnxi2gyvo83ec"]
+[gd_scene load_steps=13 format=3 uid="uid://dnxi2gyvo83ec"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_uybn7"]
 [ext_resource type="Script" path="res://abilities/ability_manager.gd" id="2_es05j"]
 [ext_resource type="PackedScene" uid="uid://cp6b4v14u8stv" path="res://components/deal_damage_area.tscn" id="4_cn11c"]
 [ext_resource type="PackedScene" uid="uid://bpccb0pqmr7r5" path="res://components/take_damage_area.tscn" id="4_y0ly5"]
 [ext_resource type="Texture2D" uid="uid://dylr0e5cupavl" path="res://player/player.png" id="5_eow6v"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_idevo"]
+[ext_resource type="Script" path="res://player/attack.gd" id="6_dwlkh"]
+[ext_resource type="Script" path="res://player/debug.gd" id="7_3jai0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mi2e"]
 radius = 25.0
-height = 100.0
+height = 96.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82728"]
 radius = 73.3333
@@ -20,7 +20,14 @@ height = 168.0
 radius = 18.0
 height = 74.0
 
+[sub_resource type="SphereMesh" id="SphereMesh_ovhno"]
+
+[sub_resource type="Curve" id="Curve_xeqma"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_uybn7")
 speed = 325.0
 acceleration = 100.0
@@ -29,21 +36,15 @@ jump_velocity = 750.0
 fall_speed_clamp = 975.0
 jump_coyote_time = 0.2
 jump_buffer_time = 0.2
-initial_jump_heigth_smooth = 0.58
-jump_heigth_smooth = 0.0
+variable_jump_heigth_min_percentage = 0.58
 push_back = 800.0
 push_heigth_percentage = 0.4
 
 [node name="AbilityManager" type="Node2D" parent="."]
 script = ExtResource("2_es05j")
 
-[node name="Visual" type="MeshInstance2D" parent="."]
-visible = false
-self_modulate = Color(0.58, 0.58, 0.58, 1)
-scale = Vector2(50, 50)
-mesh = SubResource("CapsuleMesh_idevo")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_1mi2e")
 
 [node name="DealDamageArea" parent="." instance=ExtResource("4_cn11c")]
@@ -67,8 +68,32 @@ texture = ExtResource("5_eow6v")
 region_enabled = true
 region_rect = Rect2(0, 0, 160, 120)
 
-[connection signal="area_entered" from="DealDamageArea" to="." method="on_deal_damage_area_entered"]
-[connection signal="area_entered" from="DealDamageArea" to="AbilityManager" method="_on_deal_damage_area_entered"]
-[connection signal="area_exited" from="DealDamageArea" to="AbilityManager" method="_on_deal_damage_area_exited"]
-[connection signal="body_entered" from="DealDamageArea" to="." method="on_deal_damage_area_exited"]
-[connection signal="took_damage" from="TakeDamageArea" to="." method="on_took_damage"]
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="AttackVisualizer" type="Node2D" parent="Visuals"]
+position = Vector2(51, -76)
+script = ExtResource("6_dwlkh")
+trail_points_max = 20
+
+[node name="AttackTarget" type="Node2D" parent="Visuals"]
+position = Vector2(86, 21)
+
+[node name="AbilityVisual" type="MeshInstance2D" parent="Visuals"]
+unique_name_in_owner = true
+self_modulate = Color(0.580392, 0.580392, 0.580392, 1)
+position = Vector2(36, -61)
+scale = Vector2(32.1261, 32.1261)
+mesh = SubResource("SphereMesh_ovhno")
+
+[node name="AbilityTarget" type="Node2D" parent="Visuals"]
+position = Vector2(29, 16)
+
+[node name="AttackLine" type="Line2D" parent="Visuals"]
+width_curve = SubResource("Curve_xeqma")
+
+[node name="Debug" type="Node2D" parent="."]
+script = ExtResource("7_3jai0")
+
+[connection signal="deal_damage_area_entered" from="DealDamageArea" to="AbilityManager" method="on_deal_damage_area_entered"]
+[connection signal="deal_damage_area_exited" from="DealDamageArea" to="AbilityManager" method="on_deal_damage_area_exited"]
+[connection signal="take_damage_area_entered" from="TakeDamageArea" to="." method="on_took_damage"]
