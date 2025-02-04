@@ -10,7 +10,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mi2e"]
 radius = 25.0
-height = 100.0
+height = 96.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82728"]
 radius = 73.3333
@@ -45,6 +45,7 @@ push_heigth_percentage = 0.4
 script = ExtResource("2_es05j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_1mi2e")
 
 [node name="DealDamageArea" parent="." instance=ExtResource("4_cn11c")]
