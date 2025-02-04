@@ -38,6 +38,7 @@ var velocity_mod_instigator = []
 var player_control := true
 var is_cancelling_jump := false
 var debug_mode = false
+var debug_speed_modifier = 3
 
 
 func _physics_process(delta):
@@ -308,12 +309,16 @@ func toggle_debug():
 	return debug_mode
 
 
+func set_debug_speed_modifier(modifier):
+	debug_speed_modifier = modifier
+
+
 func debug_logic():
 	debug_movement()
 
 
 func debug_movement():
 	velocity = Vector2(Input.get_vector("left", "right", "up", "down")).normalized()
-	velocity *= speed * 2.5
+	velocity *= speed * debug_speed_modifier
 	run()
 	move_and_slide()
