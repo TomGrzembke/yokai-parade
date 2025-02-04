@@ -449,7 +449,6 @@ curve = SubResource("Curve2D_c6ivu")
 
 [node name="EnemyFlying" parent="Enemies/Flying/FireFlying" instance=ExtResource("11_7oifl")]
 position = Vector2(10304, -281)
-scale = Vector2(0.75, 0.75)
 starting_state = 100
 element_type = ExtResource("13_318k0")
 
@@ -459,7 +458,6 @@ curve = SubResource("Curve2D_c6ivu")
 
 [node name="EnemyFlying" parent="Enemies/Flying/FireFlying2" instance=ExtResource("11_7oifl")]
 position = Vector2(16900, -1540)
-scale = Vector2(0.75, 0.75)
 starting_state = 100
 element_type = ExtResource("13_318k0")
 
@@ -469,7 +467,6 @@ curve = SubResource("Curve2D_c6ivu")
 
 [node name="EnemyFlying" parent="Enemies/Flying/FireFlying4" instance=ExtResource("11_7oifl")]
 position = Vector2(16363, -873)
-scale = Vector2(0.75, 0.75)
 starting_state = 100
 element_type = ExtResource("13_318k0")
 
@@ -479,7 +476,6 @@ curve = SubResource("Curve2D_c6ivu")
 
 [node name="EnemyFlying" parent="Enemies/Flying/FireFlying3" instance=ExtResource("11_7oifl")]
 position = Vector2(18308, -1634)
-scale = Vector2(0.75, 0.75)
 starting_state = 100
 element_type = ExtResource("13_318k0")
 
@@ -489,7 +485,6 @@ curve = SubResource("Curve2D_c6ivu")
 
 [node name="EnemyFlying" parent="Enemies/Flying/FireFlying5" instance=ExtResource("11_7oifl")]
 position = Vector2(20543, -1935)
-scale = Vector2(0.75, 0.75)
 starting_state = 100
 element_type = ExtResource("13_318k0")
 
@@ -499,7 +494,6 @@ curve = SubResource("Curve2D_c6ivu")
 
 [node name="EnemyFlying" parent="Enemies/Flying/FireFlying6" instance=ExtResource("11_7oifl")]
 position = Vector2(23330, -1779)
-scale = Vector2(0.75, 0.75)
 starting_state = 100
 element_type = ExtResource("13_318k0")
 
