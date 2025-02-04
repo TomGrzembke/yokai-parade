@@ -1,6 +1,9 @@
 syntax: glob
 *.orig
 *.tmp
-build/
+
+syntax: rootglob
+build/**
+
 syntax: regexp
 \.godot\/(?!uid_cache.bin).*
