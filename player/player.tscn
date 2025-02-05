@@ -29,7 +29,7 @@ point_count = 2
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_uybn7")
-speed = 325.0
+speed = 450.0
 acceleration = 100.0
 deceleration = 70.0
 jump_velocity = 750.0
