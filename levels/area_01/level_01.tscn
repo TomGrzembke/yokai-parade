@@ -716,7 +716,7 @@ position = Vector2(29357, -899)
 scale = Vector2(45.2, 1)
 
 [node name="DespawnArea11" parent="Deathzones" instance=ExtResource("17_kqb5b")]
-position = Vector2(16391, 1678)
+position = Vector2(16336, 1656)
 scale = Vector2(245.16, 1)
 
 [node name="Checkpoints" type="Node2D" parent="."]
