@@ -46,6 +46,6 @@ text = "00:00"
 
 [node name="UiBenchmark" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xlkd1")
-position = Vector2(-7.62939e-06, 4)
+position = Vector2(-2581, -2106)
 scale = Vector2(0.499996, 0.499996)
 texture = ExtResource("8_rvy6e")

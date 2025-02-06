@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://c1vmd4h5v5fxl"]
+[gd_scene load_steps=33 format=4 uid="uid://c1vmd4h5v5fxl"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_52y83"]
 [ext_resource type="Texture2D" uid="uid://b66gcqiak8txp" path="res://levels/area_01/mountains_far.png" id="1_3402y"]
@@ -20,10 +20,13 @@
 [ext_resource type="Shader" path="res://shader/pattern_overlay.gdshader" id="16_pak1i"]
 [ext_resource type="Texture2D" uid="uid://rp57o5y84v6s" path="res://assets/patterns/t_texture_papertextureeffectwithflowers.png" id="17_a18px"]
 [ext_resource type="PackedScene" uid="uid://cijdb50pj3jc7" path="res://levels/modules/despawn_area.tscn" id="17_kqb5b"]
+[ext_resource type="Shader" path="res://shader/pattern_screen_overlay.gdshader" id="21_dttwp"]
+[ext_resource type="Texture2D" uid="uid://bn0cpcfikbpp5" path="res://shader/testing_assets/empty_white.png" id="21_jtlph"]
+[ext_resource type="Texture2D" uid="uid://df651a1g7mxit" path="res://assets/patterns/t-texture_lines_white.png" id="22_33r56"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ssyoq"]
 shader = ExtResource("16_pak1i")
-shader_parameter/overlay_alpha = 1.0
+shader_parameter/overlay_alpha = 0.0
 shader_parameter/tint_amount = null
 shader_parameter/pattern_scale = Vector2(1, 1)
 shader_parameter/tilemap_offset = Vector2(0, 0)
@@ -40,6 +43,15 @@ width = 1920
 height = 1080
 fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ovdoh"]
+shader = ExtResource("21_dttwp")
+shader_parameter/overlay_alpha = 1.0
+shader_parameter/tint_amount = 0.0
+shader_parameter/pattern_scale = Vector2(1, 1)
+shader_parameter/tilemap_offset = Vector2(0, 0)
+shader_parameter/flip_alpha = false
+shader_parameter/pattern_texture = ExtResource("22_33r56")
 
 [sub_resource type="Curve2D" id="Curve2D_u3p0n"]
 _data = {
@@ -109,8 +121,14 @@ texture = ExtResource("2_rl8sf")
 
 [node name="MountainsCloseParallax" type="Parallax2D" parent="Backgrounds"]
 scroll_scale = Vector2(0.1, 0.1)
-repeat_size = Vector2(2500, 0)
+repeat_size = Vector2(1920, 0)
 repeat_times = 4
+
+[node name="BGPattern" type="Sprite2D" parent="Backgrounds/MountainsCloseParallax"]
+material = SubResource("ShaderMaterial_ovdoh")
+position = Vector2(963.5, 1086)
+scale = Vector2(1920, 1080)
+texture = ExtResource("21_jtlph")
 
 [node name="Sprite2D" type="Sprite2D" parent="Backgrounds/MountainsCloseParallax"]
 position = Vector2(0, 800)
