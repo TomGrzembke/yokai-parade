@@ -10,18 +10,15 @@ float get_luminocity(vec4 color){
 }
 
 void fragment() {
-	
 	vec4 texture_color = texture(TEXTURE, UV);
 	
 	float brightness = get_luminocity(texture_color); 
-
     float flipped_brightness = 1.0 - brightness;
 
     vec4 flipped_color = vec4(vec3(flipped_brightness), texture_color.a);
 	
 	
 	vec4 first_color = mix(texture_color, color_a, smoothstep(.0 , .1, texture_color.r));
-	
 	vec4 second_color = mix(flipped_color, color_b, smoothstep(1. , .5, texture_color.r));
 	
 	vec4 final_mix = mix(first_color, second_color, 1.- brightness);
