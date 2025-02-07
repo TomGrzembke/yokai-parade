@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=4 uid="uid://n0cyvaeyik24"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_1hebm"]
-[ext_resource type="PackedScene" uid="uid://b5s4b6xdudwso" path="res://enemies/enemy_flying.tscn" id="5_bw4o2"]
+[ext_resource type="PackedScene" path="res://enemies/enemy_flying.tscn" id="5_bw4o2"]
 [ext_resource type="PackedScene" uid="uid://bomxlv8ndomnc" path="res://enemies/enemy_grounded.tscn" id="8_d6tq4"]
 [ext_resource type="PackedScene" uid="uid://dnq2l128u47ma" path="res://levels/modules/goal.tscn" id="8_rydxv"]
 [ext_resource type="PackedScene" uid="uid://c8mxwfqxutdoi" path="res://levels/modules/area_1_backgrounds.tscn" id="9_8t6st"]

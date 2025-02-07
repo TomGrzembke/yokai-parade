@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cty6t5bchgfjh"]
+[gd_scene load_steps=12 format=3 uid="uid://cxrffwryspy0"]
 
 [ext_resource type="Shader" path="res://shader/exchange_gradient.gdshader" id="1_hp3pp"]
 [ext_resource type="Texture2D" uid="uid://cgnkxtqnxqyp1" path="res://ui/ui_placeholder_topright_frontII.png" id="2_hyv56"]
