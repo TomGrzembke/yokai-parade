@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bomxlv8ndomnc" path="res://enemies/enemy_grounded.tscn" id="8_8a46a"]
 [ext_resource type="Resource" uid="uid://tvyt8dx4csl5" path="res://enemies/types/enemy_element_type_air.tres" id="9_qkkl1"]
 [ext_resource type="Resource" uid="uid://be56k4m11w44j" path="res://enemies/types/enemy_element_type_fire.tres" id="10_c74wk"]
-[ext_resource type="PackedScene" uid="uid://b5s4b6xdudwso" path="res://enemies/enemy_flying.tscn" id="11_pkx78"]
+[ext_resource type="PackedScene" uid="uid://b5s4b6xdudwso" path="res://enemies/enemy_airborne.tscn" id="11_pkx78"]
 [ext_resource type="Material" uid="uid://wyxyitttdya3" path="res://shader/TilemapShader.tres" id="11_wyjbl"]
 [ext_resource type="PackedScene" uid="uid://cfnhlackt0u25" path="res://levels/modules/wall_destructible.tscn" id="12_dw2od"]
 [ext_resource type="PackedScene" uid="uid://cijdb50pj3jc7" path="res://levels/modules/despawn_area.tscn" id="13_tyune"]
@@ -44,17 +44,14 @@ position = Vector2(3927, 721)
 
 [node name="AirGroundedIdling" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(1077, 959)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling2" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(3328, 1033)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="FireGroundedIdling" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(2458, 401)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="WoodenWalls" type="Node2D" parent="Start-1stCheckpoint"]
@@ -72,32 +69,26 @@ position = Vector2(8306, 521)
 
 [node name="AirGroundedIdling2" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(5841, 994)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(5198, 475)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling3" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(6229, 121)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="FireGroundedIdling" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(4606, 879)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedIdling5" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(5643, 39)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedIdling2" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(6807, 993)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedMoving" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
@@ -106,7 +97,6 @@ element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedIdling4" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(7602, 238)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="AirFlyingIdling" type="Path2D" parent="1st-2ndCheckpoint/Enemies"]
@@ -147,17 +137,14 @@ position = Vector2(13473, 241)
 
 [node name="AirGroundedIdling2" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(9550, 1191)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling3" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(11294, 1110)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling4" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(12011, 832)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedMoving" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
@@ -166,7 +153,6 @@ element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(9078, 357)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedMoving3" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
@@ -175,22 +161,18 @@ element_type = ExtResource("9_qkkl1")
 
 [node name="FireGroundedIdling" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(9563, 831)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedIdling2" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(11984, 437)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedIdling3" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(10336, -318)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedIdling4" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(10935, -242)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="AirFlyingIdling" type="Path2D" parent="2nd-3rdCheckpoint/Enemies"]
@@ -243,17 +225,14 @@ element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling2" parent="3rd-4thCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(16548, 721)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling3" parent="3rd-4thCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(18109, 594)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedIdling4" parent="3rd-4thCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(18098, 122)
-starting_state = 100
 element_type = ExtResource("9_qkkl1")
 
 [node name="AirGroundedMoving2" parent="3rd-4thCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
@@ -262,7 +241,6 @@ element_type = ExtResource("9_qkkl1")
 
 [node name="FireGroundedIdling" parent="3rd-4thCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
 position = Vector2(14947, 406)
-starting_state = 100
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedMoving" parent="3rd-4thCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
