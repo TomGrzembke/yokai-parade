@@ -77,7 +77,6 @@ region_rect = Rect2(0, 0, 160, 120)
 position = Vector2(51, -76)
 script = ExtResource("6_guley")
 trail_points_max = 20
-hit_speed = 3.0
 
 [node name="AttackTarget" type="Node2D" parent="Visuals"]
 position = Vector2(86, 21)
