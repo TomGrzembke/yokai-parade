@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8o7y5lr5dm26"
-path="res://.godot/imported/enemy_flying.png-db2e69014454e4724034f1098227b6e0.ctex"
+uid="uid://rkeu0cs3b1bu"
+path="res://.godot/imported/t-texture_lines_black.png-ca99e0b3855f81ea5193731eb6965043.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/enemy_flying.png"
-dest_files=["res://.godot/imported/enemy_flying.png-db2e69014454e4724034f1098227b6e0.ctex"]
+source_file="res://assets/patterns/t-texture_lines_black.png"
+dest_files=["res://.godot/imported/t-texture_lines_black.png-ca99e0b3855f81ea5193731eb6965043.ctex"]
 
 [params]
 

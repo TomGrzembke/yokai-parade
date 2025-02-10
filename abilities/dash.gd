@@ -20,8 +20,7 @@ func _physics_process(_delta):
 
 
 func use(player_manager):
-	if Input.get_connected_joypads().size() > 0:
-		Input.start_joy_vibration(0, 1.0, 0.0, dash_duration)
+	joystick_vibrate()
 	var vel_modifier = VelocityModifier.new(Vector2(dash_velocity, 0), dash_duration, 1, \
 	disable_player_movement, true)
 
@@ -36,12 +35,13 @@ func exit_ability():
 
 func apply_dash_damage():
 	if target_in_damage_radius == null: return
-	var target_parent = target_in_damage_radius.get_parent()
 
-	if target_parent == null: return
-	if not target_parent.has_method("took_fire_damage"): return
+	var damage_subject = target_in_damage_radius.get_damage_subject()
 
-	target_parent.took_fire_damage(self)
+	if damage_subject == null: return
+	if not damage_subject.has_method("took_fire_damage"): return
+
+	damage_subject.took_fire_damage(self)
 
 
 func get_color():
@@ -54,3 +54,7 @@ func on_deal_damage_area_entered(target):
 
 func on_deal_damage_area_exited(_target):
 	target_in_damage_radius = null
+
+func joystick_vibrate():
+	if Input.get_connected_joypads().size() > 0:
+		Input.start_joy_vibration(0, 1.0, 0.0, dash_duration)

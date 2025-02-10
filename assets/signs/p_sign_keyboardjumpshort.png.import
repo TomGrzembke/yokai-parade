@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxc7mktamxtdo"
-path="res://.godot/imported/enemy_grounded.png-62d63385d236c73e3cdbd6140899cb0d.ctex"
+uid="uid://bhldpe8filivy"
+path="res://.godot/imported/p_sign_keyboardjumpshort.png-201d0ca3b99e03a7e4357d3c7cf304b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemies/enemy_grounded.png"
-dest_files=["res://.godot/imported/enemy_grounded.png-62d63385d236c73e3cdbd6140899cb0d.ctex"]
+source_file="res://assets/signs/p_sign_keyboardjumpshort.png"
+dest_files=["res://.godot/imported/p_sign_keyboardjumpshort.png-201d0ca3b99e03a7e4357d3c7cf304b5.ctex"]
 
 [params]
 

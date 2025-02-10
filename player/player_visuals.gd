@@ -7,6 +7,7 @@ extends Node2D
 @onready var attack_target: Node2D = $"../AttackTarget"
 @onready var ability_visual: MeshInstance2D = %AbilityVisual
 @onready var ability_target: Node2D = $"../AbilityTarget"
+@export var hit_speed = .2
 
 var hit_progress = .0
 var is_attacking
@@ -27,7 +28,6 @@ func _process(delta):
 	ability(delta)
 
 
-
 func update_trail():
 	attack_line.add_point(global_position - attack_line.global_position)
 
@@ -40,14 +40,15 @@ func flip():
 
 
 func attack(delta):
-	var is_in_reset_range = check_is_in_reset_range(attack_target, self)
-	if Input.is_action_just_pressed("catch_power") && !is_in_reset_range:
-		position = initial_pos
-		hit_progress = .0
+	if check_is_in_reset_range(attack_target, self): return
 
-	else:
-		hit_progress += delta
-		position = position.slerp(attack_target.position, hit_progress)
+	hit_progress += delta / hit_speed
+	position = position.slerp(attack_target.position, hit_progress)
+
+
+func attack_command():
+	position = initial_pos
+	hit_progress = .0
 
 
 func ability(delta):
