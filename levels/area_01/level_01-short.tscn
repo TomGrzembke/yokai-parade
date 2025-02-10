@@ -251,7 +251,7 @@ position = Vector2(14947, 406)
 element_type = ExtResource("10_c74wk")
 
 [node name="FireGroundedMoving" parent="3rd-4thCheckpoint/Enemies" instance=ExtResource("8_8a46a")]
-position = Vector2(17408, -368)
+position = Vector2(17416, -368)
 initial_state = 200
 element_type = ExtResource("10_c74wk")
 
