@@ -42,6 +42,7 @@ func flip():
 func attack(delta):
 	if check_is_in_reset_range(attack_target, self): return
 
+	attack_line.set_point_position(attack_line.get_point_count(), attack_target.position)
 	hit_progress += delta / hit_speed
 	position = position.slerp(attack_target.position, hit_progress)
 
