@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://c1vmd4h5v5fxl"]
+[gd_scene load_steps=27 format=4 uid="uid://c1vmd4h5v5fxl"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_52y83"]
 [ext_resource type="Texture2D" uid="uid://b66gcqiak8txp" path="res://levels/area_01/mountains_far.png" id="1_3402y"]
@@ -63,12 +63,6 @@ shader_parameter/pattern_scale = Vector2(3, 3)
 shader_parameter/tilemap_offset = Vector2(1.035, 0)
 shader_parameter/flip_alpha = true
 shader_parameter/pattern_texture = ExtResource("17_a18px")
-
-[sub_resource type="Curve2D" id="Curve2D_861li"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 264, 1000, 0, 0, 0, 0, 496, 904)
-}
-point_count = 2
 
 [node name="Level01" type="Node2D"]
 script = ExtResource("1_52y83")
@@ -713,9 +707,3 @@ tile_set = ExtResource("8_ghwgw")
 
 [node name="PlayerSpawnPoint" parent="." instance=ExtResource("9_2l27r")]
 position = Vector2(54, 1011)
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_861li")
-
-[node name="EnemyFlying" parent="Path2D" instance=ExtResource("11_7oifl")]
-position = Vector2(264, 1000)
