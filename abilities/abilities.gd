@@ -11,7 +11,6 @@ var damage_subject
 @onready var visual: MeshInstance2D = %AbilityVisual
 @export var hit_cooldown : float = .6
 @export var hit_grace_time : float = .2
-var hit_grace_active
 var hit_grace_timer
 
 
@@ -91,7 +90,7 @@ func get_current_ability():
 func on_deal_damage_area_entered(other):
 	damage_subject = other
 
-	if hit_grace_active:
+	if hit_timer_active():
 		catch_power()
 
 
