@@ -26,6 +26,7 @@ func use(player_manager):
 	disable_player_movement, true)
 
 	vel_modifier.set_ability($".")
+	vel_modifier.set_curve(dash_curve)
 	player_manager.add_velocity_modifier(vel_modifier)
 	is_dashing = true
 

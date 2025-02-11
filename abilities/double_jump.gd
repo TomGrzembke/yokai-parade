@@ -8,6 +8,7 @@ const ELEMENT_TYPE = ELEMENTS.ElementType.AIR
 @export var disable_player_movement := false
 
 
+
 func use(player_manager):
 	if Input.get_connected_joypads().size() > 0:
 		Input.start_joy_vibration(0, 0.0, 1.0, 0.5)
