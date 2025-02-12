@@ -2,18 +2,19 @@ extends Camera2D
 
 @export var offset_value : Vector2
 @export var lerp_speed : float
+@export var minimum_change_distance : float = 420
 @export var smooth_curve : Curve
-@export var minimum_change_distance : float = 20
 
 var current_offset
 var position_cache
 var lerp_time = 0.0
 var cached_direction = -1
-var distance_since_flipped
-
+var distance_since_flipped = 0.0
+var flipped_position = Vector2(0,0)
 
 func _ready():
 	position_cache = position
+	cached_direction = sign(position.x - position_cache.x)
 	current_offset = offset_value
 
 
@@ -25,10 +26,12 @@ func _physics_process(delta):
 func look_offset(delta):
 	var current_direction = sign(position.x - position_cache.x)
 
+	calc_distance_flip(current_direction)
+
 	if current_direction == 0:
 		current_direction = cached_direction
 
-	elif current_direction != cached_direction:
+	elif current_direction != cached_direction && (distance_since_flipped < -minimum_change_distance || distance_since_flipped > minimum_change_distance):
 		cached_direction = current_direction
 		current_offset.x = current_direction * offset_value.x
 		lerp_time = 0
@@ -37,3 +40,12 @@ func look_offset(delta):
 	offset = offset.lerp(current_offset, smooth_curve.sample(delta * lerp_speed * lerp_time))
 	lerp_time += delta
 	position_cache = position
+
+
+func calc_distance_flip(current_direction):
+	if current_direction != cached_direction:
+		distance_since_flipped = position.x - flipped_position.x
+
+	elif current_direction == cached_direction:
+		flipped_position = position
+		distance_since_flipped = 0.0
