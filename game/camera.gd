@@ -3,11 +3,13 @@ extends Camera2D
 @export var offset_value : Vector2
 @export var lerp_speed : float
 @export var smooth_curve : Curve
+@export var minimum_change_distance : float = 20
 
 var current_offset
 var position_cache
 var lerp_time = 0.0
 var cached_direction = -1
+var distance_since_flipped
 
 
 func _ready():
@@ -17,6 +19,7 @@ func _ready():
 
 func _physics_process(delta):
 	look_offset(delta)
+	distance_since_flipped
 
 
 func look_offset(delta):
