@@ -20,7 +20,6 @@ func _ready():
 
 func _physics_process(delta):
 	look_offset(delta)
-	distance_since_flipped
 
 
 func look_offset(delta):
