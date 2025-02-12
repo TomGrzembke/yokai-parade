@@ -7,6 +7,7 @@ const ELEMENT_TYPE = ELEMENTS.ElementType.AIR
 @export var double_jump_duration = 0.0
 @export var disable_player_movement := false
 @export var velocity_curve : Curve
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func use(player_manager):
@@ -18,7 +19,7 @@ func use(player_manager):
 	vel_modifier.set_ability( $".")
 	vel_modifier.set_curve(velocity_curve)
 	player_manager.add_velocity_modifier(vel_modifier)
-
+	animation_player.play("on_ability")
 
 func exit():
 	queue_free()
