@@ -11,8 +11,10 @@ var damage_subject
 @onready var visual: MeshInstance2D = %AbilityVisual
 @export var hit_cooldown_time : float = .6
 @export var hit_grace_time : float = .2
+@export var hit_queue_time : float = .3
 var hit_cooldown_timer
 var hit_grace_timer
+var hit_queue_timer
 
 @onready var visualizer: Node2D = $"../Visuals/Visualizer"
 
@@ -40,10 +42,12 @@ func use_ability():
 
 
 func catch_ability():
-	if hit_cooldown(): return
+	if hit_cooldown():
+		hit_queue_timer = create_timer(hit_queue_time)
+		return
+
 	catch_grace_time()
 	visualizer.attack_command()
-
 	absorb_ability()
 
 
@@ -61,11 +65,18 @@ func hit_cooldown():
 	if is_hit_on_cooldown(): return true
 
 	hit_cooldown_timer = create_timer(hit_cooldown_time)
+	hit_cooldown_timer.timeout.connect(hit_queue)
 	return false
 
 
 func is_hit_on_cooldown():
 	return hit_cooldown_timer.time_left > 0
+
+
+func hit_queue():
+	if hit_queue_timer == null: return
+	if hit_queue_timer.time_left > 0:
+		catch_ability()
 
 
 func catch_grace_time():

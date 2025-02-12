@@ -261,42 +261,42 @@ _data = {
 "recovering_right": SubResource("Animation_qoxmf")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qv2xw"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vrkxr"]
 animation = &"idling_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cfc38"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c7ddt"]
 animation = &"idling_left"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_pijj5"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_qv2xw")
+blend_point_0/node = SubResource("AnimationNodeAnimation_vrkxr")
 blend_point_0/pos = 1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_cfc38")
+blend_point_1/node = SubResource("AnimationNodeAnimation_c7ddt")
 blend_point_1/pos = -1.0
 blend_mode = 2
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_osgyc"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l7orj"]
 animation = &"moving_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2smif"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fcgc2"]
 animation = &"moving_left"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_8era8"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_osgyc")
+blend_point_0/node = SubResource("AnimationNodeAnimation_l7orj")
 blend_point_0/pos = 1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_2smif")
+blend_point_1/node = SubResource("AnimationNodeAnimation_fcgc2")
 blend_point_1/pos = -1.0
 blend_mode = 2
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d3mfw"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_otoyg"]
 animation = &"recovering_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_apshv"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rrkm5"]
 animation = &"recovering_left"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_q3m1i"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_d3mfw")
+blend_point_0/node = SubResource("AnimationNodeAnimation_otoyg")
 blend_point_0/pos = 1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_apshv")
+blend_point_1/node = SubResource("AnimationNodeAnimation_rrkm5")
 blend_point_1/pos = -1.0
 blend_mode = 2
 

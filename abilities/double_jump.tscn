@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://abilities/double_jump.gd" id="1_c33vj"]
 
 [sub_resource type="Curve" id="Curve_rgr0d"]
-_data = [Vector2(0.1, 0.054945), 0.0, 0.0, 0, 0, Vector2(1, 0.802198), 2.52747, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, -0.149137, 0, 0, Vector2(1, 0.769231), -0.0549454, 0.0, 0, 0]
 point_count = 2
 
 [node name="DoubleJump" type="Node2D"]
 script = ExtResource("1_c33vj")
-double_jump_vel = 650.0
+double_jump_vel = 625.0
 double_jump_duration = 0.25
 disable_player_movement = true
 velocity_curve = SubResource("Curve_rgr0d")
