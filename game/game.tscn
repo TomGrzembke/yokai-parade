@@ -31,7 +31,6 @@ script = ExtResource("2_7lcsj")
 offset_value = Vector2(150, 0)
 lerp_speed = 1.0
 smooth_curve = SubResource("Curve_m6gkx")
-minimum_change_distance = 10000.0
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
 
