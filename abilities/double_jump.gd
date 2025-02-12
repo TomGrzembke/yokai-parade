@@ -21,6 +21,7 @@ func use(player_manager):
 	player_manager.add_velocity_modifier(vel_modifier)
 	animation_player.play("on_ability")
 
+
 func exit():
 	queue_free()
 
