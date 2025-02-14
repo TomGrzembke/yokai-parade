@@ -295,8 +295,7 @@ func on_took_damage(source):
 		var push_vel = -(source.global_position - position).normalized() * push_back
 		push_vel.y *= push_height_percentage
 		add_velocity_modifier(VelocityModifier.new(push_vel, .2, 3, true))
-		# TODO: Stumble back and make invincible for a while, see GDD
-		#note: temporary implementation
+
 		if Input.get_connected_joypads().size() > 0:
 			Input.start_joy_vibration(0, 0.5, 0.0, 0.5)
 
