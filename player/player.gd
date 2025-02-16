@@ -143,18 +143,23 @@ func jump_logic():
 func variable_jump_height():
 	var is_falling = local_velocity.y < 0
 	var cancel_pressed = Input.is_action_just_released("jump")
-	var use_cancel_buffer = buffer_cancel_jump && is_on_floor()
 	var will_cancel = cancel_pressed && is_falling
+	var use_cancel_buffer = buffer_cancel_jump && is_on_floor()
 
-	if  will_cancel || use_cancel_buffer:
+	if will_cancel || use_cancel_buffer:
+		cut_initial_jump()
 		buffer_cancel_jump = false
-		if variable_jump_height_min_percentage != 0:
-			local_velocity.y *= variable_jump_height_min_percentage
 
 	if can_use_jump_buffer() && cancel_pressed:
 		buffer_cancel_jump = true
 
 	cut_continuos_jump(is_falling)
+
+
+func cut_initial_jump():
+	if variable_jump_height_min_percentage == 0: return
+
+	local_velocity.y *= variable_jump_height_min_percentage
 
 
 func cut_continuos_jump(is_falling):
