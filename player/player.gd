@@ -144,11 +144,16 @@ func jump_logic():
 func variable_jump_heigth():
 	var is_falling = local_velocity.y < 0
 	var is_canceling_jump = Input.is_action_just_released("jump")
+
+	if can_use_jump_buffer() && is_canceling_jump:
+		buffer_cancel_jump = true
+
 	if (is_canceling_jump && player_control && is_falling) || (buffer_cancel_jump && is_on_floor()):
 		is_cancelling_jump = true
 		buffer_cancel_jump = false
 		if variable_jump_height_min_percentage != 0:
 			local_velocity.y *= variable_jump_height_min_percentage
+
 
 	if is_on_floor():
 		is_cancelling_jump = false
@@ -156,6 +161,7 @@ func variable_jump_heigth():
 	if is_cancelling_jump && is_falling:
 		if jump_height_continuous_cut_percentage != 0:
 			local_velocity.y *= jump_height_continuous_cut_percentage
+
 
 
 func handle_jump_buffer_time(delta):
@@ -169,9 +175,6 @@ func handle_jump_buffer_time(delta):
 
 	if is_on_floor():
 		jump_buffer_timer = 0.0
-
-	if can_use_jump_buffer() && Input.is_action_just_released("jump"):
-		buffer_cancel_jump = true
 
 func can_use_coyote_time(should_jump):
 	if jump_coyote_time == 0: return false
