@@ -16,7 +16,7 @@ var hit_cooldown_timer
 var hit_grace_timer
 var hit_queue_timer
 
-@onready var visualizer: Node2D = $"../Visuals/Visualizer"
+@onready var visualizer: Node2D =  $"../Visuals/AbilityVisualizer"
 
 
 func _ready():

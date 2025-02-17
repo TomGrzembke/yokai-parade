@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dnxi2gyvo83ec"]
+[gd_scene load_steps=42 format=3 uid="uid://dnxi2gyvo83ec"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_uybn7"]
 [ext_resource type="Script" path="res://abilities/abilities.gd" id="2_es05j"]
@@ -332,6 +332,13 @@ graph_offset = Vector2(-70, -141)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_3tghh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_hcowl"]
+colors = PackedColorArray(0.952941, 0.298039, 0.490196, 1, 1, 1, 1, 1)
+
 [node name="Player" type="CharacterBody2D"]
 top_level = true
 collision_layer = 2
@@ -389,7 +396,7 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Visuals" type="Node2D" parent="."]
 
-[node name="Visualizer" type="Node2D" parent="Visuals"]
+[node name="AbilityVisualizer" type="Node2D" parent="Visuals"]
 position = Vector2(51, -76)
 script = ExtResource("6_guley")
 trail_points_max = 10
@@ -414,6 +421,13 @@ width_curve = SubResource("Curve_xeqma")
 
 [node name="Debug" type="Node2D" parent="."]
 script = ExtResource("7_3jai0")
+
+[node name="MovementLine" type="Line2D" parent="Debug"]
+visible = false
+position = Vector2(77, -1)
+width_curve = SubResource("Curve_3tghh")
+default_color = Color(0.952941, 0.298039, 0.490196, 1)
+gradient = SubResource("Gradient_hcowl")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 volume_db = 9.455
