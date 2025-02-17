@@ -36,6 +36,7 @@ var outer_velocity_sources := Vector2.ZERO
 var velocity_mod_instigator = []
 var player_control := true
 var buffer_cancel_jump := false
+var is_cancelling_jump := false
 var debug_mode = false
 var debug_speed_modifier = 3
 
@@ -90,7 +91,7 @@ func ability_smoothing():
 
 
 func jump(delta):
-	handle_coyote_time(delta)
+	coyote_time(delta)
 	jump_logic()
 	variable_jump_height()
 	update_jump_buffer(delta)
@@ -120,8 +121,8 @@ func fall_on_ceiling(delta):
 		outer_velocity_sources.y = 0
 
 
-func handle_coyote_time(delta):
-	if is_on_floor() || receives_outer_vertical_velocity():
+func coyote_time(delta):
+	if is_on_floor() || receives_outer_vertical_velocity() || is_cancelling_jump:
 		coyote_timer = 0.0
 	else:
 		coyote_timer += delta
@@ -146,8 +147,12 @@ func variable_jump_height():
 	var use_cancel_buffer = buffer_cancel_jump && is_on_floor()
 
 	if will_cancel || use_cancel_buffer:
+		is_cancelling_jump = true
 		cut_initial_jump()
 		buffer_cancel_jump = false
+
+	if is_on_floor():
+		is_cancelling_jump = false
 
 	if can_use_jump_buffer() && cancel_pressed:
 		buffer_cancel_jump = true
