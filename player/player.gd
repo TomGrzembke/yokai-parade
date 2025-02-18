@@ -18,6 +18,7 @@ const INFINITY = 1e20
 @export_range(0.0, 1.0, .01) var jump_buffer_time = .15
 @export_range(0.0, 1.0, .01) var variable_jump_height_min_percentage = .7
 @export_range(0.0, .99, .01) var jump_height_continuous_cut_percentage = 1.0
+@export_category("Apex Settings")
 @export var jump_edge_correction_time : float = 0.1
 @export var apex_time : float = .1
 @export var apex_strength : float = 1000.0
