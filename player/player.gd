@@ -303,11 +303,7 @@ func delete_vel_mod(velocity_mod):
 		velocity_mod_instigator.remove_at(velocity_id)
 
 	if check_movement_mods_empty():
-		reset_velocity_mod_effects(velocity_mod)
-
-
-func reset_velocity_mod_effects(velocity_mod):
-	player_control = true
+		player_control = true
 
 
 func clear_abilities():
