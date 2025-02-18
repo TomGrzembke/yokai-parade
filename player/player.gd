@@ -106,11 +106,6 @@ func jump(delta):
 	cached_local_velocity = local_velocity
 
 
-func quadratic_in_out_lerp(t):
-	t = clamp(t, 0.0, 1.0)
-	return -4 * (t - 0.5) * (t - 0.5) + 1
-
-
 func calc_move_dir():
 	move_dir = sign(Input.get_axis("left", "right"))
 
@@ -230,6 +225,7 @@ func clamp_fall_speed():
 func apex_modifier(delta):
 	if is_on_floor():
 		can_use_apex = true
+		return
 
 	if cached_local_velocity.y < 0.0 && local_velocity.y > 0.0 && can_use_apex:
 		apex_timer = create_timer(apex_time)
@@ -240,7 +236,7 @@ func apex_modifier(delta):
 	if apex_timer.time_left > 0:
 		local_velocity.y -= get_gravity().y * delta / 2
 		local_velocity.x += look_direction * \
-		lerpf(apex_strength * .5, apex_strength, quadratic_in_out_lerp(apex_timer.time_left / apex_time))
+		lerpf(apex_strength * .5, apex_strength, apex_smooth_curve.sample(apex_timer.time_left / apex_time))
 
 
 func add_velocity_modifier(velocity_mod):
