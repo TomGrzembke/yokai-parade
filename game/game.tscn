@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://daq0ts878ltif"]
+[gd_scene load_steps=25 format=3 uid="uid://daq0ts878ltif"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_g4chm"]
 [ext_resource type="Script" path="res://game/camera.gd" id="2_7lcsj"]
 [ext_resource type="PackedScene" uid="uid://badws0m5drr6w" path="res://levels/levels.tscn" id="2_ctcuy"]
+[ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="2_me8mb"]
 [ext_resource type="Texture2D" uid="uid://deamof6wk7rii" path="res://ui/ui_ingame_top_right_bg.png" id="3_ajrlu"]
 [ext_resource type="Theme" uid="uid://bqdlc5vw8gpa5" path="res://assets/theme/theme.tres" id="4_k85dl"]
 [ext_resource type="Texture2D" uid="uid://cu8145mbillq7" path="res://ui/ui_ingame_top_right_main.png" id="8_64m3r"]
@@ -12,14 +13,24 @@
 [ext_resource type="Texture2D" uid="uid://dx00l7ajc4io6" path="res://ui/ui_ingame_bottom_left_main.png" id="12_sckdn"]
 [ext_resource type="Texture2D" uid="uid://blcmkd8j63hby" path="res://ui/ui_ingame_bottom_left_line.png" id="13_yog8w"]
 [ext_resource type="Texture2D" uid="uid://bsi2owtjdi83n" path="res://ui/ui_ingame_ability_bg.png" id="14_i55oj"]
+[ext_resource type="Script" path="res://game/states/startup.gd" id="15_nvaqt"]
 [ext_resource type="Texture2D" uid="uid://cajispq8sq8cp" path="res://ui/ui_ingame_ability_line.png" id="16_aq85m"]
+[ext_resource type="PackedScene" uid="uid://dce17t0phbvrv" path="res://game/scenes/startup.tscn" id="16_fuloq"]
+[ext_resource type="Script" path="res://game/states/main_menu.gd" id="17_dwi8d"]
+[ext_resource type="PackedScene" uid="uid://dk3wuo1sfknyo" path="res://game/scenes/main_menu.tscn" id="18_ujkrk"]
+[ext_resource type="Script" path="res://game/states/in_game.gd" id="19_nmmof"]
+[ext_resource type="Script" path="res://game/states/credits.gd" id="20_40gro"]
+[ext_resource type="Script" path="res://game/states/options.gd" id="20_e22mg"]
+[ext_resource type="PackedScene" uid="uid://m1lhnekkobbt" path="res://game/scenes/options.tscn" id="20_y6pfn"]
+[ext_resource type="PackedScene" uid="uid://daf1dxr8obptf" path="res://game/scenes/credits.tscn" id="22_otbp7"]
 
 [sub_resource type="Curve" id="Curve_m6gkx"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_g4chm")
+initial_state = NodePath("StateMachine/Startup")
 
 [node name="Levels" parent="." instance=ExtResource("2_ctcuy")]
 unique_name_in_owner = true
@@ -33,6 +44,7 @@ lerp_speed = 1.0
 smooth_curve = SubResource("Curve_m6gkx")
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="UI Layer"]
 layout_mode = 3
@@ -164,3 +176,30 @@ offset_top = -373.0
 offset_right = 452.0
 offset_bottom = 40.0
 texture = ExtResource("16_aq85m")
+
+[node name="StateMachine" parent="." instance=ExtResource("2_me8mb")]
+unique_name_in_owner = true
+process_mode = 3
+
+[node name="Startup" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_game_state")]
+script = ExtResource("15_nvaqt")
+next_game_state = NodePath("../MainMenu")
+game_state_packed_scene = ExtResource("16_fuloq")
+
+[node name="MainMenu" type="Node" parent="StateMachine" node_paths=PackedStringArray("in_game_state", "options_game_state", "credits_game_state")]
+script = ExtResource("17_dwi8d")
+in_game_state = NodePath("../InGame")
+options_game_state = NodePath("../Options")
+credits_game_state = NodePath("../Credits")
+game_state_packed_scene = ExtResource("18_ujkrk")
+
+[node name="Options" type="Node" parent="StateMachine"]
+script = ExtResource("20_e22mg")
+game_state_packed_scene = ExtResource("20_y6pfn")
+
+[node name="Credits" type="Node" parent="StateMachine"]
+script = ExtResource("20_40gro")
+game_state_packed_scene = ExtResource("22_otbp7")
+
+[node name="InGame" type="Node" parent="StateMachine"]
+script = ExtResource("19_nmmof")

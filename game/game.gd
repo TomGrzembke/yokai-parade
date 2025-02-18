@@ -1,24 +1,35 @@
 extends Node
 
 
+const STATE = preload("res://components/state_machine/state.gd")
+
+@export var initial_state: STATE
+
+# TODO: Remove this
 enum GameState {
 	STARTING_GAME = 0,
 	LOADING_LEVEL = 500,
 	PLAYING_LEVEL = 600,
 }
 
+# TODO: Move this to InGame state
 var current_level_index = 0
+var player_spawn_position = null
 var is_play_timer_running = false
 var play_time = 0.0
-var player_spawn_position = null
+# TODO: Replace with state machine
 var state = GameState.STARTING_GAME
+
+var current_game_state_scene
 
 
 func _ready() -> void:
-	load_level(0)
-	spawn_player()
-	start_timer()
-	enter_state(GameState.PLAYING_LEVEL)
+	%StateMachine.init(self, initial_state)
+	# Old
+	#load_level(0)
+	#spawn_player()
+	#start_timer()
+	#enter_state(GameState.PLAYING_LEVEL)
 
 
 func _process(delta):
@@ -72,6 +83,25 @@ func _unhandled_input(_event):
 		spawn_player()
 		start_timer()
 		enter_state(GameState.PLAYING_LEVEL)
+
+# New Stuff
+
+func load_game_state_scene(game_state_scene):
+	current_game_state_scene = game_state_scene
+	add_child(current_game_state_scene)
+
+
+func unload_game_state_scene(game_state_scene):
+	var scene_to_be_removed
+	for child in get_children():
+		if child == game_state_scene:
+			scene_to_be_removed = game_state_scene
+	if scene_to_be_removed != null:
+		remove_child(scene_to_be_removed)
+
+
+func change_to_game_state(game_state: GameState):
+	%StateMachine.change_state(game_state)
 
 
 func enter_state(new_state):
@@ -131,7 +161,7 @@ func spawn_player():
 
 		add_child.call_deferred(player)
 
-	player.position = get_player_spawn_position()
+	#player.position = get_player_spawn_position()
 
 
 func on_player_despawned():

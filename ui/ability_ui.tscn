@@ -6,6 +6,7 @@
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
+visible = false
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 offset_top = 667.0
