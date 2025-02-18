@@ -112,15 +112,15 @@ func jump(delta):
 
 	if apex_timer != null && apex_timer.time_left > 0 && is_using_apex:
 		local_velocity.y -= get_gravity().y * delta / 2
-		local_velocity.x += look_direction * lerpf(0, apex_strength, custom_lerp(apex_timer.time_left / apex_time))
-
+		local_velocity.x += look_direction * lerpf(apex_strength * .5, apex_strength, quadratic_in_out_lerp(apex_timer.time_left / apex_time))
+		print(lerpf(apex_strength * .5, apex_strength, quadratic_in_out_lerp(apex_timer.time_left / apex_time)))
 
 	variable_jump_height()
 	update_jump_buffer(delta)
 	cached_local_velocity = local_velocity
 
 
-func custom_lerp(t):
+func quadratic_in_out_lerp(t):
 	t = clamp(t, 0.0, 1.0)
 	return -4 * (t - 0.5) * (t - 0.5) + 1
 
