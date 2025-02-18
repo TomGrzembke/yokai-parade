@@ -224,7 +224,6 @@ func edge_correction():
 	if upper_edge_detection_ray.has_target(): return
 	if !downer_edge_detection_ray.has_target():return
 
-	print("a")
 	is_using_edge_correction = true
 	local_velocity.x *= -x_edge_correction
 	local_velocity.y *= y_edge_correction
