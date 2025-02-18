@@ -40,6 +40,7 @@ script = ExtResource("1_708yo")
 dash_velocity = 1150.0
 dash_duration = 0.24
 damage_linger_duration = 0.75
+disable_player_movement = false
 velocity_curve = SubResource("Curve_6cwuf")
 
 [node name="DealDamageArea" parent="." instance=ExtResource("2_u0oib")]

@@ -14,34 +14,49 @@ const INFINITY = 1e20
 @export var jump_velocity = 600.0
 @export var fall_speed_clamp = 600.0
 @export_category("Movement extras")
-@export_range(.0, 1.0, .01) var jump_coyote_time = .15
-@export_range(.0, 1.0, .01) var jump_buffer_time = .15
-@export_range(.0, 1, .01) var variable_jump_height_min_percentage = .7
-@export_range(.0, .99, .01) var jump_height_continuous_cut_percentage = .6
+@export_range(0.0, 1.0, .01) var jump_coyote_time = .15
+@export_range(0.0, 1.0, .01) var jump_buffer_time = .15
+@export_range(0.0, 1.0, .01) var variable_jump_height_min_percentage = .7
+@export_range(0.0, .99, .01) var jump_height_continuous_cut_percentage = 1.0
+@export var jump_edge_correction_time : float = 0.1
+@export var apex_time : float = .1
+@export var apex_strength : float = 1000.0
+@export_range(0, 1.0, .01) var apex_negativ_gravity : float = .5
+@export var apex_smooth_curve : Curve
+
 @export_category("Enemey Push")
 @export var push_back = 500.0
 @export_range(.0, 1.5, .1) var push_height_percentage = .75
 
 @onready var abilities: Node2D = $Abilities
+@onready var upper_edge_detection_ray: RayCast2D = $UpperEdgeDetectionRay
+@onready var downer_edge_detection_ray: RayCast2D = $DownerEdgeDetectionRay
+
 
 var coyote_timer = 0.15
 var jump_buffer_timer = 0.0
 
 var look_direction = 1.0
-var move_direction
+var move_dir
 
-var local_velocity := Vector2(0,0)
-var outer_velocity_sources := Vector2(0,0)
+var local_velocity := Vector2.ZERO
+var outer_velocity_sources := Vector2.ZERO
+var cached_local_velocity := Vector2.ZERO
 
 var velocity_mod_instigator = []
 var player_control := true
+
+var buffer_cancel_jump := false
 var is_cancelling_jump := false
+var jump_edge_correction_timer
+var is_using_edge_correction
+var apex_timer
+var can_use_apex
+
 var debug_mode = false
 var debug_speed_modifier = 3
 
-
 func _physics_process(delta):
-
 	if debug_mode:
 		debug_logic()
 		return
@@ -66,8 +81,8 @@ func run():
 	calc_move_dir()
 	calc_look_direction()
 
-	if move_direction:
-		local_velocity.x = move_toward(local_velocity.x, move_direction * speed, acceleration)
+	if move_dir:
+		local_velocity.x = move_toward(local_velocity.x, move_dir * speed, acceleration)
 	else:
 		local_velocity.x = move_toward(local_velocity.x, 0, deceleration)
 	flip()
@@ -90,20 +105,34 @@ func ability_smoothing():
 
 
 func jump(delta):
-	handle_coyote_time(delta)
+	coyote_time(delta)
 	jump_logic()
-	variable_jump_heigth()
-	handle_jump_buffer_time(delta)
+	apex_modifier(delta)
+	variable_jump_height()
+	update_jump_buffer(delta)
+	cached_local_velocity = local_velocity
+
+	if is_on_floor():
+		is_using_edge_correction = false
+
+	if upper_edge_detection_ray.has_target():
+		return
+
+	if downer_edge_detection_ray.has_target() && !is_using_edge_correction:
+		jump_edge_correction_timer = create_timer(jump_edge_correction_time)
+		is_using_edge_correction = true
+		local_velocity.x *= -1
+
 
 
 func calc_move_dir():
-	move_direction = sign(Input.get_axis("left", "right"))
+	move_dir = sign(Input.get_axis("left", "right"))
 
 
 func calc_look_direction():
-	if move_direction == 0.0: return
+	if move_dir == 0.0: return
 
-	look_direction = move_direction
+	look_direction = move_dir
 
 
 func flip():
@@ -115,13 +144,12 @@ func flip():
 
 func fall_on_ceiling(delta):
 	if velocity.y: return
-
 	if local_velocity.y or receives_outer_vertical_velocity():
 		local_velocity.y = get_gravity().y * delta
 		outer_velocity_sources.y = 0
 
 
-func handle_coyote_time(delta):
+func coyote_time(delta):
 	if is_on_floor() || receives_outer_vertical_velocity() || is_cancelling_jump:
 		coyote_timer = 0.0
 	else:
@@ -140,23 +168,40 @@ func jump_logic():
 	local_velocity.y = -jump_velocity
 
 
-func variable_jump_heigth():
+func variable_jump_height():
 	var is_falling = local_velocity.y < 0
-	var is_canceling_jump = Input.is_action_just_released("jump")
-	if is_canceling_jump && player_control && is_falling:
+	var cancel_pressed = Input.is_action_just_released("jump")
+	var will_cancel = cancel_pressed && is_falling
+	var use_cancel_buffer = buffer_cancel_jump && is_on_floor()
+
+	if will_cancel || use_cancel_buffer:
 		is_cancelling_jump = true
-		if variable_jump_height_min_percentage != 0:
-			local_velocity.y *= variable_jump_height_min_percentage
+		cut_initial_jump()
+		buffer_cancel_jump = false
 
 	if is_on_floor():
 		is_cancelling_jump = false
 
-	if is_cancelling_jump && is_falling:
-		if jump_height_continuous_cut_percentage != 0:
-			local_velocity.y *= jump_height_continuous_cut_percentage
+	if can_use_jump_buffer() && cancel_pressed:
+		buffer_cancel_jump = true
+
+	cut_continuos_jump(is_falling)
 
 
-func handle_jump_buffer_time(delta):
+func cut_initial_jump():
+	if variable_jump_height_min_percentage == 0: return
+
+	local_velocity.y *= variable_jump_height_min_percentage
+
+
+func cut_continuos_jump(is_falling):
+	if !is_falling: return
+	if jump_height_continuous_cut_percentage != 0: return
+
+	local_velocity.y *= jump_height_continuous_cut_percentage
+
+
+func update_jump_buffer(delta):
 	var jump_input = Input.is_action_just_pressed("jump")
 
 	if jump_input:
@@ -196,6 +241,38 @@ func clamp_fall_speed():
 	velocity.y = clampf(velocity.y, -INFINITY, fall_speed_clamp)
 
 
+func apex_modifier(delta):
+	if apex_time == 0: return
+	if apex_strength == 0 && apex_negativ_gravity == 0: return
+	if is_on_floor():
+		can_use_apex = true
+		return
+
+	if cached_local_velocity.y < 0.0 && local_velocity.y > 0.0 && can_use_apex:
+		apex_timer = create_timer(apex_time)
+		can_use_apex = false
+
+	if apex_timer == null: return
+	if apex_timer.time_left <= 0: return
+
+	apex_horizontal(delta)
+	apex_vertical()
+
+
+func apex_horizontal(delta):
+	local_velocity.y -= get_gravity().y * delta * apex_negativ_gravity
+
+
+func apex_vertical():
+	if local_velocity.x == 0: return
+	if apex_smooth_curve == null:
+		local_velocity.x += look_direction * apex_strength
+		return
+
+	local_velocity.x += look_direction * \
+	lerpf(apex_strength * .5, apex_strength, apex_smooth_curve.sample(apex_timer.time_left / apex_time))
+
+
 func add_velocity_modifier(velocity_mod):
 	velocity_mod_instigator.append(velocity_mod)
 	calc_vel_mods()
@@ -230,8 +307,6 @@ func delete_vel_mod(velocity_mod):
 
 func reset_velocity_mod_effects(velocity_mod):
 	player_control = true
-	if velocity_mod.ability != null && velocity_mod.ability.has_method("exit"):
-		velocity_mod.ability.exit()
 
 
 func clear_abilities():

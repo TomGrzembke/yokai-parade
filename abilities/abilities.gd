@@ -16,7 +16,7 @@ var hit_cooldown_timer
 var hit_grace_timer
 var hit_queue_timer
 
-@onready var visualizer: Node2D = $"../Visuals/Visualizer"
+@onready var visualizer: Node2D =  $"../Visuals/AbilityVisualizer"
 
 
 func _ready():
@@ -95,6 +95,9 @@ func hit_timer_active():
 
 func set_current_ability(ability_scene):
 	if ability_scene == null: return
+
+	if current_ability != null:
+		current_ability.exit()
 
 	var ability = ability_scene.instantiate()
 	add_child.call_deferred(ability)
