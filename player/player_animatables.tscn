@@ -1,5 +1,6 @@
-[gd_scene load_steps=43 format=3 uid="uid://b173nlre4ndsy"]
+[gd_scene load_steps=44 format=3 uid="uid://b173nlre4ndsy"]
 
+[ext_resource type="Script" path="res://player/player_animatables.gd" id="1_japyu"]
 [ext_resource type="Texture2D" uid="uid://dchjx31w1tyge" path="res://player/player_spritesheet.png" id="1_wuri4"]
 [ext_resource type="AudioStream" uid="uid://cojwru8qh7oh8" path="res://sounds/player_dying.wav" id="2_jfhhs"]
 [ext_resource type="AudioStream" uid="uid://g4orwxysi14l" path="res://sounds/player_got_hit.wav" id="3_yjdp8"]
@@ -136,7 +137,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id="Animation_v1rfk"]
 resource_name = "hit"
 length = 0.4
-loop_mode = 1
 step = 0.125
 tracks/0/type = "audio"
 tracks/0/imported = false
@@ -446,7 +446,7 @@ states/dying/position = Vector2(585, -18)
 states/falling/node = SubResource("AnimationNodeAnimation_q240u")
 states/falling/position = Vector2(377, -186)
 states/got_hit/node = SubResource("AnimationNodeAnimation_hcx2n")
-states/got_hit/position = Vector2(673, -142)
+states/got_hit/position = Vector2(663, -141)
 states/hit/node = SubResource("AnimationNodeAnimation_d8ddy")
 states/hit/position = Vector2(191, -18)
 states/idling/node = SubResource("AnimationNodeAnimation_o53j2")
@@ -460,9 +460,10 @@ states/landing/position = Vector2(275, -135)
 states/walking/node = SubResource("AnimationNodeAnimation_l41dg")
 states/walking/position = Vector2(436, -18)
 transitions = ["Start", "idling", SubResource("AnimationNodeStateMachineTransition_i4wgy"), "idling", "walking", SubResource("AnimationNodeStateMachineTransition_egflg"), "walking", "idling", SubResource("AnimationNodeStateMachineTransition_1r4x0"), "walking", "jump", SubResource("AnimationNodeStateMachineTransition_87uy6"), "idling", "jump", SubResource("AnimationNodeStateMachineTransition_p4mgk"), "landing", "idling", SubResource("AnimationNodeStateMachineTransition_71yb5"), "jump", "falling", SubResource("AnimationNodeStateMachineTransition_dyay8"), "falling", "landing", SubResource("AnimationNodeStateMachineTransition_gvbew"), "falling", "jump", SubResource("AnimationNodeStateMachineTransition_in6c8"), "dash", "falling", SubResource("AnimationNodeStateMachineTransition_s3chn"), "got_hit", "falling", SubResource("AnimationNodeStateMachineTransition_kpurb"), "hit", "idling", SubResource("AnimationNodeStateMachineTransition_ebmfl")]
-graph_offset = Vector2(-158, -178)
+graph_offset = Vector2(-59, -218)
 
 [node name="PlayerAnimatables" type="Node2D"]
+script = ExtResource("1_japyu")
 
 [node name="PlayerWalk" type="Sprite2D" parent="."]
 texture_filter = 1
