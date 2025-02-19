@@ -3,7 +3,6 @@ extends Node2D
 
 const COLOR_PLAIN = Color("#949494")
 
-
 var current_ability
 var damage_subject
 
