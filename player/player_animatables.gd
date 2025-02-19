@@ -17,3 +17,10 @@ func _ready():
 
 func hit():
 	state_machine.travel("hit")
+
+
+func _on_animation_finished(anim_name):
+	if anim_name == "idling":
+		state_machine.travel("idling2")
+	elif anim_name == "idling2":
+		state_machine.travel("idling")
