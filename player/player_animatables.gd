@@ -1,7 +1,6 @@
 extends Node2D
 
-@export_range(0, 100, 1) var idle2_probability : float
-@export var idle_animations : Dictionary = {"idling" : 80, "idling2": 15, "idling3": 5}
+@export var idle_animation_probability : Dictionary = {"idling" : 80, "idling2": 15, "idling3": 5}
 @onready var player: CharacterBody2D = $".."
 @onready var abilities: Node2D = $"../Abilities"
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -22,18 +21,18 @@ func _on_animation_finished(anim_name):
 
 
 func different_idles(anim_name):
-	if !anim_name in idle_animations: return
+	if !anim_name in idle_animation_probability: return
 	if anim_name == "idling3": return
 
 	var total_weight = 0
-	for key in idle_animations.values():
+	for key in idle_animation_probability.values():
 		total_weight += key
 
 	var random_value = randf_range(0, total_weight)
 	var cumulative_weight = 0
 
-	for animation_name in idle_animations.keys():
-		cumulative_weight += idle_animations[animation_name]
+	for animation_name in idle_animation_probability.keys():
+		cumulative_weight += idle_animation_probability[animation_name]
 
 		if random_value > cumulative_weight: continue
 		state_machine.start(animation_name)
