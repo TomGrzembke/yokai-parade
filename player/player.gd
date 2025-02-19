@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal player_despawned
 signal player_reached_checkpoint(position)
 signal player_reached_goal
+signal player_gets_pushed
 
 const INFINITY = 1e20
 
@@ -18,15 +19,23 @@ const INFINITY = 1e20
 @export_range(0.0, 1.0, .01) var jump_buffer_time = .15
 @export_range(0.0, 1.0, .01) var variable_jump_height_min_percentage = .7
 @export_range(0.0, .99, .01) var jump_height_continuous_cut_percentage = 1.0
+@export_range(0.0, 3.0, .01) var x_edge_correction : float = 1.2
+@export_range(1.0, 3.0, .01) var y_edge_correction : float = 1.5
+
+@export_category("Apex Settings")
 @export var apex_time : float = .1
 @export var apex_strength : float = 1000.0
 @export_range(0, 1.0, .01) var apex_negativ_gravity : float = .5
 @export var apex_smooth_curve : Curve
+
 @export_category("Enemey Push")
 @export var push_back = 500.0
 @export_range(.0, 1.5, .1) var push_height_percentage = .75
 
 @onready var abilities: Node2D = $Abilities
+@onready var cant_edge_detect_ray: RayCast2D = $CantEdgeDetectRay
+@onready var can_edge_detect_ray: RayCast2D = $CanEdgeDetectRay
+
 
 var coyote_timer = 0.15
 var jump_buffer_timer = 0.0
@@ -40,13 +49,16 @@ var cached_local_velocity := Vector2.ZERO
 
 var velocity_mod_instigator = []
 var player_control := true
+
 var buffer_cancel_jump := false
 var is_cancelling_jump := false
-var debug_mode = false
-var debug_speed_modifier = 3
+var jump_edge_correction_timer
+var is_using_edge_correction
 var apex_timer
 var can_use_apex
 
+var debug_mode = false
+var debug_speed_modifier = 3
 
 func _physics_process(delta):
 	if debug_mode:
@@ -102,6 +114,7 @@ func jump(delta):
 	apex_modifier(delta)
 	variable_jump_height()
 	update_jump_buffer(delta)
+	edge_correction()
 	cached_local_velocity = local_velocity
 
 
@@ -149,9 +162,8 @@ func jump_logic():
 
 
 func variable_jump_height():
-	var is_falling = local_velocity.y < 0
 	var cancel_pressed = Input.is_action_just_released("jump")
-	var will_cancel = cancel_pressed && is_falling
+	var will_cancel = cancel_pressed && is_rising()
 	var use_cancel_buffer = buffer_cancel_jump && is_on_floor()
 
 	if will_cancel || use_cancel_buffer:
@@ -165,7 +177,7 @@ func variable_jump_height():
 	if can_use_jump_buffer() && cancel_pressed:
 		buffer_cancel_jump = true
 
-	cut_continuos_jump(is_falling)
+	cut_continuos_jump()
 
 
 func cut_initial_jump():
@@ -174,8 +186,8 @@ func cut_initial_jump():
 	local_velocity.y *= variable_jump_height_min_percentage
 
 
-func cut_continuos_jump(is_falling):
-	if !is_falling: return
+func cut_continuos_jump():
+	if is_falling: return
 	if jump_height_continuous_cut_percentage != 0: return
 
 	local_velocity.y *= jump_height_continuous_cut_percentage
@@ -198,9 +210,26 @@ func can_use_coyote_time(should_jump):
 	if jump_coyote_time == 0: return false
 	if coyote_timer == 0: return false
 	if !should_jump: return false
-	if local_velocity.y < 0: return false
+	if is_rising(): return false
 
 	return coyote_timer < jump_coyote_time
+
+
+func edge_correction():
+	if x_edge_correction == 0 && y_edge_correction == 1: return
+
+	if is_on_floor():
+		is_using_edge_correction = false
+		return
+
+	if is_using_edge_correction: return
+	if is_falling(): return
+	if cant_edge_detect_ray.has_target(): return
+	if !can_edge_detect_ray.has_target():return
+
+	is_using_edge_correction = true
+	local_velocity.x *= -x_edge_correction
+	local_velocity.y *= y_edge_correction
 
 
 func can_use_jump_buffer():
@@ -253,6 +282,14 @@ func apex_vertical():
 	lerpf(apex_strength * .5, apex_strength, apex_smooth_curve.sample(apex_timer.time_left / apex_time))
 
 
+func is_rising():
+	return local_velocity.y < 0
+
+
+func is_falling():
+	return local_velocity.y > 0
+
+
 func add_velocity_modifier(velocity_mod):
 	velocity_mod_instigator.append(velocity_mod)
 	calc_vel_mods()
@@ -282,11 +319,7 @@ func delete_vel_mod(velocity_mod):
 		velocity_mod_instigator.remove_at(velocity_id)
 
 	if check_movement_mods_empty():
-		reset_velocity_mod_effects(velocity_mod)
-
-
-func reset_velocity_mod_effects(velocity_mod):
-	player_control = true
+		player_control = true
 
 
 func clear_abilities():
@@ -347,13 +380,15 @@ func on_reached_checkpoint(checkpoint_position):
 
 
 func on_took_damage(source):
-	if source != null:
-		var push_vel = -(source.global_position - position).normalized() * push_back
-		push_vel.y *= push_height_percentage
-		add_velocity_modifier(VelocityModifier.new(push_vel, .2, 3, true))
+	if source == null: return
 
-		if Input.get_connected_joypads().size() > 0:
-			Input.start_joy_vibration(0, 0.5, 0.0, 0.5)
+	var push_vel = -(source.global_position - position).normalized() * push_back
+	push_vel.y *= push_height_percentage
+	add_velocity_modifier(VelocityModifier.new(push_vel, .2, 3, true))
+	player_gets_pushed.emit()
+
+	if Input.get_connected_joypads().size() > 0:
+		Input.start_joy_vibration(0, 0.5, 0.0, 0.5)
 
 
 func create_timer(time):

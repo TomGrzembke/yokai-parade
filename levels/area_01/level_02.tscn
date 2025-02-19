@@ -415,7 +415,6 @@ element_type = ExtResource("10_3y1es")
 [node name="WoodenWalls" type="Node2D" parent="3rd-Finish"]
 
 [node name="Area1Backgrounds" parent="." instance=ExtResource("9_cabej")]
-visible = false
 
 [node name="Deathzones" type="Node2D" parent="."]
 
