@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b173nlre4ndsy"]
+[gd_scene load_steps=43 format=3 uid="uid://b173nlre4ndsy"]
 
 [ext_resource type="Texture2D" uid="uid://dchjx31w1tyge" path="res://player/player_spritesheet.png" id="1_wuri4"]
 [ext_resource type="AudioStream" uid="uid://cojwru8qh7oh8" path="res://sounds/player_dying.wav" id="2_jfhhs"]
@@ -426,29 +426,41 @@ advance_expression = "velocity.y == 0"
 advance_mode = 2
 advance_expression = "velocity.y < 0"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s3chn"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kpurb"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ebmfl"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_h8ooh"]
 states/dash/node = SubResource("AnimationNodeAnimation_n5upi")
-states/dash/position = Vector2(577, -122)
+states/dash/position = Vector2(663, -202)
 states/dying/node = SubResource("AnimationNodeAnimation_54gw0")
-states/dying/position = Vector2(577, -54)
+states/dying/position = Vector2(585, -18)
 states/falling/node = SubResource("AnimationNodeAnimation_q240u")
 states/falling/position = Vector2(377, -186)
 states/got_hit/node = SubResource("AnimationNodeAnimation_hcx2n")
-states/got_hit/position = Vector2(704, -135)
+states/got_hit/position = Vector2(673, -142)
 states/hit/node = SubResource("AnimationNodeAnimation_d8ddy")
-states/hit/position = Vector2(704, -74)
+states/hit/position = Vector2(191, -18)
 states/idling/node = SubResource("AnimationNodeAnimation_o53j2")
 states/idling/position = Vector2(322, -18)
 states/idling2/node = SubResource("AnimationNodeAnimation_prn2w")
-states/idling2/position = Vector2(814, -98)
+states/idling2/position = Vector2(322, 64)
 states/jump/node = SubResource("AnimationNodeAnimation_ukipm")
 states/jump/position = Vector2(377, -98)
 states/landing/node = SubResource("AnimationNodeAnimation_sc3xl")
 states/landing/position = Vector2(275, -135)
 states/walking/node = SubResource("AnimationNodeAnimation_l41dg")
 states/walking/position = Vector2(436, -18)
-transitions = ["Start", "idling", SubResource("AnimationNodeStateMachineTransition_i4wgy"), "idling", "walking", SubResource("AnimationNodeStateMachineTransition_egflg"), "walking", "idling", SubResource("AnimationNodeStateMachineTransition_1r4x0"), "walking", "jump", SubResource("AnimationNodeStateMachineTransition_87uy6"), "idling", "jump", SubResource("AnimationNodeStateMachineTransition_p4mgk"), "landing", "idling", SubResource("AnimationNodeStateMachineTransition_71yb5"), "jump", "falling", SubResource("AnimationNodeStateMachineTransition_dyay8"), "falling", "landing", SubResource("AnimationNodeStateMachineTransition_gvbew"), "falling", "jump", SubResource("AnimationNodeStateMachineTransition_in6c8")]
-graph_offset = Vector2(-14, -206)
+transitions = ["Start", "idling", SubResource("AnimationNodeStateMachineTransition_i4wgy"), "idling", "walking", SubResource("AnimationNodeStateMachineTransition_egflg"), "walking", "idling", SubResource("AnimationNodeStateMachineTransition_1r4x0"), "walking", "jump", SubResource("AnimationNodeStateMachineTransition_87uy6"), "idling", "jump", SubResource("AnimationNodeStateMachineTransition_p4mgk"), "landing", "idling", SubResource("AnimationNodeStateMachineTransition_71yb5"), "jump", "falling", SubResource("AnimationNodeStateMachineTransition_dyay8"), "falling", "landing", SubResource("AnimationNodeStateMachineTransition_gvbew"), "falling", "jump", SubResource("AnimationNodeStateMachineTransition_in6c8"), "dash", "falling", SubResource("AnimationNodeStateMachineTransition_s3chn"), "got_hit", "falling", SubResource("AnimationNodeStateMachineTransition_kpurb"), "hit", "idling", SubResource("AnimationNodeStateMachineTransition_ebmfl")]
+graph_offset = Vector2(-158, -178)
 
 [node name="PlayerAnimatables" type="Node2D"]
 
