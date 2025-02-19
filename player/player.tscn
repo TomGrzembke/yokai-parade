@@ -281,8 +281,8 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_uoss2"]
 resource_name = "landing"
-length = 0.4
-step = 0.125
+length = 0.16
+step = 0.0
 tracks/0/type = "audio"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -317,7 +317,7 @@ tracks/2/path = NodePath("PlayerWalk:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.125),
+"times": PackedFloat32Array(0, 0.0648065),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [36, 37]
