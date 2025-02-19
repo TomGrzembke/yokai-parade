@@ -14,6 +14,10 @@ const INFINITY = 1e20
 @export var outer_deceleration = 50.0
 @export var jump_velocity = 600.0
 @export var fall_speed_clamp = 600.0
+@export_category("Speed Token System")
+@export var max_token_speed_percentage : float = 20
+@export var max_token_amount : float = 100
+@export var token_value_curve : Curve
 @export_category("Movement extras")
 @export_range(0.0, 1.0, .01) var jump_coyote_time = .15
 @export_range(0.0, 1.0, .01) var jump_buffer_time = .15
@@ -57,6 +61,8 @@ var is_using_edge_correction
 var apex_timer
 var can_use_apex
 
+var current_speed_token = 0.0
+
 var debug_mode = false
 var debug_speed_modifier = 3
 
@@ -79,7 +85,12 @@ func _physics_process(delta):
 
 
 func apply_velocity():
-	velocity = local_velocity + outer_velocity_sources
+	var token_value = get_current_speed_token_value()
+	velocity = local_velocity * token_value + outer_velocity_sources
+
+
+func get_current_speed_token_value():
+	return 1 +  max_token_speed_percentage * .01 * token_value_curve.sample(current_speed_token / max_token_amount)
 
 
 func run():
