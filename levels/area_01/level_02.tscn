@@ -15,6 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/modules/player_spawn_point.tscn" id="19_0ogvx"]
 
 [sub_resource type="Curve2D" id="Curve2D_kyqvp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 71, -1, 0, 0, 0, 0, 72, 38)
+}
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_ob0hm"]
 
@@ -160,10 +164,11 @@ position = Vector2(6400, 1112)
 element_type = ExtResource("10_3y1es")
 
 [node name="AirFlyingIdling2" type="Path2D" parent="1st-2ndCheckpoint/Enemies"]
-position = Vector2(6805, 903)
+position = Vector2(6750, 917)
 curve = SubResource("Curve2D_kyqvp")
 
 [node name="AirAirborneIdle" parent="1st-2ndCheckpoint/Enemies/AirFlyingIdling2" instance=ExtResource("11_o4jt2")]
+position = Vector2(71, -1)
 element_type = ExtResource("9_5kbpl")
 
 [node name="AirFlyingIdling3" type="Path2D" parent="1st-2ndCheckpoint/Enemies"]
@@ -411,6 +416,7 @@ element_type = ExtResource("10_3y1es")
 [node name="WoodenWalls" type="Node2D" parent="3rd-Finish"]
 
 [node name="Area1Backgrounds" parent="." instance=ExtResource("9_cabej")]
+visible = false
 
 [node name="Deathzones" type="Node2D" parent="."]
 
