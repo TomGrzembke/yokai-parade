@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://daf1dxr8obptf"]
+[gd_scene load_steps=6 format=3 uid="uid://m1lhnekkobbt"]
 
-[ext_resource type="Script" path="res://game/scenes/credits.gd" id="1_ewpqn"]
+[ext_resource type="Script" path="res://game/scenes/options_main.gd" id="1_txjm3"]
 
-[sub_resource type="Animation" id="Animation_s0r68"]
+[sub_resource type="Animation" id="Animation_6tu2h"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -17,7 +17,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_kd6wk"]
+[sub_resource type="Animation" id="Animation_p7nxv"]
 resource_name = "fade_in"
 length = 0.25
 step = 0.125
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ctq33"]
+[sub_resource type="Animation" id="Animation_kstnv"]
 resource_name = "fade_out"
 length = 0.25
 step = 0.125
@@ -51,15 +51,15 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qi666"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_stij8"]
 _data = {
-"RESET": SubResource("Animation_s0r68"),
-"fade_in": SubResource("Animation_kd6wk"),
-"fade_out": SubResource("Animation_ctq33")
+"RESET": SubResource("Animation_6tu2h"),
+"fade_in": SubResource("Animation_p7nxv"),
+"fade_out": SubResource("Animation_kstnv")
 }
 
-[node name="Credits" type="Node"]
-script = ExtResource("1_ewpqn")
+[node name="OptionsMain" type="Node"]
+script = ExtResource("1_txjm3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -76,7 +76,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 148.0
+offset_right = 174.0
 offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -86,7 +86,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Credits"
+text = "Options"
 
 [node name="BackButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -96,6 +96,6 @@ text = "Back"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_qi666")
+"": SubResource("AnimationLibrary_stij8")
 }
 autoplay = "fade_in"

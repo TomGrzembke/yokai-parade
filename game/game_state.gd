@@ -7,7 +7,7 @@ extends State
 var current_scene
 
 
-func enter(p_previous_state: GameState):
+func enter(p_previous_state):
 	super.enter(p_previous_state)
 
 	current_scene = game_state_packed_scene.instantiate()

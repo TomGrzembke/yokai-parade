@@ -14,22 +14,22 @@ func _ready():
 
 
 func switch_to_in_game_state():
-	switch_to_next_state(in_game_state)
+	switch_to_game_state(in_game_state)
 
 
 func switch_to_options_game_state():
-	switch_to_next_state(options_game_state)
+	switch_to_game_state(options_game_state)
 
 
 func switch_to_credits_game_state():
-	switch_to_next_state(credits_game_state)
+	switch_to_game_state(credits_game_state)
 
 
-func switch_to_next_state(next_game_state):
+func switch_to_game_state(next_game_state):
 	%AnimationPlayer.stop()
 	%AnimationPlayer.play("fade_out")
 	await %AnimationPlayer.animation_finished
-	scene_finished.emit(next_game_state)
+	game_state_scene_finished.emit(next_game_state)
 
 
 func quit_game():

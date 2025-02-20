@@ -1,36 +1,107 @@
-[gd_scene load_steps=15 format=3 uid="uid://cisf071rha1ru"]
+[gd_scene load_steps=35 format=3 uid="uid://cisf071rha1ru"]
 
 [ext_resource type="Script" path="res://game/scenes/in_game.gd" id="1_jmwmp"]
-[ext_resource type="Script" path="res://game/camera.gd" id="2_slqn3"]
+[ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="2_7ssm8"]
 [ext_resource type="PackedScene" uid="uid://badws0m5drr6w" path="res://levels/levels.tscn" id="3_45cmx"]
+[ext_resource type="Script" path="res://levels/states/loading.gd" id="3_gfwu5"]
 [ext_resource type="Texture2D" uid="uid://deamof6wk7rii" path="res://ui/ui_ingame_top_right_bg.png" id="4_1ymkj"]
+[ext_resource type="PackedScene" uid="uid://bbew8yq4n6jan" path="res://levels/scenes/loading.tscn" id="4_sfxgs"]
 [ext_resource type="Texture2D" uid="uid://cu8145mbillq7" path="res://ui/ui_ingame_top_right_main.png" id="5_1whgf"]
+[ext_resource type="Script" path="res://levels/states/starting.gd" id="6_4ysu7"]
 [ext_resource type="Texture2D" uid="uid://cq6ew1rj7i5xf" path="res://ui/ui_ingame_top_right_line.png" id="6_010ge"]
+[ext_resource type="PackedScene" uid="uid://bbliic3r4vcsa" path="res://levels/scenes/starting.tscn" id="6_ec6gx"]
 [ext_resource type="Texture2D" uid="uid://dy473cfis2wyf" path="res://ui/ui_ingame_clock.png" id="7_bjrkf"]
+[ext_resource type="Script" path="res://levels/states/playing.gd" id="7_xay8u"]
+[ext_resource type="PackedScene" uid="uid://bp5guyidmbi7" path="res://levels/scenes/playing.tscn" id="8_232sf"]
+[ext_resource type="Script" path="res://levels/states/despawning.gd" id="8_kgyjn"]
 [ext_resource type="Theme" uid="uid://bqdlc5vw8gpa5" path="res://assets/theme/theme.tres" id="8_l8w65"]
 [ext_resource type="Texture2D" uid="uid://cqbl0stgs86k1" path="res://ui/ui_ingame_bottom_left_bg.png" id="9_tvxpd"]
+[ext_resource type="Script" path="res://levels/states/finishing.gd" id="9_u70qo"]
+[ext_resource type="PackedScene" uid="uid://wslssapuyl0a" path="res://levels/scenes/despawning.tscn" id="10_7ikty"]
+[ext_resource type="Script" path="res://levels/states/recaping.gd" id="10_8fb6y"]
 [ext_resource type="Texture2D" uid="uid://dx00l7ajc4io6" path="res://ui/ui_ingame_bottom_left_main.png" id="10_bjykd"]
 [ext_resource type="Texture2D" uid="uid://blcmkd8j63hby" path="res://ui/ui_ingame_bottom_left_line.png" id="11_7oqmf"]
+[ext_resource type="Script" path="res://levels/states/paused.gd" id="11_k5x60"]
+[ext_resource type="PackedScene" uid="uid://c00f5fspkqsfg" path="res://levels/scenes/finishing.tscn" id="12_q0gsl"]
+[ext_resource type="PackedScene" uid="uid://dqxanhxshi7ms" path="res://levels/scenes/recaping.tscn" id="12_tbifs"]
 [ext_resource type="Texture2D" uid="uid://bsi2owtjdi83n" path="res://ui/ui_ingame_ability_bg.png" id="12_yb5sd"]
 [ext_resource type="Texture2D" uid="uid://cajispq8sq8cp" path="res://ui/ui_ingame_ability_line.png" id="13_m5arx"]
+[ext_resource type="PackedScene" uid="uid://v24eao35y2ad" path="res://levels/scenes/paused.tscn" id="13_o02i2"]
+[ext_resource type="Script" path="res://levels/states/return_to_main_menu.gd" id="15_a0dd1"]
+[ext_resource type="Script" path="res://levels/states/reset_to_checkpoint.gd" id="15_t1lu2"]
+[ext_resource type="Script" path="res://levels/states/reset_level.gd" id="16_0moau"]
+[ext_resource type="PackedScene" uid="uid://bp10lwi3myrce" path="res://levels/scenes/reset_to_checkpoint.tscn" id="16_tucxx"]
+[ext_resource type="Script" path="res://levels/states/options_in_game.gd" id="17_7gv5i"]
+[ext_resource type="PackedScene" uid="uid://bhgs0xub5lxvf" path="res://levels/scenes/reset_level.tscn" id="18_0wv6n"]
+[ext_resource type="PackedScene" uid="uid://dw0g44fku0ne6" path="res://levels/scenes/options_in_game.tscn" id="18_nem0v"]
 
-[sub_resource type="Curve" id="Curve_12gxh"]
-_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[node name="InGame" type="Node2D"]
+[node name="InGame" type="Node" node_paths=PackedStringArray("initial_level_state")]
 script = ExtResource("1_jmwmp")
+initial_level_state = NodePath("LevelStateMachine/Loading")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("2_slqn3")
-offset_value = Vector2(150, 0)
-lerp_speed = 1.0
-smooth_curve = SubResource("Curve_12gxh")
-
-[node name="Levels" parent="." instance=ExtResource("3_45cmx")]
+[node name="LevelStateMachine" parent="." instance=ExtResource("2_7ssm8")]
 unique_name_in_owner = true
+
+[node name="Loading" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("next_level_state")]
+script = ExtResource("3_gfwu5")
+next_level_state = NodePath("../Starting")
+level_state_packed_scene = ExtResource("4_sfxgs")
+
+[node name="Starting" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("playing_level_state", "paused_level_state")]
+script = ExtResource("6_4ysu7")
+playing_level_state = NodePath("../Playing")
+paused_level_state = NodePath("../Paused")
+level_state_packed_scene = ExtResource("6_ec6gx")
+
+[node name="Playing" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("paused_level_state", "despawning_level_state", "finishing_level_state")]
+script = ExtResource("7_xay8u")
+paused_level_state = NodePath("../Paused")
+despawning_level_state = NodePath("../Despawning")
+finishing_level_state = NodePath("../Finishing")
+level_state_packed_scene = ExtResource("8_232sf")
+
+[node name="Despawning" type="Node" parent="LevelStateMachine"]
+script = ExtResource("8_kgyjn")
+level_state_packed_scene = ExtResource("10_7ikty")
+
+[node name="Finishing" type="Node" parent="LevelStateMachine"]
+script = ExtResource("9_u70qo")
+level_state_packed_scene = ExtResource("12_q0gsl")
+
+[node name="Recaping" type="Node" parent="LevelStateMachine"]
+script = ExtResource("10_8fb6y")
+level_state_packed_scene = ExtResource("12_tbifs")
+
+[node name="Paused" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("return_to_main_menu_level_state", "options_in_game_level_state", "reset_to_checkpoint_level_state", "reset_level_state")]
+script = ExtResource("11_k5x60")
+return_to_main_menu_level_state = NodePath("../ReturnToMainMenu")
+options_in_game_level_state = NodePath("../OptionsInGame")
+reset_to_checkpoint_level_state = NodePath("../ResetToCheckpoint")
+reset_level_state = NodePath("../ReturnToMainMenu")
+level_state_packed_scene = ExtResource("13_o02i2")
+
+[node name="OptionsInGame" type="Node" parent="LevelStateMachine"]
+script = ExtResource("17_7gv5i")
+level_state_packed_scene = ExtResource("18_nem0v")
+
+[node name="ResetToCheckpoint" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("next_level_state")]
+script = ExtResource("15_t1lu2")
+next_level_state = NodePath("../Playing")
+level_state_packed_scene = ExtResource("16_tucxx")
+
+[node name="ResetLevel" type="Node" parent="LevelStateMachine"]
+script = ExtResource("16_0moau")
+level_state_packed_scene = ExtResource("18_0wv6n")
+
+[node name="ReturnToMainMenu" type="Node" parent="LevelStateMachine"]
+script = ExtResource("15_a0dd1")
+
+[node name="Main" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Levels" parent="Main" instance=ExtResource("3_45cmx")]
+unique_name_in_owner = true
+level_paths = Array[String](["res://levels/area_01/level_01.tscn"])
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
 

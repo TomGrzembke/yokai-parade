@@ -163,7 +163,7 @@ _data = {
 "logo_parade": SubResource("Animation_oiskn")
 }
 
-[node name="Startup" type="Node2D"]
+[node name="Startup" type="Node"]
 script = ExtResource("1_rc2m6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

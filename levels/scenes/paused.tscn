@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://daf1dxr8obptf"]
+[gd_scene load_steps=6 format=3 uid="uid://v24eao35y2ad"]
 
-[ext_resource type="Script" path="res://game/scenes/credits.gd" id="1_ewpqn"]
+[ext_resource type="Script" path="res://levels/scenes/paused.gd" id="1_8c3f4"]
 
-[sub_resource type="Animation" id="Animation_s0r68"]
+[sub_resource type="Animation" id="Animation_57mut"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -17,7 +17,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_kd6wk"]
+[sub_resource type="Animation" id="Animation_67kwl"]
 resource_name = "fade_in"
 length = 0.25
 step = 0.125
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ctq33"]
+[sub_resource type="Animation" id="Animation_earpx"]
 resource_name = "fade_out"
 length = 0.25
 step = 0.125
@@ -51,15 +51,15 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qi666"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xllre"]
 _data = {
-"RESET": SubResource("Animation_s0r68"),
-"fade_in": SubResource("Animation_kd6wk"),
-"fade_out": SubResource("Animation_ctq33")
+"RESET": SubResource("Animation_57mut"),
+"fade_in": SubResource("Animation_67kwl"),
+"fade_out": SubResource("Animation_earpx")
 }
 
-[node name="Credits" type="Node"]
-script = ExtResource("1_ewpqn")
+[node name="Paused" type="Node"]
+script = ExtResource("1_8c3f4")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -76,8 +76,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 148.0
-offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -86,16 +84,41 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Credits"
+text = "Pause Menu here"
 
-[node name="BackButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Back"
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Options"
+
+[node name="ReturnToMainMenuButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Return to Main Menu"
+
+[node name="ResetCheckpointButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset to Last Checkpoint"
+
+[node name="ResetLevelButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset Level"
+
+[node name="QuitGameButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit Game"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_qi666")
+"": SubResource("AnimationLibrary_xllre")
 }
 autoplay = "fade_in"

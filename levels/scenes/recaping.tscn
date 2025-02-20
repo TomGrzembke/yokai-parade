@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqxanhxshi7ms"]
+
+[ext_resource type="Script" path="res://levels/scenes/recaping.gd" id="1_set1l"]
+
+[node name="Recaping" type="Node"]
+script = ExtResource("1_set1l")

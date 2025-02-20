@@ -7,4 +7,4 @@ extends GameState
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 	current_scene.set_title_game_state(next_game_state)
-	current_scene.scene_finished.connect(change_state)
+	current_scene.game_state_scene_finished.connect(change_state)

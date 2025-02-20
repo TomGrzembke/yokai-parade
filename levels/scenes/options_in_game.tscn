@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://m1lhnekkobbt"]
+[gd_scene load_steps=6 format=3 uid="uid://dw0g44fku0ne6"]
 
-[ext_resource type="Script" path="res://game/scenes/options.gd" id="1_txjm3"]
+[ext_resource type="Script" path="res://levels/scenes/options_in_game.gd" id="1_fvlq8"]
 
-[sub_resource type="Animation" id="Animation_p7nxv"]
+[sub_resource type="Animation" id="Animation_ga6y3"]
 resource_name = "fade_in"
 length = 0.25
 step = 0.125
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_6tu2h"]
+[sub_resource type="Animation" id="Animation_5in4e"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_kstnv"]
+[sub_resource type="Animation" id="Animation_eloke"]
 resource_name = "fade_out"
 length = 0.25
 step = 0.125
@@ -51,15 +51,15 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_stij8"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lelbw"]
 _data = {
-"RESET": SubResource("Animation_6tu2h"),
-"fade_in": SubResource("Animation_p7nxv"),
-"fade_out": SubResource("Animation_kstnv")
+"RESET": SubResource("Animation_5in4e"),
+"fade_in": SubResource("Animation_ga6y3"),
+"fade_out": SubResource("Animation_eloke")
 }
 
-[node name="Options" type="Node2D"]
-script = ExtResource("1_txjm3")
+[node name="OptionsInGame" type="Node"]
+script = ExtResource("1_fvlq8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -76,8 +76,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 174.0
-offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -96,6 +94,6 @@ text = "Back"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_stij8")
+"": SubResource("AnimationLibrary_lelbw")
 }
 autoplay = "fade_in"

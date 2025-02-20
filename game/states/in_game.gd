@@ -1,11 +1,11 @@
 extends GameState
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+@export var main_menu_game_state: GameState
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func enter(p_previous_state):
+	super.enter(p_previous_state)
+	current_scene.set_main_menu_game_state(main_menu_game_state)
+
+	current_scene.game_state_scene_finished.connect(change_state)

@@ -61,7 +61,7 @@ _data = {
 "fade_out": SubResource("Animation_ag20t")
 }
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Node"]
 script = ExtResource("1_qg7wj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
