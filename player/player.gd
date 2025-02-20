@@ -239,7 +239,7 @@ func can_use_coyote_time(should_jump):
 
 func edge_correction():
 	if x_edge_correction == 0 && y_edge_correction == 1: return
-
+	if is_on_wall(): return
 	if is_on_floor():
 		is_using_edge_correction = false
 		return
@@ -315,8 +315,7 @@ func is_falling():
 func add_current_speed_tokens(amount):
 	if !is_using_speed_token_system(): return
 
-	current_speed_tokens += amount
-	current_speed_tokens = clampf(current_speed_tokens, 0, max_token_amount)
+	current_speed_tokens = clampf(current_speed_tokens + amount, 0, max_token_amount)
 
 
 func speed_token_falloff():
@@ -326,10 +325,10 @@ func speed_token_falloff():
 		speed_token_fall_off_timer = create_timer(speed_token_fall_off_time)
 
 	if speed_token_fall_off_timer == null || speed_token_fall_off_timer.time_left > 0: return
+	if interval_speed_token_fall_off_timer != null && interval_speed_token_fall_off_timer.time_left > 0: return
 
-	if interval_speed_token_fall_off_timer == null || interval_speed_token_fall_off_timer.time_left == 0:
-		interval_speed_token_fall_off_timer = create_timer(interval_falloff_speed_token)
-		add_current_speed_tokens(-1)
+	interval_speed_token_fall_off_timer = create_timer(interval_falloff_speed_token)
+	add_current_speed_tokens(-1)
 
 
 func is_using_speed_token_system():
