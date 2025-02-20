@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal player_despawned
 signal player_reached_checkpoint(position)
 signal player_reached_goal
+signal player_gets_pushed
 
 const INFINITY = 1e20
 
@@ -13,12 +14,20 @@ const INFINITY = 1e20
 @export var outer_deceleration = 50.0
 @export var jump_velocity = 600.0
 @export var fall_speed_clamp = 600.0
+@export_category("Speed Token System")
+@export var max_token_speed_percentage : float = 20
+@export var max_token_amount : float = 100
+@export var speed_token_fall_off_time : float = .5
+@export var interval_falloff_speed_token : float = .5
+@export var token_value_curve : Curve
 @export_category("Movement extras")
 @export_range(0.0, 1.0, .01) var jump_coyote_time = .15
 @export_range(0.0, 1.0, .01) var jump_buffer_time = .15
 @export_range(0.0, 1.0, .01) var variable_jump_height_min_percentage = .7
 @export_range(0.0, .99, .01) var jump_height_continuous_cut_percentage = 1.0
-@export var jump_edge_correction_time : float = 0.1
+@export_range(0.0, 3.0, .01) var x_edge_correction : float = 1.2
+@export_range(1.0, 3.0, .01) var y_edge_correction : float = 1.5
+
 @export_category("Apex Settings")
 @export var apex_time : float = .1
 @export var apex_strength : float = 1000.0
@@ -30,8 +39,8 @@ const INFINITY = 1e20
 @export_range(.0, 1.5, .1) var push_height_percentage = .75
 
 @onready var abilities: Node2D = $Abilities
-@onready var upper_edge_detection_ray: RayCast2D = $UpperEdgeDetectionRay
-@onready var downer_edge_detection_ray: RayCast2D = $DownerEdgeDetectionRay
+@onready var cant_edge_detect_ray: RayCast2D = $CantEdgeDetectRay
+@onready var can_edge_detect_ray: RayCast2D = $CanEdgeDetectRay
 
 
 var coyote_timer = 0.15
@@ -54,8 +63,13 @@ var is_using_edge_correction
 var apex_timer
 var can_use_apex
 
+var current_speed_tokens = 0.0
+var speed_token_fall_off_timer
+var interval_speed_token_fall_off_timer
+
 var debug_mode = false
 var debug_speed_modifier = 3
+
 
 func _physics_process(delta):
 	if debug_mode:
@@ -66,6 +80,7 @@ func _physics_process(delta):
 		run()
 		update_gravity(delta)
 		jump(delta)
+		speed_token_falloff()
 
 	ability_smoothing()
 	calc_vel_mods()
@@ -75,7 +90,17 @@ func _physics_process(delta):
 
 
 func apply_velocity():
-	velocity = local_velocity + outer_velocity_sources
+	var token_value = Vector2(get_current_speed_tokens_value(), 1)
+	velocity =  local_velocity * token_value + outer_velocity_sources
+
+
+func get_current_speed_tokens_value():
+	if !is_using_speed_token_system(): return 1
+
+	if token_value_curve == null:
+		return 1 + max_token_speed_percentage * .01 * current_speed_tokens / max_token_amount
+	else:
+		return 1 +  max_token_speed_percentage * .01 * token_value_curve.sample(current_speed_tokens / max_token_amount)
 
 
 func run():
@@ -111,19 +136,8 @@ func jump(delta):
 	apex_modifier(delta)
 	variable_jump_height()
 	update_jump_buffer(delta)
+	edge_correction()
 	cached_local_velocity = local_velocity
-
-	if is_on_floor():
-		is_using_edge_correction = false
-
-	if upper_edge_detection_ray.has_target():
-		return
-
-	if downer_edge_detection_ray.has_target() && !is_using_edge_correction:
-		jump_edge_correction_timer = create_timer(jump_edge_correction_time)
-		is_using_edge_correction = true
-		local_velocity.x *= -1
-
 
 
 func calc_move_dir():
@@ -170,9 +184,8 @@ func jump_logic():
 
 
 func variable_jump_height():
-	var is_falling = local_velocity.y < 0
 	var cancel_pressed = Input.is_action_just_released("jump")
-	var will_cancel = cancel_pressed && is_falling
+	var will_cancel = cancel_pressed && is_rising()
 	var use_cancel_buffer = buffer_cancel_jump && is_on_floor()
 
 	if will_cancel || use_cancel_buffer:
@@ -186,7 +199,7 @@ func variable_jump_height():
 	if can_use_jump_buffer() && cancel_pressed:
 		buffer_cancel_jump = true
 
-	cut_continuos_jump(is_falling)
+	cut_continuos_jump()
 
 
 func cut_initial_jump():
@@ -195,8 +208,8 @@ func cut_initial_jump():
 	local_velocity.y *= variable_jump_height_min_percentage
 
 
-func cut_continuos_jump(is_falling):
-	if !is_falling: return
+func cut_continuos_jump():
+	if is_falling: return
 	if jump_height_continuous_cut_percentage != 0: return
 
 	local_velocity.y *= jump_height_continuous_cut_percentage
@@ -219,9 +232,26 @@ func can_use_coyote_time(should_jump):
 	if jump_coyote_time == 0: return false
 	if coyote_timer == 0: return false
 	if !should_jump: return false
-	if local_velocity.y < 0: return false
+	if is_rising(): return false
 
 	return coyote_timer < jump_coyote_time
+
+
+func edge_correction():
+	if x_edge_correction == 0 && y_edge_correction == 1: return
+
+	if is_on_floor():
+		is_using_edge_correction = false
+		return
+
+	if is_using_edge_correction: return
+	if is_falling(): return
+	if cant_edge_detect_ray.has_target(): return
+	if !can_edge_detect_ray.has_target():return
+
+	is_using_edge_correction = true
+	local_velocity.x *= -x_edge_correction
+	local_velocity.y *= y_edge_correction
 
 
 func can_use_jump_buffer():
@@ -272,6 +302,40 @@ func apex_vertical():
 
 	local_velocity.x += look_direction * \
 	lerpf(apex_strength * .5, apex_strength, apex_smooth_curve.sample(apex_timer.time_left / apex_time))
+
+
+func is_rising():
+	return local_velocity.y < 0
+
+
+func is_falling():
+	return local_velocity.y > 0
+
+
+func add_current_speed_tokens(amount):
+	if !is_using_speed_token_system(): return
+
+	current_speed_tokens += amount
+	current_speed_tokens = clampf(current_speed_tokens, 0, max_token_amount)
+
+
+func speed_token_falloff():
+	if !is_using_speed_token_system(): return
+
+	if velocity.x != 0:
+		speed_token_fall_off_timer = create_timer(speed_token_fall_off_time)
+
+	if speed_token_fall_off_timer == null || speed_token_fall_off_timer.time_left > 0: return
+
+	if interval_speed_token_fall_off_timer == null || interval_speed_token_fall_off_timer.time_left == 0:
+		interval_speed_token_fall_off_timer = create_timer(interval_falloff_speed_token)
+		add_current_speed_tokens(-1)
+
+
+func is_using_speed_token_system():
+	if max_token_amount == 0: return false
+	if max_token_speed_percentage == 0: return false
+	return true
 
 
 func add_velocity_modifier(velocity_mod):
@@ -364,13 +428,15 @@ func on_reached_checkpoint(checkpoint_position):
 
 
 func on_took_damage(source):
-	if source != null:
-		var push_vel = -(source.global_position - position).normalized() * push_back
-		push_vel.y *= push_height_percentage
-		add_velocity_modifier(VelocityModifier.new(push_vel, .2, 3, true))
+	if source == null: return
 
-		if Input.get_connected_joypads().size() > 0:
-			Input.start_joy_vibration(0, 0.5, 0.0, 0.5)
+	var push_vel = -(source.global_position - position).normalized() * push_back
+	push_vel.y *= push_height_percentage
+	add_velocity_modifier(VelocityModifier.new(push_vel, .2, 3, true))
+	player_gets_pushed.emit()
+
+	if Input.get_connected_joypads().size() > 0:
+		Input.start_joy_vibration(0, 0.5, 0.0, 0.5)
 
 
 func create_timer(time):
