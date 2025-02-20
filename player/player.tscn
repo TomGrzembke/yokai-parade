@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://do4ocmf2wgj2o" path="res://components/raycast/raycast.tscn" id="5_5gjfl"]
 [ext_resource type="Script" path="res://player/player_visuals.gd" id="6_guley"]
 [ext_resource type="Script" path="res://player/debug.gd" id="7_3jai0"]
-[ext_resource type="PackedScene" path="res://player/player_animatables.tscn" id="7_74yxj"]
+[ext_resource type="PackedScene" uid="uid://b173nlre4ndsy" path="res://player/player_animatables.tscn" id="7_74yxj"]
 [ext_resource type="Script" path="res://player/movement_line.gd" id="14_p1m7a"]
 
 [sub_resource type="Curve" id="Curve_8672j"]
@@ -20,7 +20,7 @@ point_count = 3
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mi2e"]
 radius = 25.0
-height = 96.0
+height = 86.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82728"]
 radius = 77.3333
@@ -75,7 +75,7 @@ hit_cooldown_time = 0.3
 hit_queue_time = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_1mi2e")
 
 [node name="DealDamageArea" parent="." instance=ExtResource("4_cn11c")]
