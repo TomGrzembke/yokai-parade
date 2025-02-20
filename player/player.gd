@@ -17,7 +17,8 @@ const INFINITY = 1e20
 @export_category("Speed Token System")
 @export var max_token_speed_percentage : float = 20
 @export var max_token_amount : float = 100
-@export var speed_toke_fall_off_time : float = .5
+@export var speed_token_fall_off_time : float = .5
+@export var interval_falloff_speed_token : float = .5
 @export var token_value_curve : Curve
 @export_category("Movement extras")
 @export_range(0.0, 1.0, .01) var jump_coyote_time = .15
@@ -64,6 +65,7 @@ var can_use_apex
 
 var current_speed_tokens = 0.0
 var speed_token_fall_off_timer
+var interval_speed_token_fall_off_timer
 
 var debug_mode = false
 var debug_speed_modifier = 3
@@ -78,7 +80,7 @@ func _physics_process(delta):
 		run()
 		update_gravity(delta)
 		jump(delta)
-		speed_toke_falloff()
+		speed_token_falloff()
 
 	ability_smoothing()
 	calc_vel_mods()
@@ -93,6 +95,8 @@ func apply_velocity():
 
 
 func get_current_speed_tokens_value():
+	if !is_using_speed_token_system(): return 1
+
 	if token_value_curve == null:
 		return 1 + max_token_speed_percentage * .01 * current_speed_tokens / max_token_amount
 	else:
@@ -309,20 +313,30 @@ func is_falling():
 
 
 func add_current_speed_tokens(amount):
+	if !is_using_speed_token_system(): return
+
 	current_speed_tokens += amount
 	current_speed_tokens = clampf(current_speed_tokens, 0, max_token_amount)
 
 
-func speed_toke_falloff():
-	if max_token_amount == 0: return
-	if max_token_speed_percentage == 0: return
+func speed_token_falloff():
+	if !is_using_speed_token_system(): return
 
-	print(current_speed_tokens)
 	if velocity.x != 0:
-		speed_token_fall_off_timer = create_timer(speed_toke_fall_off_time)
+		speed_token_fall_off_timer = create_timer(speed_token_fall_off_time)
 
 	if speed_token_fall_off_timer != null && speed_token_fall_off_timer.time_left == 0:
-		add_current_speed_tokens(-1)
+		if interval_speed_token_fall_off_timer != null && interval_speed_token_fall_off_timer.time_left <= 0:
+			interval_speed_token_fall_off_timer = create_timer(interval_falloff_speed_token)
+			add_current_speed_tokens(-1)
+		elif interval_speed_token_fall_off_timer == null:
+			interval_speed_token_fall_off_timer = create_timer(interval_falloff_speed_token)
+			add_current_speed_tokens(-1)
+
+func is_using_speed_token_system():
+	if max_token_amount == 0: return false
+	if max_token_speed_percentage == 0: return false
+	return true
 
 
 func add_velocity_modifier(velocity_mod):

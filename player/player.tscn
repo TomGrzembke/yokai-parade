@@ -53,7 +53,6 @@ deceleration = 70.0
 jump_velocity = 750.0
 fall_speed_clamp = 975.0
 max_token_speed_percentage = 40.0
-speed_toke_fall_off_time = 0.7
 token_value_curve = SubResource("Curve_8672j")
 jump_coyote_time = 0.2
 jump_buffer_time = 0.2
