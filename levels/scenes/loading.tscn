@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbew8yq4n6jan"]
+
+[ext_resource type="Script" path="res://levels/scenes/loading.gd" id="1_4fevy"]
+[ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="2_b1mnc"]
+
+[node name="Loading" type="Node"]
+script = ExtResource("1_4fevy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="BackCover" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4725, 0.55575, 0.75, 1)
+
+[node name="Main" type="Control" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Loading"
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Start"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"state_transitions_long": ExtResource("2_b1mnc")
+}
+autoplay = "state_transitions_long/show_state_scene"

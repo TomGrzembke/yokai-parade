@@ -1,13 +1,16 @@
-extends GameStateScene
+extends Node
 
 
-var next_game_state
+var state_node
 
 
 func _ready():
 	await %AnimationPlayer.animation_finished
-	scene_finished.emit(next_game_state)
+
+	state_node.change_to_next_game_state()
 
 
-func set_title_game_state(state):
-	next_game_state = state
+# Game States
+
+func set_state_node(node):
+	state_node = node

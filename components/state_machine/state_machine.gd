@@ -42,3 +42,9 @@ func unhandled_input(event):
 	var new_state = current_state.unhandled_input(event)
 	if new_state != null:
 		change_state(new_state)
+
+
+func input(event):
+	var new_state = current_state.input(event)
+	if new_state != null:
+		change_state(new_state)
