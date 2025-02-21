@@ -57,14 +57,15 @@ func catch_ability():
 	visualizer.attack_command()
 	absorb_ability()
 
+func _physics_process(delta):
+	if hit_enemy_ray.has_target && get_nearest_target() != null:
+		hit_enemy_ray.lookat_direction(get_nearest_target().global_position)
+
 
 func absorb_ability():
 	if get_nearest_target() == null: return
 
 	if hit_enemy_ray.has_target() && hit_enemy_ray.get_target() is TileMapLayer: return
-
-	if hit_enemy_ray.has_target:
-		hit_enemy_ray.lookat_direction(get_nearest_target().global_position)
 
 	var subject_parent = get_nearest_target().get_damage_subject()
 	if subject_parent == null: return
@@ -143,9 +144,6 @@ func get_current_ability():
 
 func on_deal_damage_area_entered(other):
 	hit_targets.append(other)
-
-	if hit_enemy_ray.has_target:
-		hit_enemy_ray.lookat_direction(get_nearest_target().global_position)
 
 	if hit_timer_active():
 		absorb_ability()
