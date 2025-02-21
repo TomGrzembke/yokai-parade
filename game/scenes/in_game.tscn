@@ -80,8 +80,9 @@ return_to_main_menu_level_state = NodePath("../ReturnToMainMenu")
 reset_level_state = NodePath("../ResetLevel")
 level_state_packed_scene = ExtResource("12_tbifs")
 
-[node name="Paused" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("return_to_main_menu_level_state", "options_in_game_level_state", "reset_to_checkpoint_level_state", "reset_level_state")]
+[node name="Paused" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("playing_level_state", "return_to_main_menu_level_state", "options_in_game_level_state", "reset_to_checkpoint_level_state", "reset_level_state")]
 script = ExtResource("11_k5x60")
+playing_level_state = NodePath("../Playing")
 return_to_main_menu_level_state = NodePath("../ReturnToMainMenu")
 options_in_game_level_state = NodePath("../OptionsInGame")
 reset_to_checkpoint_level_state = NodePath("../ResetToCheckpoint")
@@ -190,6 +191,7 @@ anchor_bottom = 1.0
 offset_top = -40.0
 offset_right = 40.0
 grow_vertical = 0
+mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="BottomLeft bg" type="TextureRect" parent="UILayer/Bottom"]
