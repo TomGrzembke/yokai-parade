@@ -3,7 +3,7 @@ extends Node
 
 var state_node
 
-var previous_level_state
+var playing_level_state
 var options_in_game_level_state
 var return_to_main_menu_level_state
 var reset_to_checkpoint_level_state
@@ -11,7 +11,7 @@ var reset_level_state
 
 
 func _ready():
-	%ResumeButton.pressed.connect(change_to_previous_level_state)
+	%ResumeButton.pressed.connect(change_to_playing_level_state)
 	%OptionsButton.pressed.connect(change_to_options_in_game_level_state)
 	%ReturnToMainMenuButton.pressed.connect(change_to_return_to_main_menu_state)
 	%ResetCheckpointButton.pressed.connect(change_to_reset_to_checkpoint_level_state)
@@ -25,8 +25,8 @@ func set_state_node(node):
 	state_node = node
 
 
-func set_previous_level_state(state):
-	previous_level_state = state
+func set_playing_level_state(state):
+	playing_level_state = state
 
 
 func set_options_in_game_level_state(state):
@@ -45,8 +45,8 @@ func set_reset_level_state(state):
 	reset_level_state = state
 
 
-func change_to_previous_level_state():
-	change_to_level_state(previous_level_state)
+func change_to_playing_level_state():
+	change_to_level_state(playing_level_state)
 
 
 func change_to_options_in_game_level_state():
