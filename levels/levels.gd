@@ -17,6 +17,25 @@ var currently_loading_level_path
 var player_spawn_position
 
 
+func _physics_process(_delta):
+	if currently_loading_level_path == null:
+		return
+
+	match ResourceLoader.load_threaded_get_status(currently_loading_level_path):
+		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS:
+			var progress = []
+			ResourceLoader.load_threaded_get_status(currently_loading_level_path, progress)
+			if progress.size() > 0:
+				level_load_progress.emit(progress.front())
+		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
+			var level_packed_scene = ResourceLoader.load_threaded_get(currently_loading_level_path)
+			level_load_completed.emit(level_packed_scene)
+
+		_:
+			printerr("Error: Loading %s failed." % currently_loading_level_path)
+			level_load_completed.emit(null)
+
+
 func request_setting_level_path_index(index):
 	requested_level_path_index = clampi(index, 0, level_paths.size() - 1)
 
@@ -89,6 +108,7 @@ func clear_current_level():
 
 func set_current_level(level_packed_scene):
 	clear_current_level()
+	reset_player_spawn_position()
 
 	var level_scene = level_packed_scene.instantiate()
 
@@ -108,23 +128,8 @@ func get_current_level():
 	return current_level
 
 
-func _physics_process(_delta):
-	if currently_loading_level_path == null:
-		return
-
-	match ResourceLoader.load_threaded_get_status(currently_loading_level_path):
-		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS:
-			var progress = []
-			ResourceLoader.load_threaded_get_status(currently_loading_level_path, progress)
-			if progress.size() > 0:
-				level_load_progress.emit(progress.front())
-		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
-			var level_packed_scene = ResourceLoader.load_threaded_get(currently_loading_level_path)
-			level_load_completed.emit(level_packed_scene)
-
-		_:
-			printerr("Error: Loading %s failed." % currently_loading_level_path)
-			level_load_completed.emit(null)
+func reset_player_spawn_position():
+	player_spawn_position = null
 
 
 func get_player_spawn_position():
@@ -162,6 +167,18 @@ func spawn_player():
 	await player.tree_entered
 
 
+func reset_to_checkpoint():
+	await spawn_player()
+
+
+func reset_level():
+	reset_player_spawn_position()
+	await try_loading_level(level_paths[current_level_path_index])
+	await spawn_player()
+
+
+# Signal Handlers
+
 func on_player_ability_changed(color):
 	player_ability_changed.emit(color)
 
@@ -176,13 +193,3 @@ func on_player_reached_checkpoint(position):
 
 func on_player_reached_goal():
 	player_reached_goal.emit()
-
-
-func reset_to_checkpoint():
-	await spawn_player()
-
-
-func reset_level():
-	player_spawn_position = null
-	await try_loading_level(level_paths[current_level_path_index])
-	await spawn_player()
