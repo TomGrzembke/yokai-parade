@@ -52,8 +52,9 @@ script = ExtResource("6_4ysu7")
 next_level_state = NodePath("../Playing")
 level_state_packed_scene = ExtResource("6_ec6gx")
 
-[node name="Playing" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("paused_level_state", "reset_to_checkpoint_level_state", "reset_level_state", "despawning_level_state", "finishing_level_state")]
+[node name="Playing" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("loading_level_state", "paused_level_state", "reset_to_checkpoint_level_state", "reset_level_state", "despawning_level_state", "finishing_level_state")]
 script = ExtResource("7_xay8u")
+loading_level_state = NodePath("../Loading")
 paused_level_state = NodePath("../Paused")
 reset_to_checkpoint_level_state = NodePath("../ResetToCheckpoint")
 reset_level_state = NodePath("../ResetLevel")
@@ -66,8 +67,9 @@ script = ExtResource("8_kgyjn")
 next_level_state = NodePath("../Playing")
 level_state_packed_scene = ExtResource("10_7ikty")
 
-[node name="Finishing" type="Node" parent="LevelStateMachine"]
+[node name="Finishing" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("next_level_state")]
 script = ExtResource("9_u70qo")
+next_level_state = NodePath("../Recaping")
 level_state_packed_scene = ExtResource("12_q0gsl")
 
 [node name="Recaping" type="Node" parent="LevelStateMachine"]
@@ -104,7 +106,7 @@ unique_name_in_owner = true
 
 [node name="Levels" parent="Main" instance=ExtResource("3_45cmx")]
 unique_name_in_owner = true
-level_paths = Array[String](["res://levels/area_01/level_01.tscn"])
+level_paths = Array[String](["res://levels/area_01/level_tutorial.tscn", "res://levels/area_01/level_01.tscn", "res://levels/area_01/level_02.tscn", "res://levels/area_01/level_03.tscn"])
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
 

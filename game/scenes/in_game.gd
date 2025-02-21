@@ -2,6 +2,7 @@ extends Node
 
 
 signal player_despawned
+signal player_reached_goal
 signal level_load_progress(progress)
 
 
@@ -15,9 +16,11 @@ var current_level_state_scene
 
 func _ready():
 	%Levels.player_despawned.connect(on_player_despawned)
+	%Levels.player_reached_goal.connect(on_player_reached_goal)
 	%Levels.level_load_progress.connect(on_level_load_progress)
 
 	reset_play_time()
+	request_setting_next_level_path_index()
 	%LevelStateMachine.init(self, initial_level_state)
 
 
@@ -41,6 +44,10 @@ func set_game_paused(should_pause):
 	get_tree().paused = should_pause
 
 
+func reset_play_time():
+	set_play_time(0.0)
+
+
 func get_play_time():
 	return play_time
 
@@ -50,26 +57,39 @@ func set_play_time(new_time):
 	%PlayTimeLabel.text = "%5.2f" % play_time
 
 
-func reset_play_time():
-	set_play_time(0.0)
-
-
 func on_player_despawned():
 	player_despawned.emit()
+
+
+func on_player_reached_goal():
+	player_reached_goal.emit()
 
 
 func on_level_load_progress(progress):
 	level_load_progress.emit(progress)
 
 
+func disable_player_controls():
+	print("Disabling player controls is not implemented yet")
+
+
 # Level Loading
 
-func try_changing_to_previous_level():
-	return await %Levels.try_changing_to_previous_level()
+func request_setting_level_path_index(index):
+	%Levels.request_setting_level_path_index(index)
 
 
-func try_changing_to_next_level():
-	return await %Levels.try_changing_to_next_level()
+func request_setting_previous_level_path_index():
+	%Levels.request_setting_previous_level_path_index()
+
+
+func request_setting_next_level_path_index():
+	%Levels.request_setting_next_level_path_index()
+
+
+func try_changing_to_requested_level():
+	reset_play_time()
+	return await %Levels.try_changing_to_requested_level()
 
 
 func spawn_player():

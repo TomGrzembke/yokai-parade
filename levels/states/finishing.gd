@@ -1,11 +1,18 @@
 extends LevelState
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+@export var next_level_state: LevelState
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func enter(p_previous_state):
+	super.enter(p_previous_state)
+
+	state_scene.set_state_node(self)
+
+
+func change_to_next_level_state():
+	change_state(next_level_state)
+
+
+func disable_player_controls():
+	parent.disable_player_controls()

@@ -4,36 +4,48 @@ extends Node
 signal level_load_progress(progress)
 signal level_load_completed(level_packed_scene)
 signal player_despawned
+signal player_reached_goal
 
 
 @export var level_paths: Array[String]
 
+var requested_level_path_index
 var current_level_path_index
 var currently_loading_level_path
 
 var player_spawn_position
 
 
-func try_changing_to_previous_level():
-	var requested_level_path_index
+func request_setting_level_path_index(index):
+	requested_level_path_index = clampi(index, 0, level_paths.size() - 1)
 
+
+func request_setting_previous_level_path_index():
 	if current_level_path_index == null:
-		requested_level_path_index = 0
+		request_setting_level_path_index(0)
 	else:
-		requested_level_path_index = current_level_path_index - 1
-
-	return await try_changing_to_level(requested_level_path_index)
+		request_setting_level_path_index(current_level_path_index - 1)
 
 
-func try_changing_to_next_level():
-	var requested_level_path_index
-
+func request_setting_next_level_path_index():
 	if current_level_path_index == null:
-		requested_level_path_index = 0
+		request_setting_level_path_index(0)
 	else:
-		requested_level_path_index = current_level_path_index + 1
+		request_setting_level_path_index(current_level_path_index + 1)
 
-	return await try_changing_to_level(requested_level_path_index)
+
+func try_changing_to_requested_level():
+	var succeeded = false
+
+	if requested_level_path_index == null:
+		printerr("Error: No requested_path_index set!")
+		return succeeded
+
+	if requested_level_path_index == current_level_path_index:
+		printerr("Error: Level %s is already loaded!" % current_level_path_index)
+
+	succeeded = await try_changing_to_level(requested_level_path_index)
+	return succeeded
 
 
 func try_changing_to_level(level_index):
@@ -138,7 +150,7 @@ func spawn_player():
 
 	player.player_reached_checkpoint.connect(on_player_reached_checkpoint)
 	player.player_despawned.connect(on_player_despawned)
-	#player.player_reached_goal.connect(on_player_reached_goal)
+	player.player_reached_goal.connect(on_player_reached_goal)
 
 	var remote_transform = RemoteTransform2D.new()
 	remote_transform.remote_path = %PlayerCamera.get_path()
@@ -148,16 +160,20 @@ func spawn_player():
 	await player.tree_entered
 
 
+func on_player_despawned():
+	player_despawned.emit()
+
+
 func on_player_reached_checkpoint(position):
 	player_spawn_position = position
 
 
+func on_player_reached_goal():
+	player_reached_goal.emit()
+
+
 func reset_to_checkpoint():
 	await spawn_player()
-
-
-func on_player_despawned():
-	player_despawned.emit()
 
 
 func reset_level():

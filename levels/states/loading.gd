@@ -19,7 +19,7 @@ func change_to_next_level_state():
 
 
 func load_level():
-	var succeeded = await parent.try_changing_to_next_level()
+	var succeeded = await parent.try_changing_to_requested_level()
 
 	if succeeded == true:
 		await parent.spawn_player()
