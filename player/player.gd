@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal player_ability_changed(color)
 signal player_despawned
 signal player_reached_checkpoint(position)
 signal player_reached_goal
@@ -14,6 +15,12 @@ const INFINITY = 1e20
 @export var outer_deceleration = 50.0
 @export var jump_velocity = 600.0
 @export var fall_speed_clamp = 600.0
+@export_category("Speed Token System")
+@export var max_token_speed_percentage : float = 20
+@export var max_token_amount : float = 100
+@export var speed_token_fall_off_time : float = .5
+@export var interval_falloff_speed_token : float = .5
+@export var token_value_curve : Curve
 @export_category("Movement extras")
 @export_range(0.0, 1.0, .01) var jump_coyote_time = .15
 @export_range(0.0, 1.0, .01) var jump_buffer_time = .15
@@ -33,8 +40,9 @@ const INFINITY = 1e20
 @export_range(.0, 1.5, .1) var push_height_percentage = .75
 
 @onready var abilities: Node2D = $Abilities
-@onready var cant_edge_detect_ray: RayCast2D = $CantEdgeDetectRay
-@onready var can_edge_detect_ray: RayCast2D = $CanEdgeDetectRay
+@onready var cant_edge_detect_ray: RayCast2D = $CantEdgeCorrectRay
+@onready var has_air_target_ray: RayCast2D = $HasAirTargetRay
+@onready var can_edge_detect_ray: RayCast2D = $CanEdgeCorrectRay
 
 
 var coyote_timer = 0.15
@@ -57,8 +65,17 @@ var is_using_edge_correction
 var apex_timer
 var can_use_apex
 
+var current_speed_tokens = 0.0
+var speed_token_fall_off_timer
+var interval_speed_token_fall_off_timer
+
 var debug_mode = false
 var debug_speed_modifier = 3
+
+
+func _ready():
+	%Abilities.ability_changed.connect(func (color): player_ability_changed.emit(color))
+
 
 func _physics_process(delta):
 	if debug_mode:
@@ -69,6 +86,7 @@ func _physics_process(delta):
 		run()
 		update_gravity(delta)
 		jump(delta)
+		speed_token_falloff()
 
 	ability_smoothing()
 	calc_vel_mods()
@@ -78,7 +96,17 @@ func _physics_process(delta):
 
 
 func apply_velocity():
-	velocity = local_velocity + outer_velocity_sources
+	var token_value = Vector2(get_current_speed_tokens_value(), 1)
+	velocity =  local_velocity * token_value + outer_velocity_sources
+
+
+func get_current_speed_tokens_value():
+	if !is_using_speed_token_system(): return 1
+
+	if token_value_curve == null:
+		return 1 + max_token_speed_percentage * .01 * current_speed_tokens / max_token_amount
+	else:
+		return 1 +  max_token_speed_percentage * .01 * token_value_curve.sample(current_speed_tokens / max_token_amount)
 
 
 func run():
@@ -221,10 +249,12 @@ func edge_correction():
 	if is_on_floor():
 		is_using_edge_correction = false
 		return
+	if is_on_wall(): return
 
 	if is_using_edge_correction: return
 	if is_falling(): return
 	if cant_edge_detect_ray.has_target(): return
+	if has_air_target_ray.has_target(): return
 	if !can_edge_detect_ray.has_target():return
 
 	is_using_edge_correction = true
@@ -288,6 +318,31 @@ func is_rising():
 
 func is_falling():
 	return local_velocity.y > 0
+
+
+func add_current_speed_tokens(amount):
+	if !is_using_speed_token_system(): return
+
+	current_speed_tokens = clampf(current_speed_tokens + amount, 0, max_token_amount)
+
+
+func speed_token_falloff():
+	if !is_using_speed_token_system(): return
+
+	if velocity.x != 0:
+		speed_token_fall_off_timer = create_timer(speed_token_fall_off_time)
+
+	if speed_token_fall_off_timer == null || speed_token_fall_off_timer.time_left > 0: return
+	if interval_speed_token_fall_off_timer != null && interval_speed_token_fall_off_timer.time_left > 0: return
+
+	interval_speed_token_fall_off_timer = create_timer(interval_falloff_speed_token)
+	add_current_speed_tokens(-1)
+
+
+func is_using_speed_token_system():
+	if max_token_amount == 0: return false
+	if max_token_speed_percentage == 0: return false
+	return true
 
 
 func add_velocity_modifier(velocity_mod):

@@ -1,10 +1,11 @@
 extends Node2D
 
 
+signal ability_changed(color)
+
 const COLOR_PLAIN = Color("#949494")
 
 var current_ability
-var damage_subject
 
 @onready var player: CharacterBody2D = $".."
 @onready var visual: MeshInstance2D = %AbilityVisual
@@ -16,11 +17,18 @@ var hit_grace_timer
 var hit_queue_timer
 
 @onready var visualizer: Node2D =  $"../Visuals/AbilityVisualizer"
+@onready var hit_wall_ray: RayCast2D = $"../HitWallRay"
+var targets_in_range = []
 signal player_hits
+signal used_ability
 
 
 func _ready():
 	hit_cooldown_timer = create_timer(0.1)
+
+
+func _physics_process(_delta):
+	refresh_wallray()
 
 
 func _unhandled_input(_event):
@@ -36,6 +44,8 @@ func use_ability():
 
 	if current_ability.has_method("use"):
 		current_ability.use(player)
+		player.add_current_speed_tokens(1)
+		used_ability.emit()
 
 	reset_color()
 	current_ability = null
@@ -53,8 +63,12 @@ func catch_ability():
 
 
 func absorb_ability():
-	if damage_subject == null: return
-	var subject_parent = damage_subject.get_damage_subject()
+	var nearest = get_nearest_target()
+	if nearest == null: return
+
+	if hit_wall_ray.has_target() && hit_wall_ray.get_target() is TileMapLayer: return
+
+	var subject_parent = nearest.get_damage_subject()
 	if subject_parent == null: return
 	if not subject_parent.has_method("got_caught"): return
 
@@ -67,6 +81,7 @@ func hit_cooldown():
 
 	hit_cooldown_timer = create_timer(hit_cooldown_time)
 	hit_cooldown_timer.timeout.connect(hit_queue)
+
 	return false
 
 
@@ -81,7 +96,7 @@ func hit_queue():
 
 
 func catch_grace_time():
-	if damage_subject != null: return
+	if get_nearest_target() != null: return
 
 	if hit_timer_active():
 		hit_grace_timer.set_time_left(hit_grace_time)
@@ -107,15 +122,7 @@ func set_current_ability(ability_scene):
 	if ability.has_method("get_color"):
 		var ability_color: Color = ability.get_color()
 		visual.self_modulate = ability_color
-		refresh_ui_color(ability_color)
-
-
-func refresh_ui_color(ability_color):
-	if !AbilityUI: return
-	var ability_ui = AbilityUI.get_node("CanvasLayer/TextureRect")
-	if !ability_ui: return
-
-	ability_ui.modulate = ability_color
+		ability_changed.emit(ability_color)
 
 
 func clear_abilities():
@@ -130,12 +137,7 @@ func create_timer(time):
 
 func reset_color():
 	visual.self_modulate = COLOR_PLAIN
-
-	if !AbilityUI: return
-	var ability_ui = AbilityUI.get_node("CanvasLayer/TextureRect")
-	if !ability_ui: return
-
-	ability_ui.modulate = COLOR_PLAIN
+	ability_changed.emit(COLOR_PLAIN)
 
 
 func get_current_ability():
@@ -143,12 +145,29 @@ func get_current_ability():
 
 
 func on_deal_damage_area_entered(other):
-	damage_subject = other
-
+	targets_in_range.append(other)
 	if hit_timer_active():
 		absorb_ability()
 
 
 func on_deal_damage_area_exited(other):
-	if other == damage_subject:
-		damage_subject = null
+	targets_in_range.erase(other)
+
+
+func get_nearest_target():
+	var nearest = null
+
+	for hit_target in targets_in_range:
+		var current_distance = global_position.distance_to(hit_target.global_position)
+		if nearest == null || current_distance < global_position.distance_to(nearest.global_position):
+			nearest = hit_target
+
+	return nearest
+
+
+func refresh_wallray():
+	if !hit_wall_ray.has_target: return
+	var nearest = get_nearest_target()
+	if nearest == null: return
+
+	hit_wall_ray.lookat_position(nearest.global_position)

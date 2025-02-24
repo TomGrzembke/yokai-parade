@@ -2,45 +2,47 @@
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_g4chm"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="2_me8mb"]
+[ext_resource type="PackedScene" uid="uid://cisf071rha1ru" path="res://game/scenes/in_game.tscn" id="12_omxsr"]
 [ext_resource type="Script" path="res://game/states/startup.gd" id="15_nvaqt"]
 [ext_resource type="PackedScene" uid="uid://dce17t0phbvrv" path="res://game/scenes/startup.tscn" id="16_fuloq"]
 [ext_resource type="Script" path="res://game/states/main_menu.gd" id="17_dwi8d"]
 [ext_resource type="PackedScene" uid="uid://dk3wuo1sfknyo" path="res://game/scenes/main_menu.tscn" id="18_ujkrk"]
 [ext_resource type="Script" path="res://game/states/in_game.gd" id="19_nmmof"]
 [ext_resource type="Script" path="res://game/states/credits.gd" id="20_40gro"]
-[ext_resource type="Script" path="res://game/states/options.gd" id="20_e22mg"]
-[ext_resource type="PackedScene" uid="uid://m1lhnekkobbt" path="res://game/scenes/options.tscn" id="20_y6pfn"]
+[ext_resource type="Script" path="res://game/states/options_main.gd" id="20_e22mg"]
+[ext_resource type="PackedScene" uid="uid://m1lhnekkobbt" path="res://game/scenes/options_main.tscn" id="20_y6pfn"]
 [ext_resource type="PackedScene" uid="uid://daf1dxr8obptf" path="res://game/scenes/credits.tscn" id="22_otbp7"]
-[ext_resource type="PackedScene" uid="uid://cisf071rha1ru" path="res://game/scenes/in_game.tscn" id="24_pnwcx"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("initial_state")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("initial_game_state")]
+process_mode = 3
 script = ExtResource("1_g4chm")
-initial_state = NodePath("StateMachine/InGame")
+initial_game_state = NodePath("GameStateMachine/Startup")
 
-[node name="StateMachine" parent="." instance=ExtResource("2_me8mb")]
+[node name="GameStateMachine" parent="." instance=ExtResource("2_me8mb")]
 unique_name_in_owner = true
 process_mode = 3
 
-[node name="Startup" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_game_state")]
+[node name="Startup" type="Node" parent="GameStateMachine" node_paths=PackedStringArray("next_game_state")]
 script = ExtResource("15_nvaqt")
 next_game_state = NodePath("../MainMenu")
 game_state_packed_scene = ExtResource("16_fuloq")
 
-[node name="MainMenu" type="Node" parent="StateMachine" node_paths=PackedStringArray("in_game_state", "options_game_state", "credits_game_state")]
+[node name="MainMenu" type="Node" parent="GameStateMachine" node_paths=PackedStringArray("in_game_state", "options_game_state", "credits_game_state")]
 script = ExtResource("17_dwi8d")
 in_game_state = NodePath("../InGame")
 options_game_state = NodePath("../Options")
 credits_game_state = NodePath("../Credits")
 game_state_packed_scene = ExtResource("18_ujkrk")
 
-[node name="Options" type="Node" parent="StateMachine"]
+[node name="Options" type="Node" parent="GameStateMachine"]
 script = ExtResource("20_e22mg")
 game_state_packed_scene = ExtResource("20_y6pfn")
 
-[node name="Credits" type="Node" parent="StateMachine"]
+[node name="Credits" type="Node" parent="GameStateMachine"]
 script = ExtResource("20_40gro")
 game_state_packed_scene = ExtResource("22_otbp7")
 
-[node name="InGame" type="Node" parent="StateMachine"]
+[node name="InGame" type="Node" parent="GameStateMachine" node_paths=PackedStringArray("main_menu_game_state")]
 script = ExtResource("19_nmmof")
-game_state_packed_scene = ExtResource("24_pnwcx")
+main_menu_game_state = NodePath("../MainMenu")
+game_state_packed_scene = ExtResource("12_omxsr")

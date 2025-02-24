@@ -1,14 +1,30 @@
 extends Node
 
 
-@export var initial_state: State
+@export var initial_game_state: GameState
 
 
 var current_game_state_scene
 
 
 func _ready() -> void:
-	%StateMachine.init(self, initial_state)
+	%GameStateMachine.init(self, initial_game_state)
+
+
+func _physics_process(delta):
+	%GameStateMachine.physics_process(delta)
+
+
+func _process(delta):
+	%GameStateMachine.process(delta)
+
+
+func _unhandled_input(event):
+	%GameStateMachine.unhandled_input(event)
+
+
+func _input(event):
+	%GameStateMachine.input(event)
 
 
 func load_game_state_scene(game_state_scene):
@@ -25,5 +41,5 @@ func unload_game_state_scene(game_state_scene):
 		remove_child(scene_to_be_removed)
 
 
-func change_to_game_state(game_state: GameState):
-	%StateMachine.change_state(game_state)
+func change_to_game_state(game_state):
+	%GameStateMachine.change_state(game_state)

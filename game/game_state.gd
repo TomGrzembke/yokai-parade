@@ -4,18 +4,18 @@ extends State
 
 @export var game_state_packed_scene: PackedScene
 
-var current_scene
+var state_scene
 
 
-func enter(p_previous_state: GameState):
+func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	current_scene = game_state_packed_scene.instantiate()
-	parent.load_game_state_scene(current_scene)
+	state_scene = game_state_packed_scene.instantiate()
+	parent.load_game_state_scene(state_scene)
 
 
 func exit():
-	parent.unload_game_state_scene(current_scene)
+	parent.unload_game_state_scene(state_scene)
 
 
 func change_state(next_game_state):

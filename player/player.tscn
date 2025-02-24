@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dnxi2gyvo83ec"]
+[gd_scene load_steps=21 format=3 uid="uid://dnxi2gyvo83ec"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_uybn7"]
 [ext_resource type="Script" path="res://abilities/abilities.gd" id="2_es05j"]
@@ -8,7 +8,12 @@
 [ext_resource type="Script" path="res://player/player_visuals.gd" id="6_guley"]
 [ext_resource type="Script" path="res://player/debug.gd" id="7_3jai0"]
 [ext_resource type="PackedScene" uid="uid://b173nlre4ndsy" path="res://player/player_animatables.tscn" id="7_74yxj"]
+[ext_resource type="Shader" path="res://shader/exchange_color_on_asset.gdshader" id="8_yirkx"]
 [ext_resource type="Script" path="res://player/movement_line.gd" id="14_p1m7a"]
+
+[sub_resource type="Curve" id="Curve_8672j"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.157895, 0.043956), 0.395011, 0.395011, 0, 0, Vector2(0.310526, 0.351648), 2.94764, 2.94764, 0, 0, Vector2(0.673684, 0.923077), 0.657306, 0.657306, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="Curve" id="Curve_ix1y4"]
 _data = [Vector2(0, 0.472527), 0.0, 2.88331, 0, 0, Vector2(0.294737, 0.934066), 0.894819, 0.894819, 0, 0, Vector2(1, 0.494505), -1.53114, 0.0, 0, 0]
@@ -16,7 +21,7 @@ point_count = 3
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mi2e"]
 radius = 25.0
-height = 96.0
+height = 86.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82728"]
 radius = 77.3333
@@ -31,6 +36,12 @@ height = 74.0
 [sub_resource type="Curve" id="Curve_xeqma"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3ot6"]
+shader = ExtResource("8_yirkx")
+shader_parameter/color_to_replace = Color(1, 0, 0, 1)
+shader_parameter/wanted_color = Color(0.433998, 0.316775, 1, 1)
+shader_parameter/feather_range = 0.511
 
 [sub_resource type="Curve" id="Curve_3tghh"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -48,11 +59,16 @@ acceleration = 100.0
 deceleration = 70.0
 jump_velocity = 750.0
 fall_speed_clamp = 975.0
+max_token_speed_percentage = 40.0
+max_token_amount = 75.0
+speed_token_fall_off_time = 0.7
+interval_falloff_speed_token = 0.333
+token_value_curve = SubResource("Curve_8672j")
 jump_coyote_time = 0.2
 jump_buffer_time = 0.2
 variable_jump_height_min_percentage = 0.58
-x_edge_correction = 1.5
-y_edge_correction = 1.1
+x_edge_correction = 1.38
+y_edge_correction = 1.11
 apex_time = 0.18
 apex_strength = 36.0
 apex_negativ_gravity = 0.25
@@ -61,12 +77,14 @@ push_back = 800.0
 push_height_percentage = 0.4
 
 [node name="Abilities" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("2_es05j")
 hit_cooldown_time = 0.3
+hit_grace_time = 0.27
 hit_queue_time = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_1mi2e")
 
 [node name="DealDamageArea" parent="." instance=ExtResource("4_cn11c")]
@@ -77,6 +95,10 @@ position = Vector2(46.6667, 0)
 shape = SubResource("CapsuleShape2D_82728")
 debug_color = Color(0.595658, 0.545411, 0, 0.42)
 
+[node name="HitWallRay" parent="." instance=ExtResource("5_5gjfl")]
+target_position = Vector2(124, 0)
+hit_from_inside = true
+
 [node name="TakeDamageArea" parent="." instance=ExtResource("4_y0ly5")]
 collision_layer = 4
 
@@ -84,16 +106,20 @@ collision_layer = 4
 shape = SubResource("CapsuleShape2D_4pm2j")
 debug_color = Color(0.976648, 0, 0.410241, 0.42)
 
-[node name="CantEdgeDetectRay" parent="." instance=ExtResource("5_5gjfl")]
-target_position = Vector2(-23, -68)
+[node name="CantEdgeCorrectRay" parent="." instance=ExtResource("5_5gjfl")]
+target_position = Vector2(-32, -102)
 
-[node name="CanEdgeDetectRay" parent="." instance=ExtResource("5_5gjfl")]
-target_position = Vector2(32, -63)
+[node name="HasAirTargetRay" parent="." instance=ExtResource("5_5gjfl")]
+position = Vector2(0, -123)
+target_position = Vector2(111, -0.595001)
+
+[node name="CanEdgeCorrectRay" parent="." instance=ExtResource("5_5gjfl")]
+target_position = Vector2(50, -85)
 
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="AbilityVisualizer" type="Node2D" parent="Visuals"]
-position = Vector2(51, -76)
+position = Vector2(38, 18)
 script = ExtResource("6_guley")
 trail_points_max = 10
 hit_speed = 0.4
@@ -113,9 +139,16 @@ mesh = SubResource("SphereMesh_ovhno")
 position = Vector2(54, 2)
 
 [node name="AttackLine" type="Line2D" parent="Visuals"]
+z_index = 1
 width_curve = SubResource("Curve_xeqma")
 
 [node name="PlayerAnimatables" parent="." instance=ExtResource("7_74yxj")]
+
+[node name="VfxHitAnimationMittig" parent="PlayerAnimatables" index="0"]
+visible = false
+
+[node name="PlayerWalk" parent="PlayerAnimatables" index="1"]
+material = SubResource("ShaderMaterial_k3ot6")
 
 [node name="Debug" type="Node2D" parent="."]
 script = ExtResource("7_3jai0")

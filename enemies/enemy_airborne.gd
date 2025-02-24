@@ -52,16 +52,20 @@ func _ready():
 	%StateMachine.init(self, init_state)
 
 
-func _unhandled_input(event):
-	%StateMachine.unhandled_input(event)
-
-
 func _physics_process(delta):
 	%StateMachine.physics_process(delta)
 
 
 func _process(delta):
 	%StateMachine.process(delta)
+
+
+func _unhandled_input(event):
+	%StateMachine.unhandled_input(event)
+
+
+func _input(event):
+	%StateMachine.input(event)
 
 
 func set_direction(value):

@@ -1,120 +1,144 @@
-extends GameStateScene
+extends Node
 
 
-var current_level_index = 0
-var player_spawn_position = null
-var is_play_timer_running = false
-var play_time = 0.0
+signal player_despawned
+signal player_reached_goal
+signal level_load_progress(progress)
+
+
+@export_category("Level States")
+@export var initial_level_state: LevelState
+
+var play_time
+var state_node
+var current_level_state_scene
 
 
 func _ready():
-	load_level(0)
-	spawn_player()
-	start_timer()
+	%Levels.player_ability_changed.connect(on_player_ability_changed)
+	%Levels.player_despawned.connect(on_player_despawned)
+	%Levels.player_reached_goal.connect(on_player_reached_goal)
+	%Levels.level_load_progress.connect(on_level_load_progress)
+
+	reset_play_time()
+	request_setting_next_level_path_index()
+	%LevelStateMachine.init(self, initial_level_state)
+
+
+func _physics_process(delta):
+	%LevelStateMachine.physics_process(delta)
 
 
 func _process(delta):
-	if is_play_timer_running:
-		set_play_time(play_time + delta)
+	%LevelStateMachine.process(delta)
 
 
-func _unhandled_input(_event):
-	if Input.is_action_just_pressed("reset_level"):
-		player_spawn_position = null
-		load_level(current_level_index)
-		spawn_player()
-		start_timer()
-		await get_tree().create_timer(1.0).timeout
-
-	if Input.is_action_just_pressed("reset_checkpoint"):
-		load_level(current_level_index)
-		spawn_player()
-
-	if Input.is_action_just_pressed("load_next_level"):
-		var desired_level_index = current_level_index + 1
-		if desired_level_index >= %Levels.get_number_of_levels():
-			print("Already at last level.")
-			desired_level_index = current_level_index
-			return
-		player_spawn_position = null
-		load_level(desired_level_index)
-		spawn_player()
-		start_timer()
-
-	if Input.is_action_just_pressed("load_previous_level"):
-		var desired_level_index = current_level_index - 1
-		if desired_level_index < 0:
-			print("Already at first level.")
-			desired_level_index = current_level_index
-			return
-		player_spawn_position = null
-		load_level(desired_level_index)
-		spawn_player()
-		start_timer()
+func _unhandled_input(event):
+	%LevelStateMachine.unhandled_input(event)
 
 
-func load_level(desired_level_index):
-	var loaded_successfully = %Levels.load_level(desired_level_index)
-	if not loaded_successfully:
-		printerr("Error: Level could not be loaded!")
-	current_level_index = desired_level_index
+func _input(event):
+	%LevelStateMachine.input(event)
 
+
+func set_game_paused(should_pause):
+	get_tree().paused = should_pause
+
+
+func reset_play_time():
+	set_play_time(0.0)
+
+
+func get_play_time():
+	return play_time
+
+
+func disable_player_controls():
+	print("Disabling player controls is not implemented yet")
+
+
+# UI
 
 func set_play_time(new_time):
 	play_time = new_time
 	%PlayTimeLabel.text = "%5.2f" % play_time
 
 
-func start_timer():
-	set_play_time(0.0)
-	is_play_timer_running = true
+# Signal Handlers
 
-
-func stop_timer():
-	is_play_timer_running = false
-
-
-func get_player_spawn_position():
-	if player_spawn_position == null:
-		player_spawn_position = %Levels.get_player_spawn_position_of_level()
-
-	return player_spawn_position
-
-
-func spawn_player():
-	var player = null
-	if get_node_or_null("Player") != null:
-		player = $Player
-		player.clear_abilities()
-	else:
-		var player_scene = preload("res://player/player.tscn")
-		player = player_scene.instantiate()
-		player.player_despawned.connect(on_player_despawned)
-		player.player_reached_goal.connect(on_player_reached_goal)
-		player.player_reached_checkpoint.connect(on_player_reached_checkpoint)
-
-		var camera_node = get_node_or_null("Camera2D")
-
-		var remote_transform = RemoteTransform2D.new()
-		remote_transform.remote_path = camera_node.get_path()
-		player.add_child(remote_transform)
-
-		add_child.call_deferred(player)
-
-	player.position = get_player_spawn_position()
+func on_player_ability_changed(color):
+	%CurrentAbility.modulate = color
 
 
 func on_player_despawned():
-	if get_node_or_null("Player") != null:
-		await $Player.tree_exited
-
-	load_level(current_level_index)
-	spawn_player()
+	player_despawned.emit()
 
 
 func on_player_reached_goal():
-	stop_timer()
+	player_reached_goal.emit()
 
 
-func on_player_reached_checkpoint(position):
-	player_spawn_position = position
+func on_level_load_progress(progress):
+	level_load_progress.emit(progress)
+
+
+# Level Loading
+
+func request_setting_level_path_index(index):
+	%Levels.request_setting_level_path_index(index)
+
+
+func request_setting_previous_level_path_index():
+	%Levels.request_setting_previous_level_path_index()
+
+
+func request_setting_next_level_path_index():
+	%Levels.request_setting_next_level_path_index()
+
+
+func try_changing_to_requested_level():
+	reset_play_time()
+	return await %Levels.try_changing_to_requested_level()
+
+
+func spawn_player():
+	await %Levels.spawn_player()
+
+
+func reset_to_checkpoint():
+	await %Levels.reset_to_checkpoint()
+
+
+func reset_level():
+	await %Levels.reset_level()
+	reset_play_time()
+
+
+# Level State
+
+func load_level_state_scene(level_state_scene):
+	current_level_state_scene = level_state_scene
+	add_child(current_level_state_scene)
+
+
+func unload_level_state_scene(level_state_scene):
+	var scene_to_be_removed
+	for child in get_children():
+		if child == level_state_scene:
+			scene_to_be_removed = level_state_scene
+	if scene_to_be_removed != null:
+		remove_child(scene_to_be_removed)
+
+
+func change_to_level_state(level_state):
+	%LevelStateMachine.change_state(level_state)
+
+
+# Game States
+
+func set_state_node(node):
+	state_node = node
+
+
+func change_to_main_menu_game_state():
+	state_node.change_to_main_menu_game_state()

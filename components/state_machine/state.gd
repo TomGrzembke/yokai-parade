@@ -29,3 +29,7 @@ func physics_process(_delta):
 
 func unhandled_input(_event):
 	return null
+
+
+func input(_event):
+	return null
