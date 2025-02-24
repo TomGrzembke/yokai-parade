@@ -17,14 +17,18 @@ var hit_grace_timer
 var hit_queue_timer
 
 @onready var visualizer: Node2D =  $"../Visuals/AbilityVisualizer"
-@onready var hit_enemy_ray: RayCast2D = $"../HitEnemyRay"
-var hit_targets = []
+@onready var hit_wall_ray: RayCast2D = $"../HitWallRay"
+var targets_in_range = []
 signal player_hits
 signal used_ability
 
 
 func _ready():
 	hit_cooldown_timer = create_timer(0.1)
+
+
+func _physics_process(_delta):
+	refresh_wallray()
 
 
 func _unhandled_input(_event):
@@ -58,17 +62,11 @@ func catch_ability():
 	absorb_ability()
 
 
-func _physics_process(_delta):
-	if hit_enemy_ray.has_target && get_nearest_target() != null:
-		hit_enemy_ray.lookat_direction(get_nearest_target().global_position)
-
-
 func absorb_ability():
 	var nearest = get_nearest_target()
 	if nearest == null: return
 
-	print(get_nearest_target().global_position)
-	if hit_enemy_ray.has_target() && hit_enemy_ray.get_target() is TileMapLayer: return
+	if hit_wall_ray.has_target() && hit_wall_ray.get_target() is TileMapLayer: return
 
 	var subject_parent = nearest.get_damage_subject()
 	if subject_parent == null: return
@@ -83,6 +81,7 @@ func hit_cooldown():
 
 	hit_cooldown_timer = create_timer(hit_cooldown_time)
 	hit_cooldown_timer.timeout.connect(hit_queue)
+
 	return false
 
 
@@ -146,22 +145,29 @@ func get_current_ability():
 
 
 func on_deal_damage_area_entered(other):
-	hit_targets.append(other)
-
+	targets_in_range.append(other)
 	if hit_timer_active():
 		absorb_ability()
 
 
 func on_deal_damage_area_exited(other):
-	hit_targets.erase(other)
+	targets_in_range.erase(other)
 
 
 func get_nearest_target():
 	var nearest = null
 
-	for hit_target in hit_targets:
+	for hit_target in targets_in_range:
 		var current_distance = global_position.distance_to(hit_target.global_position)
 		if nearest == null || current_distance < global_position.distance_to(nearest.global_position):
 			nearest = hit_target
 
 	return nearest
+
+
+func refresh_wallray():
+	if !hit_wall_ray.has_target: return
+	var nearest = get_nearest_target()
+	if nearest == null: return
+
+	hit_wall_ray.lookat_direction(nearest.global_position)
