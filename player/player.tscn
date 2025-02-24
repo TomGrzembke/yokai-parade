@@ -100,7 +100,7 @@ shape = SubResource("CapsuleShape2D_4pm2j")
 debug_color = Color(0.976648, 0, 0.410241, 0.42)
 
 [node name="CantEdgeCorrectRay" parent="." instance=ExtResource("5_5gjfl")]
-target_position = Vector2(-23, -68)
+target_position = Vector2(-32, -102)
 
 [node name="HasAirTargetRay" parent="." instance=ExtResource("5_5gjfl")]
 position = Vector2(0, -123)
