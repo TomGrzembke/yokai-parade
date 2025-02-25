@@ -59,21 +59,27 @@ alignment = 1
 [node name="StartButton" type="Button" parent="CanvasLayer/Main/CenterContainer/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+theme_type_variation = &"MMButton"
 text = "Start"
 
 [node name="OptionsButton" type="Button" parent="CanvasLayer/Main/CenterContainer/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"MMButton"
 text = "Options"
 
 [node name="CreditsButton" type="Button" parent="CanvasLayer/Main/CenterContainer/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"MMButton"
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/Main/CenterContainer/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../StartButton")
+theme_type_variation = &"MMButton"
 text = "Quit"
 
 [node name="FrontCover" type="ColorRect" parent="CanvasLayer"]
