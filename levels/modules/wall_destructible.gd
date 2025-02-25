@@ -5,8 +5,7 @@ const BREAK_ANIMATION = "break"
 
 
 func _ready():
-	if get_node_or_null("%AnimationPlayer") != null:
-		%AnimationPlayer.animation_finished.connect(delete)
+	%AnimationPlayer.animation_finished.connect(delete)
 
 
 func took_fire_damage(_source):
