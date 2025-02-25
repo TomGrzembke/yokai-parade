@@ -10,8 +10,8 @@
 [ext_resource type="Resource" uid="uid://be56k4m11w44j" path="res://enemies/types/enemy_element_type_fire.tres" id="5_ihhcv"]
 [ext_resource type="Texture2D" uid="uid://bjfc5fcaaujsb" path="res://assets/signs/p_sign_keyboarduseair.png" id="6_gogng"]
 [ext_resource type="PackedScene" uid="uid://bll3xc6lvwc5" path="res://enemies/enemy_airborne.tscn" id="6_idxr6"]
-[ext_resource type="PackedScene" uid="uid://cfnhlackt0u25" path="res://levels/modules/wall_destructible.tscn" id="6_s806t"]
 [ext_resource type="Texture2D" uid="uid://dpupbyyq251qm" path="res://assets/signs/p_sign_keyboardusefire.png" id="7_bueao"]
+[ext_resource type="PackedScene" uid="uid://sxpubdb03xgr" path="res://levels/modules/wall_destructible_big.tscn" id="7_rfpno"]
 [ext_resource type="PackedScene" uid="uid://dnq2l128u47ma" path="res://levels/modules/goal.tscn" id="8_cobgl"]
 [ext_resource type="PackedScene" uid="uid://cijdb50pj3jc7" path="res://levels/modules/despawn_area.tscn" id="9_8n8ip"]
 [ext_resource type="PackedScene" uid="uid://c8mxwfqxutdoi" path="res://levels/area_01/area_1_backgrounds.tscn" id="10_4f8gx"]
@@ -77,13 +77,11 @@ element_type = ExtResource("4_rtyjb")
 
 [node name="WoodenWalls" type="Node2D" parent="Start-1stCheckpoint"]
 
-[node name="WallWood" parent="Start-1stCheckpoint/WoodenWalls" instance=ExtResource("6_s806t")]
-position = Vector2(7659, 76)
-scale = Vector2(0.8, 1.96)
+[node name="WallDestructibleBig" parent="Start-1stCheckpoint/WoodenWalls" instance=ExtResource("7_rfpno")]
+position = Vector2(7644, 229)
 
-[node name="WallWood2" parent="Start-1stCheckpoint/WoodenWalls" instance=ExtResource("6_s806t")]
-position = Vector2(9267, 154)
-scale = Vector2(0.8, 1.96)
+[node name="WallDestructibleBig2" parent="Start-1stCheckpoint/WoodenWalls" instance=ExtResource("7_rfpno")]
+position = Vector2(9275, 311)
 
 [node name="Controls_Signs" type="Node2D" parent="."]
 
@@ -122,6 +120,7 @@ position = Vector2(-292, 1261)
 scale = Vector2(53.96, 1)
 
 [node name="Area1Backgrounds2" parent="." instance=ExtResource("10_4f8gx")]
+metadata/_edit_lock_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 material = ExtResource("11_2v02a")
