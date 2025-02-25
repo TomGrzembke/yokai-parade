@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy473cfis2wyf"
-path="res://.godot/imported/ui_ingame_clock.png-2492b13dda0909803c144fe511d496ef.ctex"
+uid="uid://c5mky68gcqspu"
+path="res://.godot/imported/ui_outline_hori.png-306804e9afde9ee098b3bb45207cf3b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/ui_ingame_clock.png"
-dest_files=["res://.godot/imported/ui_ingame_clock.png-2492b13dda0909803c144fe511d496ef.ctex"]
+source_file="res://ui/ui_outline_hori.png"
+dest_files=["res://.godot/imported/ui_outline_hori.png-306804e9afde9ee098b3bb45207cf3b1.ctex"]
 
 [params]
 

@@ -7,12 +7,12 @@ var in_game_state
 var options_game_state
 var credits_game_state
 
-
 func _ready():
 	%StartButton.pressed.connect(change_to_in_game_state)
 	%OptionsButton.pressed.connect(change_to_options_game_state)
 	%CreditsButton.pressed.connect(change_to_credits_game_state)
 	%QuitButton.pressed.connect(quit_game)
+	%StartButton.grab_focus()
 
 
 # Game States

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq6ew1rj7i5xf"
-path="res://.godot/imported/ui_ingame_top_right_line.png-a7fc9d791ac9f0d292d714936d9f1aa7.ctex"
+uid="uid://b0vv3r8mo5474"
+path="res://.godot/imported/flowers_red_single.png-58c5ebc42a2d2867eb2726596bc21a7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/ui_ingame_top_right_line.png"
-dest_files=["res://.godot/imported/ui_ingame_top_right_line.png-a7fc9d791ac9f0d292d714936d9f1aa7.ctex"]
+source_file="res://levels/area_01/flowers_red_single.png"
+dest_files=["res://.godot/imported/flowers_red_single.png-58c5ebc42a2d2867eb2726596bc21a7e.ctex"]
 
 [params]
 

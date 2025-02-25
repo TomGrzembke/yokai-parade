@@ -47,7 +47,7 @@ colors = PackedColorArray(0.384314, 0.823529, 0.878431, 1, 0.952941, 0.298039, 0
 top_level = true
 collision_layer = 2
 script = ExtResource("1_uybn7")
-speed = 450.0
+speed = 525.0
 acceleration = 100.0
 deceleration = 70.0
 jump_velocity = 750.0
@@ -136,6 +136,13 @@ z_index = 1
 width_curve = SubResource("Curve_xeqma")
 
 [node name="PlayerAnimatables" parent="." instance=ExtResource("7_74yxj")]
+
+[node name="VfxWalkAnimation" parent="PlayerAnimatables" index="1"]
+visible = false
+frame = 1
+
+[node name="PlayerWalk" parent="PlayerAnimatables" index="2"]
+frame = 8
 
 [node name="PlayerWalk" parent="PlayerAnimatables" index="0"]
 frame = 8

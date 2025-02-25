@@ -30,9 +30,7 @@ func enter_state_moving():
 
 func enter_state_lunging():
 	animation_state_machine.travel("Lunging")
-	print("not finished")
 	await %AnimationTree.animation_finished
-	print("finished")
 
 
 func enter_state_attacking():
