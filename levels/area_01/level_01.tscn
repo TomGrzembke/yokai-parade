@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://b35daxyo1hch8"]
+[gd_scene load_steps=16 format=4 uid="uid://b35daxyo1hch8"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_455ds"]
 [ext_resource type="PackedScene" uid="uid://bomxlv8ndomnc" path="res://enemies/enemy_grounded.tscn" id="8_8a46a"]
@@ -11,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://c8mxwfqxutdoi" path="res://levels/area_01/area_1_backgrounds.tscn" id="16_dwlv1"]
 [ext_resource type="TileSet" uid="uid://4v2t32qfx3hb" path="res://levels/area_01/tileset_area_01.tres" id="18_wer3n"]
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/modules/player_spawn_point.tscn" id="19_stf0i"]
+
+[sub_resource type="Environment" id="Environment_6k4ol"]
+background_mode = 3
+glow_intensity = 7.71
+adjustment_enabled = true
+adjustment_saturation = 5.79
 
 [sub_resource type="Curve2D" id="Curve2D_u3p0n"]
 _data = {
@@ -32,6 +38,9 @@ point_count = 2
 
 [node name="Level01" type="Node2D"]
 script = ExtResource("1_455ds")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6k4ol")
 
 [node name="Start-1stCheckpoint" type="Node2D" parent="."]
 
@@ -335,3 +344,13 @@ tile_set = ExtResource("11_p05d4")
 
 [node name="PlayerSpawnPoint" parent="." instance=ExtResource("19_stf0i")]
 position = Vector2(-225, 991)
+
+[connection signal="body_entered" from="TileMapLayer/Goal" to="TileMapLayer/Goal" method="on_body_entered"]
+[connection signal="area_entered" from="TileMapLayer/Checkpoint" to="TileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="TileMapLayer/Checkpoint" to="TileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="TileMapLayer/@Area2D@31053" to="TileMapLayer/@Area2D@31053" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="TileMapLayer/@Area2D@31053" to="TileMapLayer/@Area2D@31053" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="TileMapLayer/@Area2D@31054" to="TileMapLayer/@Area2D@31054" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="TileMapLayer/@Area2D@31054" to="TileMapLayer/@Area2D@31054" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="TileMapLayer/@Area2D@31055" to="TileMapLayer/@Area2D@31055" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="TileMapLayer/@Area2D@31055" to="TileMapLayer/@Area2D@31055" method="on_checkpoint_area_entered"]

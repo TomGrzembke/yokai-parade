@@ -4,7 +4,6 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p06g3"]
 texture = ExtResource("1_3mbo6")
-margins = Vector2i(2, 14)
 texture_region_size = Vector2i(16, 17)
 use_texture_padding = false
 0:0/size_in_atlas = Vector2i(34, 32)
