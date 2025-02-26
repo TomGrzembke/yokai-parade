@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://fv8etmrty0xl"]
+
+[ext_resource type="Shader" path="res://shader/exchange_gradient.gdshader" id="1_1g5tn"]
+
+[resource]
+shader = ExtResource("1_1g5tn")
+shader_parameter/darkness_modifier = 1.0
+shader_parameter/white_feather_range = 0.0
+shader_parameter/black_feather_range = 0.0
+shader_parameter/color_a = Color(0.956863, 0.658824, 0.329412, 1)
+shader_parameter/color_b = Color(0.87451, 0.466667, 0.313726, 1)
