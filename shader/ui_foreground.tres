@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://diak12n0funuu"]
+
+[ext_resource type="Shader" path="res://shader/exchange_gradient.gdshader" id="1_jdoyj"]
+
+[resource]
+shader = ExtResource("1_jdoyj")
+shader_parameter/darkness_modifier = 1.0
+shader_parameter/white_feather_range = 0.0
+shader_parameter/black_feather_range = 0.0
+shader_parameter/color_a = Color(0.333333, 0.411765, 0.85098, 1)
+shader_parameter/color_b = Color(0.0862745, 0.0941176, 0.184314, 1)

@@ -17,6 +17,7 @@ func _ready():
 	%ResetCheckpointButton.pressed.connect(change_to_reset_to_checkpoint_level_state)
 	%ResetLevelButton.pressed.connect(change_to_reset_level_state)
 	%QuitGameButton.pressed.connect(quit_game)
+	%ResumeButton.grab_focus()
 
 
 # Level States

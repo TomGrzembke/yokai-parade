@@ -36,6 +36,10 @@ func _physics_process(_delta):
 			level_load_completed.emit(null)
 
 
+func get_requested_level_path_index():
+	return requested_level_path_index
+
+
 func request_setting_level_path_index(index):
 	requested_level_path_index = clampi(index, 0, level_paths.size() - 1)
 
@@ -62,7 +66,7 @@ func try_changing_to_requested_level():
 		return succeeded
 
 	if requested_level_path_index == current_level_path_index:
-		printerr("Error: Level %s is already loaded!" % current_level_path_index)
+		printerr("Error: Level %s is already the current level!" % current_level_path_index)
 
 	succeeded = await try_changing_to_level(requested_level_path_index)
 	return succeeded
