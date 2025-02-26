@@ -21,12 +21,12 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export_category("State Machine")
 @export var idling_state: State
 @export var moving_state: State
-@export var recovering_state: State
 
 var path_2d
 var is_recovering = false
-var enemy_animations
+var state_animations_scene
 var look_direction
+var target_in_perception_area
 
 
 func _ready():
@@ -34,25 +34,15 @@ func _ready():
 
 	check_validity()
 
-	enemy_animations = element_type.animations_airborne.instantiate()
-	add_child(enemy_animations)
+	state_animations_scene = element_type.animations_airborne.instantiate()
+	add_child(state_animations_scene)
 
-	enemy_animations.position = %Sprite2D.position
+	state_animations_scene.position = %Sprite2D.position
 	%Sprite2D.visible = false
 
-	var direction
-	match initial_look_direction:
-		1: direction = Vector2.RIGHT
-		2: direction = Vector2.LEFT
-	set_direction(direction)
+	reset_look_direction()
 
-	var init_state
-	match initial_state:
-		STATES.EnemyInitialState.MOVING:
-			init_state = moving_state
-		_:
-			init_state = idling_state
-
+	var init_state = get_initial_state()
 	%StateMachine.init(self, init_state)
 
 
@@ -93,29 +83,79 @@ func check_validity():
 		printerr("Curve in Path2D of enemy %s has no points!" % self.get_path())
 		is_valid = false
 
-	assert(is_valid, "Error: Enemy not set up properly, check errors above!")
+	assert(is_valid, "Error: Enemy not set up properly, check errors in console!")
 
 
-func set_direction(value):
+func get_initial_state():
+	match initial_state:
+		STATES.EnemyInitialState.MOVING:
+			return moving_state
+		_:
+			return idling_state
+
+
+func get_state_animations_scene():
+	return state_animations_scene
+
+
+func get_target_in_perception_area():
+	return target_in_perception_area
+
+
+func set_look_direction(value):
 	look_direction = value
 	if look_direction != null:
-		enemy_animations.update_direction(look_direction)
+		state_animations_scene.update_direction(look_direction)
 
 
-func get_direction():
+func get_look_direction():
 	return look_direction
+
+
+func reset_look_direction():
+	var direction
+	match initial_look_direction:
+		1: direction = Vector2.RIGHT
+		-1: direction = Vector2.LEFT
+	set_look_direction(direction)
 
 
 func get_max_speed():
 	return max_speed
 
 
+func set_deal_bump_damage_active(active):
+	%DealBumpDamageArea.set_deferred("monitoring", active)
+
+
+func on_perception_area_entered(target):
+	var subject = %DealAttackDamageArea.get_damageable_subject(target)
+
+	if subject == null: return
+
+	target_in_perception_area = subject
+	var target_direction = global_position.direction_to(target_in_perception_area.global_position)
+	set_look_direction(target_direction)
+
+
+func on_perception_area_exited(_target):
+	target_in_perception_area = null
+
+
+func on_bump_damage_area_entered(target):
+	attack(%DealBumpDamageArea.get_damageable_subject(target))
+
+
+func attack(target):
+	if target == null: return
+
+	target.on_took_damage(self)
+
+
+# TODO: Try getting rid of this and setting monitoring and state change by returning from state
+
 func get_recovery_time():
 	return recovery_time
-
-
-func set_deal_damage_active(active):
-	%DealDamageArea.set_deferred("monitoring", active)
 
 
 func set_is_recovering(status):
@@ -125,21 +165,7 @@ func set_is_recovering(status):
 func get_is_recovering():
 	return is_recovering
 
-
-func enter_animation_state_idling():
-	enemy_animations.enter_state_idling()
-
-
-func enter_animation_state_moving():
-	enemy_animations.enter_state_moving()
-
-
-func enter_animation_state_attacking():
-	enemy_animations.enter_state_attacking()
-
-
-func enter_animation_state_recovering():
-	enemy_animations.enter_state_recovering()
+# End
 
 
 func get_is_path_closed():

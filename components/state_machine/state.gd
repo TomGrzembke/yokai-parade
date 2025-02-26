@@ -6,8 +6,8 @@ var parent
 var previous_state
 
 
-func init(parent_node):
-	parent = parent_node
+func init(p_parent):
+	parent = p_parent
 
 
 func enter(p_previous_state):

@@ -1,5 +1,7 @@
-extends "res://enemies/states/catchable_state.gd"
+extends EnemyStateCatchable
 
+
+@export var lunging_state: EnemyState
 
 var last_position
 var speed = 0.0
@@ -10,14 +12,17 @@ var progress_ratio_raw = 0.0
 
 
 func init(p_parent):
-	super(p_parent)
+	super.init(p_parent)
+
 	speed = parent.get_max_speed()
 	path_length = parent.get_path_length()
 	is_path_closed = parent.get_is_path_closed()
 
 
-func enter(_previous_state):
-	parent.enter_animation_state_moving()
+func enter(p_previous_state):
+	super.enter(p_previous_state)
+
+	state_animations_scene.enter_state_moving()
 
 
 func physics_process(delta):
@@ -52,5 +57,5 @@ func update_direction():
 		last_position = position
 		return
 
-	parent.set_direction((position - last_position).normalized())
+	parent.set_look_direction((position - last_position).normalized())
 	last_position = position

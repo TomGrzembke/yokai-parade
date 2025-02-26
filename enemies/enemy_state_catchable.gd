@@ -1,7 +1,8 @@
-extends State
+class_name EnemyStateCatchable
+extends EnemyState
 
 
-@export var recovering_state: State
+@export var recovering_state: EnemyState
 
 
 func check_caught():
