@@ -18,10 +18,11 @@ shader = ExtResource("2_ygekg")
 shader_parameter/overlay_alpha = 1.0
 shader_parameter/pattern_scale = 2.0
 shader_parameter/tilemap_offset = Vector2(0, 0)
-shader_parameter/flip_alpha = true
-shader_parameter/use_hard_blend = false
+shader_parameter/flip_alpha = false
+shader_parameter/use_hard_blend = true
 shader_parameter/use_local = false
 shader_parameter/world_scale = 0.3
+shader_parameter/end_tint = Color(0, 0, 0, 1)
 shader_parameter/pattern_texture = ExtResource("3_os8yi")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n0aer"]
@@ -56,6 +57,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [4]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_802ph"]
 resource_name = "dash"
@@ -83,6 +96,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [25, 24, 26]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.941176, 0, 0, 1), Color(0.941176, 0.235294, 0, 1), Color(0.746209, 0.441371, 1.92523e-07, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_hhc52"]
@@ -133,6 +158,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [36]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ykyju"]
 resource_name = "got_hit"
@@ -176,6 +213,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [21, 22]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_v1rfk"]
@@ -221,6 +270,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [17, 18, 19]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ko40m"]
 resource_name = "idling"
@@ -247,6 +308,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_a8b1i"]
@@ -275,6 +348,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [13, 14, 15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_6bbhk"]
@@ -305,6 +390,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [13, 14]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_wys6x"]
 resource_name = "idling4"
@@ -332,6 +429,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [4, 13]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_xmvxb"]
@@ -377,6 +486,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [30, 4]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.375),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.172549, 0.784314, 0.737255, 1), Color(0, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_uoss2"]
 resource_name = "landing"
@@ -420,6 +541,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [37, 38]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_2eqfq"]
@@ -465,6 +598,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:material:shader_parameter/end_tint")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x7y5v"]
@@ -613,16 +758,17 @@ states/landing/position = Vector2(245, -135)
 states/walking/node = SubResource("AnimationNodeAnimation_l41dg")
 states/walking/position = Vector2(436, -18)
 transitions = ["Start", "idling", SubResource("AnimationNodeStateMachineTransition_i4wgy"), "idling", "walking", SubResource("AnimationNodeStateMachineTransition_egflg"), "walking", "idling", SubResource("AnimationNodeStateMachineTransition_1r4x0"), "walking", "jump", SubResource("AnimationNodeStateMachineTransition_87uy6"), "idling", "jump", SubResource("AnimationNodeStateMachineTransition_p4mgk"), "landing", "idling", SubResource("AnimationNodeStateMachineTransition_71yb5"), "jump", "falling", SubResource("AnimationNodeStateMachineTransition_dyay8"), "falling", "landing", SubResource("AnimationNodeStateMachineTransition_gvbew"), "falling", "jump", SubResource("AnimationNodeStateMachineTransition_in6c8"), "dash", "falling", SubResource("AnimationNodeStateMachineTransition_s3chn"), "got_hit", "falling", SubResource("AnimationNodeStateMachineTransition_kpurb"), "hit", "idling", SubResource("AnimationNodeStateMachineTransition_ebmfl"), "jump", "landing", SubResource("AnimationNodeStateMachineTransition_5yhxo"), "idling2", "walking", SubResource("AnimationNodeStateMachineTransition_0gbqa"), "idling3", "walking", SubResource("AnimationNodeStateMachineTransition_3olmi"), "idling4", "walking", SubResource("AnimationNodeStateMachineTransition_874ca")]
-graph_offset = Vector2(-16, -260)
+graph_offset = Vector2(15, -277)
 
 [node name="PlayerAnimatables" type="Node2D"]
 script = ExtResource("1_japyu")
 
 [node name="VfxAnimationCharacter" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_qbauj")
-position = Vector2(0, -14)
+position = Vector2(-1167, 105)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("4_f7hvb")
+offset = Vector2(972.5, -99.1667)
 hframes = 4
 vframes = 10
 frame = 4
