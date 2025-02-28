@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://tgdbge36wevk" path="res://assets/patterns/t-texture_lines.png" id="2_y3agf"]
 [ext_resource type="Shader" path="res://shader/pattern_screen_overlay.gdshader" id="5_w3sdd"]
 [ext_resource type="Texture2D" uid="uid://bn0cpcfikbpp5" path="res://shader/testing_assets/empty_white.png" id="6_53e8n"]
-[ext_resource type="Material" uid="uid://dlplujjkjxtxg" path="res://shader/mountain_pattern.tres" id="6_b515f"]
+[ext_resource type="Material" path="res://shader/mountain_pattern.tres" id="6_b515f"]
 [ext_resource type="Texture2D" uid="uid://c5frpar7yqfe2" path="res://levels/area_01/mountains_spritesheet.png" id="7_7xycs"]
 [ext_resource type="Material" uid="uid://bfm15gm2njxtq" path="res://shader/cloud_shader.tres" id="8_afjxq"]
 [ext_resource type="Texture2D" uid="uid://dd4dbqeurgyvx" path="res://levels/area_01/clouds_red.png" id="8_lwp6k"]
@@ -185,43 +185,46 @@ texture = ExtResource("7_7xycs")
 hframes = 4
 vframes = 3
 
+[node name="CloudsWhiteParallax" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0.4)
+scroll_offset = Vector2(-444, -528)
+repeat_size = Vector2(2200, 0)
+autoscroll = Vector2(-10, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="CloudsWhiteParallax"]
+material = ExtResource("8_afjxq")
+position = Vector2(0, 1000)
+texture = ExtResource("10_37g1q")
+
 [node name="CloudsRedPrallax" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.6, 0.6)
 repeat_size = Vector2(2800, 0)
-repeat_times = 2
+autoscroll = Vector2(-20, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="CloudsRedPrallax"]
 position = Vector2(-285, 957)
 texture = ExtResource("8_lwp6k")
 
 [node name="CloudsBlueParallax" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.6, 0.6)
+scroll_scale = Vector2(0.65, 0.65)
 repeat_size = Vector2(3000, 0)
-repeat_times = 2
+autoscroll = Vector2(-35, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="CloudsBlueParallax"]
-visible = false
 material = ExtResource("8_afjxq")
 position = Vector2(0, 600)
 texture = ExtResource("9_poku5")
 
-[node name="CloudsWhiteParallax" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.7, 0.7)
-scroll_offset = Vector2(-444, -528)
-repeat_size = Vector2(2200, 0)
-repeat_times = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="CloudsWhiteParallax"]
-visible = false
-material = ExtResource("8_afjxq")
-position = Vector2(0, 1000)
-texture = ExtResource("10_37g1q")
-
 [node name="Foreground" type="Parallax2D" parent="."]
+modulate = Color(1, 1, 1, 0.443137)
 z_index = 20
 scroll_scale = Vector2(1.1, 1.1)
 scroll_offset = Vector2(-444, -528)
 repeat_size = Vector2(2200, 0)
+autoscroll = Vector2(-40, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Foreground"]
@@ -234,7 +237,6 @@ texture = ExtResource("10_37g1q")
 
 [node name="Flowers" type="Parallax2D" parent="."]
 physics_interpolation_mode = 1
-scroll_scale = Vector2(0, 0)
 scroll_offset = Vector2(-444, -528)
 repeat_size = Vector2(2200, 0)
 repeat_times = 3
@@ -254,7 +256,7 @@ texture = ExtResource("12_81uk2")
 emission_shape = 3
 emission_rect_extents = Vector2(1200, 1)
 spread = 52.27
-gravity = Vector2(1000, 400)
+gravity = Vector2(-1000, 400)
 initial_velocity_max = 20.0
 angular_velocity_max = 181.82
 linear_accel_max = 2.02
