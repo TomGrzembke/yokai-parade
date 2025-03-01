@@ -11,6 +11,7 @@ func enter(p_previous_state):
 
 	parent.set_player_controls_active(false)
 
+	parent.play_game_music()
 
 
 func exit():

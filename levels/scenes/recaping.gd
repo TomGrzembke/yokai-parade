@@ -10,6 +10,7 @@ var loading_level_state
 var game_over_level_state
 var return_to_main_menu_level_state
 var reset_level_state
+var quit_game_level_state
 
 
 func _ready():
@@ -20,7 +21,7 @@ func _ready():
 	%NextLevelButton.pressed.connect(change_to_next_level_state)
 	%ResetLevelButton.pressed.connect(change_to_reset_level_state)
 	%ReturnToMainMenuButton.pressed.connect(change_to_return_to_main_menu_state)
-	%QuitGameButton.pressed.connect(quit_game)
+	%QuitGameButton.pressed.connect(change_to_quit_game_level_state)
 
 	%NextLevelButton.grab_focus()
 
@@ -63,6 +64,10 @@ func set_reset_level_state(state):
 	reset_level_state = state
 
 
+func set_quit_game_level_state(state):
+	quit_game_level_state = state
+
+
 func change_to_next_level_state():
 	change_to_level_state(next_level_state)
 
@@ -76,6 +81,10 @@ func change_to_reset_level_state():
 	change_to_level_state(reset_level_state)
 
 
+func change_to_quit_game_level_state():
+	change_to_level_state(quit_game_level_state)
+
+
 func exit_state_transition():
 	%AnimationPlayer.stop()
 	%AnimationPlayer.play("state_transitions_long/hide_state_scene")
@@ -86,11 +95,3 @@ func change_to_level_state(level_state):
 	await exit_state_transition()
 
 	state_node.change_state(level_state)
-
-
-func quit_game():
-	%AnimationPlayer.stop()
-	%AnimationPlayer.play("game_quit_transitions/blackout")
-	await %AnimationPlayer.animation_finished
-
-	get_tree().quit()

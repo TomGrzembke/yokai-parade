@@ -9,6 +9,8 @@ func enter(p_previous_state):
 
 	state_scene.set_state_node(self)
 
+	parent.play_title_music()
+
 
 func unhandled_input(event):
 	if event.is_action_pressed("skip"):

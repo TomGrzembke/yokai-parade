@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dk3wuo1sfknyo"]
+[gd_scene load_steps=6 format=3 uid="uid://dk3wuo1sfknyo"]
 
 [ext_resource type="Script" path="res://game/scenes/main_menu.gd" id="1_qg7wj"]
 [ext_resource type="Texture2D" uid="uid://umkmwt4e2066" path="res://assets/patterns/t_texture_patternwithpapertexture.png" id="2_6u7ei"]
 [ext_resource type="Texture2D" uid="uid://blc60y10cn7yx" path="res://ui/ui_outline_mainmenu_rip.png" id="3_2t40p"]
 [ext_resource type="Texture2D" uid="uid://bjn40nw0c0byv" path="res://ui/ui_panel_mainmenu.png" id="4_12tus"]
-[ext_resource type="AnimationLibrary" uid="uid://cc0at063bwqni" path="res://assets/animations/game_quit_transitions.res" id="5_f1605"]
 [ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="5_hmdbx"]
-[ext_resource type="AudioStream" uid="uid://bj141maa185rk" path="res://sounds/menumusic_yokaiparade.wav" id="7_7wmbr"]
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_qg7wj")
@@ -77,7 +75,7 @@ alignment = 1
 [node name="StartButton" type="Button" parent="CanvasLayer/Main/CenterContainer/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_top = NodePath("../QuitGameButton")
 theme_type_variation = &"MMButton"
 text = "Start"
 
@@ -93,7 +91,7 @@ layout_mode = 2
 theme_type_variation = &"MMButton"
 text = "Credits"
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/Main/CenterContainer/Panel/VBoxContainer"]
+[node name="QuitGameButton" type="Button" parent="CanvasLayer/Main/CenterContainer/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
@@ -102,6 +100,7 @@ text = "Quit"
 
 [node name="FrontCover" type="ColorRect" parent="CanvasLayer"]
 visible = false
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -112,12 +111,6 @@ color = Color(0, 0, 0, 1)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"game_quit_transitions": ExtResource("5_f1605"),
 "state_transitions_long": ExtResource("5_hmdbx")
 }
 autoplay = "state_transitions_long/show_state_scene"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_7wmbr")
-volume_db = -19.932
-autoplay = true
