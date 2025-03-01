@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ct878em515kjj"
-path="res://.godot/imported/flowers_red.png-c5e4b5089877137aa78e2db22a464331.ctex"
+path="res://.godot/imported/flowers_red.png-e496a755a471e8f1335cae13f204b1b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/area_01/flowers_red.png"
-dest_files=["res://.godot/imported/flowers_red.png-c5e4b5089877137aa78e2db22a464331.ctex"]
+source_file="res://levels/area_01/assets/flowers_red.png"
+dest_files=["res://.godot/imported/flowers_red.png-e496a755a471e8f1335cae13f204b1b8.ctex"]
 
 [params]
 

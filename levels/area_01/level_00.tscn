@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cijdb50pj3jc7" path="res://levels/modules/despawn_area.tscn" id="12_corae"]
 [ext_resource type="PackedScene" uid="uid://c8mxwfqxutdoi" path="res://levels/area_01/area_1_backgrounds.tscn" id="13_poah6"]
 [ext_resource type="Material" uid="uid://wyxyitttdya3" path="res://shader/TilemapShader.tres" id="14_jolra"]
-[ext_resource type="TileSet" uid="uid://4v2t32qfx3hb" path="res://levels/area_01/tileset_area_01.tres" id="15_4fppq"]
+[ext_resource type="TileSet" uid="uid://4v2t32qfx3hb" path="res://levels/area_01/assets/tileset_area_01.tres" id="15_4fppq"]
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/modules/player_spawn_point.tscn" id="16_riu0e"]
 
 [sub_resource type="Curve2D" id="Curve2D_j4ig6"]

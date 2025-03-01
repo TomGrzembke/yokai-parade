@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxdfcsh6knkl8"
-path="res://.godot/imported/obstacles_spritesheet.png-de4dc8b413f7291221367855b15388da.ctex"
+path="res://.godot/imported/obstacles_spritesheet.png-1c1bc17fc51afb5826caa644c1b848d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/area_01/obstacles_spritesheet.png"
-dest_files=["res://.godot/imported/obstacles_spritesheet.png-de4dc8b413f7291221367855b15388da.ctex"]
+source_file="res://levels/area_01/assets/obstacles_spritesheet.png"
+dest_files=["res://.godot/imported/obstacles_spritesheet.png-1c1bc17fc51afb5826caa644c1b848d6.ctex"]
 
 [params]
 

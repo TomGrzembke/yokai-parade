@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bckrmvjg8p3jq"
-path="res://.godot/imported/mountains_close.png-cf87133e9ac3a26895822a8c06b3a316.ctex"
+uid="uid://b0vv3r8mo5474"
+path="res://.godot/imported/flowers_red_single.png-17d4e7d6f8c397f133d527533a2d1f47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/area_01/mountains_close.png"
-dest_files=["res://.godot/imported/mountains_close.png-cf87133e9ac3a26895822a8c06b3a316.ctex"]
+source_file="res://levels/area_01/assets/flowers_red_single.png"
+dest_files=["res://.godot/imported/flowers_red_single.png-17d4e7d6f8c397f133d527533a2d1f47.ctex"]
 
 [params]
 

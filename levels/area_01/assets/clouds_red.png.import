@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5frpar7yqfe2"
-path="res://.godot/imported/mountains_spritesheet.png-94d0da128f43675b4a02ecce4a088a8b.ctex"
+uid="uid://dd4dbqeurgyvx"
+path="res://.godot/imported/clouds_red.png-83324f689508f2eefbede8369bba707c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/area_01/mountains_spritesheet.png"
-dest_files=["res://.godot/imported/mountains_spritesheet.png-94d0da128f43675b4a02ecce4a088a8b.ctex"]
+source_file="res://levels/area_01/assets/clouds_red.png"
+dest_files=["res://.godot/imported/clouds_red.png-83324f689508f2eefbede8369bba707c.ctex"]
 
 [params]
 
