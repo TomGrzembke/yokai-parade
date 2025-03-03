@@ -40,16 +40,16 @@ func update_volume_master_slider(volume_linear):
 	%VolumeMasterSlider.set_value_no_signal(volume_linear)
 
 
-func update_volume_music_slider(volume_db):
-	%VolumeMusicSlider.set_value_no_signal(db_to_linear(volume_db))
+func update_volume_music_slider(volume_linear):
+	%VolumeMusicSlider.set_value_no_signal(volume_linear)
 
 
-func update_volume_sfx_slider(volume_db):
-	%VolumeSfxSlider.set_value_no_signal(db_to_linear(volume_db))
+func update_volume_sfx_slider(volume_linear):
+	%VolumeSfxSlider.set_value_no_signal(volume_linear)
 
 
-func update_volume_ui_slider(volume_db):
-	%VolumeUiSlider.set_value_no_signal(db_to_linear(volume_db))
+func update_volume_ui_slider(volume_linear):
+	%VolumeUiSlider.set_value_no_signal(volume_linear)
 
 
 func loop_sfx_sound():

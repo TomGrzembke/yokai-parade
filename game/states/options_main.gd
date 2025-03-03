@@ -1,8 +1,8 @@
 extends GameState
 
 
-func set_window_fullscreen(is_on):
-	parent.set_window_fullscreen(is_on)
+func set_window_fullscreen(active):
+	parent.set_window_fullscreen(active)
 
 
 func get_window_fullscreen():
