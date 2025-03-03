@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://daf1dxr8obptf"]
+[gd_scene load_steps=11 format=3 uid="uid://daf1dxr8obptf"]
 
 [ext_resource type="Script" path="res://game/scenes/credits.gd" id="1_ewpqn"]
 [ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="2_1lmbh"]
+[ext_resource type="Texture2D" uid="uid://umkmwt4e2066" path="res://assets/patterns/t_texture_patternwithpapertexture.png" id="2_nqjry"]
+[ext_resource type="Texture2D" uid="uid://d3aw1ef2qldki" path="res://ui/credit_pics/Untitled_Artwork.png" id="3_qgicc"]
+[ext_resource type="Texture2D" uid="uid://cvreurs3kbpiy" path="res://ui/credit_pics/Untitled_Artwork_1.png" id="4_rvwqa"]
+[ext_resource type="Texture2D" uid="uid://2yacoww7nke0" path="res://ui/credit_pics/Untitled_Artwork_2.png" id="5_d2gg1"]
+[ext_resource type="Texture2D" uid="uid://bss7opexttq4i" path="res://ui/credit_pics/Untitled_Artwork_3.png" id="6_ker7p"]
+[ext_resource type="Texture2D" uid="uid://djiq62h6cqlnt" path="res://ui/credit_pics/Untitled_Artwork_4.png" id="7_u51lg"]
+[ext_resource type="Texture2D" uid="uid://cmueqs1hbm3yo" path="res://ui/credit_pics/Untitled_Artwork_5.png" id="8_ah5le"]
+[ext_resource type="Texture2D" uid="uid://bhvu41c3m5fvo" path="res://ui/credit_pics/Untitled_Artwork_6.png" id="9_dakke"]
 
 [node name="Credits" type="Node"]
 script = ExtResource("1_ewpqn")
@@ -16,24 +24,207 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Main"]
+[node name="BackCover" type="TextureRect" parent="CanvasLayer/Main"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_nqjry")
+stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main/CenterContainer"]
-layout_mode = 2
+[node name="Tim" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 328.6
+offset_right = 278.0
+offset_bottom = 490.6
+theme_override_font_sizes/font_size = 40
+text = "Tim
+Producer &
+Game-design"
+horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Credits"
+[node name="UntitledArtwork2" type="TextureRect" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 36.0
+offset_right = 541.0
+offset_bottom = 578.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_d2gg1")
 
-[node name="BackButton" type="Button" parent="CanvasLayer/Main/CenterContainer/VBoxContainer"]
+[node name="Fedir" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 389.0
+offset_top = 333.7
+offset_right = 672.0
+offset_bottom = 495.7
+theme_override_font_sizes/font_size = 40
+text = "Fedir
+Level-design &
+Game-Design"
+horizontal_alignment = 1
+
+[node name="UntitledArtwork4" type="TextureRect" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 52.0
+offset_right = 858.0
+offset_bottom = 551.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("7_u51lg")
+
+[node name="Sasha" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 844.6
+offset_top = 319.5
+offset_right = 1103.6
+offset_bottom = 481.5
+theme_override_font_sizes/font_size = 40
+text = "Sasha
+Art-Lead &
+Game-Graphics"
+horizontal_alignment = 1
+
+[node name="UntitledArtwork1" type="TextureRect" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 826.0
+offset_top = 45.0
+offset_right = 1368.0
+offset_bottom = 540.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_rvwqa")
+
+[node name="Nadine" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 1224.0
+offset_top = 309.5
+offset_right = 1483.0
+offset_bottom = 471.5
+theme_override_font_sizes/font_size = 40
+text = "Nadine
+VFX-artist &
+Game-graphics"
+horizontal_alignment = 1
+
+[node name="UntitledArtwork3" type="TextureRect" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 1204.0
+offset_top = 42.0
+offset_right = 1664.0
+offset_bottom = 517.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_ker7p")
+
+[node name="Aiden" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 1554.0
+offset_top = 306.0
+offset_right = 1853.0
+offset_bottom = 468.0
+theme_override_font_sizes/font_size = 40
+text = "Aiden
+UI/UX-Artist &
+Game-Graphics"
+horizontal_alignment = 1
+
+[node name="UntitledArtwork" type="TextureRect" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 1552.0
+offset_top = 24.0
+offset_right = 2058.0
+offset_bottom = 548.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_qgicc")
+
+[node name="Chris" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 148.8
+offset_top = 748.9
+offset_right = 405.8
+offset_bottom = 910.9
+theme_override_font_sizes/font_size = 40
+text = "Chris
+Programming &
+Game-Engineering"
+horizontal_alignment = 1
+
+[node name="UntitledArtwork6" type="TextureRect" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 480.0
+offset_right = 659.0
+offset_bottom = 973.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("9_dakke")
+
+[node name="Tommy" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 517.0
+offset_top = 742.8
+offset_right = 900.0
+offset_bottom = 904.8
+theme_override_font_sizes/font_size = 40
+text = "Tommy
+Shader-programmer &
+Game-Engineering"
+horizontal_alignment = 1
+
+[node name="UntitledArtwork5" type="TextureRect" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 569.0
+offset_top = 467.0
+offset_right = 1103.0
+offset_bottom = 983.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("8_ah5le")
+
+[node name="Lucy&Momo" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 1392.0
+offset_top = 767.0
+offset_right = 1775.0
+offset_bottom = 929.0
+theme_override_font_sizes/font_size = 40
+text = "Lucy & Momo
+Voiceactors "
+horizontal_alignment = 1
+
+[node name="laziri_music" type="Label" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_left = 988.0
+offset_top = 756.0
+offset_right = 1389.0
+offset_bottom = 918.0
+theme_override_font_sizes/font_size = 40
+text = "laziri_music
+Music & 
+Sound-Design"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Main/BackCover"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 4
+
+[node name="BackButton" type="Button" parent="CanvasLayer/Main"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = 398.0
+offset_right = 1.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
 text = "Back"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

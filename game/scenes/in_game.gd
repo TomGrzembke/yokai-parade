@@ -25,20 +25,24 @@ func _ready():
 	%LevelStateMachine.init(self, initial_level_state)
 
 
-func _physics_process(delta):
-	%LevelStateMachine.physics_process(delta)
+func set_window_fullscreen(active):
+	state_node.set_window_fullscreen(active)
 
 
-func _process(delta):
-	%LevelStateMachine.process(delta)
+func get_window_fullscreen():
+	return state_node.get_window_fullscreen()
 
 
-func _unhandled_input(event):
-	%LevelStateMachine.unhandled_input(event)
+func set_volume_audio_bus(bus_id, volume_db):
+	state_node.set_volume_audio_bus(bus_id, volume_db)
 
 
-func _input(event):
-	%LevelStateMachine.input(event)
+func get_volume_audio_bus(bus_id):
+	return state_node.get_volume_audio_bus(bus_id)
+
+
+func play_game_music():
+	state_node.play_game_music()
 
 
 func set_game_paused(should_pause):
@@ -118,6 +122,24 @@ func reset_level():
 	reset_play_time()
 
 
+# State Machine
+
+func _physics_process(delta):
+	%LevelStateMachine.physics_process(delta)
+
+
+func _process(delta):
+	%LevelStateMachine.process(delta)
+
+
+func _unhandled_input(event):
+	%LevelStateMachine.unhandled_input(event)
+
+
+func _input(event):
+	%LevelStateMachine.input(event)
+
+
 # Level State
 
 func load_level_state_scene(level_state_scene):
@@ -146,3 +168,7 @@ func set_state_node(node):
 
 func change_to_main_menu_game_state():
 	state_node.change_to_main_menu_game_state()
+
+
+func change_to_quit_game_state():
+	state_node.change_to_quit_game_state()

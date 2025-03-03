@@ -1,6 +1,8 @@
 extends GameState
 
 
+# Game States
+
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 

@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://dpupbyyq251qm" path="res://assets/signs/p_sign_keyboardusefire.png" id="13_d6fcy"]
 [ext_resource type="PackedScene" uid="uid://cijdb50pj3jc7" path="res://levels/modules/despawn_area.tscn" id="14_20vgg"]
 [ext_resource type="PackedScene" uid="uid://c8mxwfqxutdoi" path="res://levels/area_01/area_1_backgrounds.tscn" id="15_hmule"]
-[ext_resource type="Material" path="res://shader/TilemapShader.tres" id="16_ufhtr"]
-[ext_resource type="TileSet" uid="uid://4v2t32qfx3hb" path="res://levels/area_01/tileset_area_01.tres" id="17_0fatb"]
+[ext_resource type="Material" uid="uid://wyxyitttdya3" path="res://shader/TilemapShader.tres" id="16_ufhtr"]
+[ext_resource type="TileSet" uid="uid://4v2t32qfx3hb" path="res://levels/area_01/assets/tileset_area_01.tres" id="17_0fatb"]
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/modules/player_spawn_point.tscn" id="18_ywyf1"]
 
 [sub_resource type="Curve2D" id="Curve2D_j4ig6"]

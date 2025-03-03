@@ -14,3 +14,4 @@ func on_body_entered(other):
 	and other.has_method("on_goal_reached"):
 		other.on_goal_reached()
 		%Sprite2D.texture = texture_active
+		set_deferred("monitoring", false)

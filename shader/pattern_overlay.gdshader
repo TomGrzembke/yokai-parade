@@ -8,10 +8,11 @@ uniform bool flip_alpha = true;
 uniform bool use_hard_blend = false;
 uniform bool use_local = true;
 uniform float world_scale = 1.0;
+uniform float pattern_multiplier = 1.0;
 uniform vec4 end_tint : source_color = vec4(0,0,0,1);
+const vec4 BLACK_COLOR = vec4(0,0,0,1);
 varying vec2 world_position;
 varying vec2 local_position;
-const vec4 BLACK_COLOR = vec4(0,0,0,1);
 
 vec4 soft_light_blend(vec4 base, vec4 blend, float alpha){
 	return mix(2.0 * base * blend + base * base * (1.0 - 2.0 * blend),
@@ -63,7 +64,7 @@ void fragment() {
 
 	vec4 pattern = mix(texture_color, pattern_color, filtered_alpha);
 
-	vec4 soft_light_blend_result = soft_light_blend(texture_color, pattern , overlay_alpha);
+	vec4 soft_light_blend_result = soft_light_blend(texture_color, pattern * pattern_multiplier, overlay_alpha);
 
 	float alpha = -soft_light_blend_result.r * 2.0 * overlay_alpha * pattern_color.a;
 	alpha = flip_alpha ? -alpha : alpha;
@@ -71,7 +72,7 @@ void fragment() {
 	vec4 final_color = mix(texture_color, soft_light_blend_result, alpha);
 
 	if (use_hard_blend)
-		final_color = hard_blend_result(texture_color, pattern, final_color);
+		final_color = hard_blend_result(texture_color, soft_light_blend_result, final_color);
 	
 	if (end_tint != BLACK_COLOR){
 		float brightness = get_luminocity(final_color);
