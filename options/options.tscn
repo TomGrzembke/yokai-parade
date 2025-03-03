@@ -14,7 +14,9 @@
 
 [sub_resource type="Animation" id="Animation_dwq7n"]
 resource_name = "loop_sfx_sound"
+length = 0.5
 loop_mode = 1
+step = 0.125
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -22,7 +24,7 @@ tracks/0/path = NodePath("SfxAudioStreamPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [0.0],
@@ -32,7 +34,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_0fvai"]
 resource_name = "loop_ui_sound"
+length = 0.5
 loop_mode = 1
+step = 0.125
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -40,7 +44,7 @@ tracks/0/path = NodePath("UiAudioStreamPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [0.0],
@@ -100,18 +104,18 @@ layout_mode = 2
 text = "Options"
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="ControlsHBoxContainer" type="HBoxContainer" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="MainPanel/PanelContainer/VBoxContainer/ControlsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 texture = ExtResource("3_m7fsm")
 stretch_mode = 3
 
-[node name="UiControlsKeyboard" type="TextureRect" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="UiControlsKeyboard" type="TextureRect" parent="MainPanel/PanelContainer/VBoxContainer/ControlsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -119,68 +123,73 @@ texture = ExtResource("4_i05pu")
 
 [node name="AudioLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_type_variation = &"HeadingLabel"
 text = "Audio"
 horizontal_alignment = 1
 
-[node name="VolumeMasterLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="SettingsGridContainer" type="GridContainer" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+columns = 2
+
+[node name="VolumeMasterLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
+layout_mode = 2
+theme_type_variation = &"SubHeadingLabel"
 text = "Master Volume"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
-[node name="VolumeMasterSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="VolumeMasterSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 
-[node name="VolumeMusicLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="VolumeMusicLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_type_variation = &"SubHeadingLabel"
 text = "Music"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
-[node name="VolumeMusicSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="VolumeMusicSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 
-[node name="VolumeSfxLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="VolumeSfxLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_type_variation = &"SubHeadingLabel"
 text = "Sound Effects"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
-[node name="VolumeSfxSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="VolumeSfxSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 
-[node name="VolumeUiLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="VolumeUiLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_type_variation = &"SubHeadingLabel"
 text = "User Interface Effects"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
-[node name="VolumeUiSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="VolumeUiSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/PanelContainer/VBoxContainer"]
+[node name="FullscreenLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="FullscreenLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_type_variation = &"SubHeadingLabel"
 text = "Fullscreen"
+horizontal_alignment = 2
 
-[node name="FullscreenCheckBox" type="CheckBox" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="FullscreenCheckBox" type="CheckBox" parent="MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
