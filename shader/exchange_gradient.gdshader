@@ -89,7 +89,8 @@ void fragment() {
 
 	vec2 pattern_uv = fract(scaled_position);
 
-	vec4 pattern_color = texture(pattern_texture, pattern_uv) ;
+	vec4 pattern_color = texture(pattern_texture, pattern_uv);
+	vec4 empty_color = texture(empty_texture , pattern_uv);
 
 	float filtered_alpha = mix(texture_color, pattern_color, pattern_color.x).a;
 
@@ -101,6 +102,7 @@ void fragment() {
 	alpha = flip_alpha ? -alpha : alpha;
 
 	vec4 final_color = mix(texture_color, soft_light_blend_result, alpha);
+	
 
 	if (use_hard_blend)
 		final_color = hard_blend_result(texture_color, soft_light_blend_result, final_color);
@@ -113,4 +115,8 @@ void fragment() {
 	}
  
 	COLOR = final_color;
+	
+	if(pattern_color == empty_color)
+	COLOR = final_mix;
+
 }
