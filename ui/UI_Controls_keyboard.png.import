@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvnwclgjgpg4n"
-path="res://.godot/imported/UI_ingame_sign_line.png-30758c4a637d562f549d64cbfc7d00d3.ctex"
+uid="uid://cvcpym3grnxa6"
+path="res://.godot/imported/UI_Controls_keyboard.png-4ef6478816e91b58a884c34957759e46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/UI_ingame_sign_line.png"
-dest_files=["res://.godot/imported/UI_ingame_sign_line.png-30758c4a637d562f549d64cbfc7d00d3.ctex"]
+source_file="res://ui/UI_Controls_keyboard.png"
+dest_files=["res://.godot/imported/UI_Controls_keyboard.png-4ef6478816e91b58a884c34957759e46.ctex"]
 
 [params]
 

@@ -1,12 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://c04lg3aglqhgy"]
+[gd_scene load_steps=14 format=3 uid="uid://c04lg3aglqhgy"]
 
 [ext_resource type="Script" path="res://options/options.gd" id="1_c48yv"]
 [ext_resource type="Texture2D" uid="uid://c3i6sr0g87h2b" path="res://ui/ui_panel_horimain.png" id="2_d7f8b"]
 [ext_resource type="Texture2D" uid="uid://ck7yd2b51exe3" path="res://ui/ui_panel_horibottom.png" id="3_bf6v8"]
+[ext_resource type="Texture2D" uid="uid://byoa2xpuaro8g" path="res://ui/UI_Controls_Controller.png" id="3_m7fsm"]
 [ext_resource type="Texture2D" uid="uid://de8n4chrqn73o" path="res://ui/ui_panel_horitop.png" id="4_bvb6k"]
+[ext_resource type="Texture2D" uid="uid://cvcpym3grnxa6" path="res://ui/UI_Controls_keyboard.png" id="4_i05pu"]
 [ext_resource type="Texture2D" uid="uid://b7bu0g5d2kfpc" path="res://ui/ui_panel_deco.png" id="5_c7ss1"]
 [ext_resource type="AudioStream" uid="uid://djqvbt1j40cgp" path="res://sounds/enemy_kick.wav" id="6_rr6gf"]
 [ext_resource type="AudioStream" uid="uid://c475r5in65dtp" path="res://sounds/menu_button1.wav" id="7_a73mq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6pi0t"]
 
 [sub_resource type="Animation" id="Animation_dwq7n"]
 resource_name = "loop_sfx_sound"
@@ -72,88 +76,118 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_d7f8b")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel"]
+[node name="PanelContainer" type="PanelContainer" parent="MainPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -107.0
-offset_top = -65.5
-offset_right = 107.0
-offset_bottom = 65.5
+offset_left = -451.0
+offset_top = -355.0
+offset_right = 562.0
+offset_bottom = 448.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6pi0t")
 
-[node name="FullscreenLabel" type="Label" parent="MainPanel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/PanelContainer"]
+layout_mode = 2
+
+[node name="OptionsLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Options"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="FullscreenLabel" type="Label" parent="MainPanel/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "Fullscreen"
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("3_m7fsm")
+stretch_mode = 3
 
-[node name="FullscreenCheckBox" type="CheckBox" parent="MainPanel/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="UiControlsKeyboard" type="TextureRect" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("4_i05pu")
 
-[node name="AudioLabel" type="Label" parent="MainPanel/VBoxContainer"]
+[node name="AudioLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Audio"
 horizontal_alignment = 1
 
-[node name="VolumeMasterLabel" type="Label" parent="MainPanel/VBoxContainer"]
+[node name="VolumeMasterLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Main"
+theme_override_font_sizes/font_size = 40
+text = "Master Volume"
 horizontal_alignment = 1
 
-[node name="VolumeMasterSlider" type="HSlider" parent="MainPanel/VBoxContainer"]
+[node name="VolumeMasterSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 
-[node name="VolumeMusicLabel" type="Label" parent="MainPanel/VBoxContainer"]
+[node name="VolumeMusicLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Music"
 horizontal_alignment = 1
 
-[node name="VolumeMusicSlider" type="HSlider" parent="MainPanel/VBoxContainer"]
+[node name="VolumeMusicSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 
-[node name="VolumeSfxLabel" type="Label" parent="MainPanel/VBoxContainer"]
+[node name="VolumeSfxLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Sound Effects"
 horizontal_alignment = 1
 
-[node name="VolumeSfxSlider" type="HSlider" parent="MainPanel/VBoxContainer"]
+[node name="VolumeSfxSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 
-[node name="VolumeUiLabel" type="Label" parent="MainPanel/VBoxContainer"]
+[node name="VolumeUiLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "User Interface Effects"
 horizontal_alignment = 1
 
-[node name="VolumeUiSlider" type="HSlider" parent="MainPanel/VBoxContainer"]
+[node name="VolumeUiSlider" type="HSlider" parent="MainPanel/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 
-[node name="BackButton" type="Button" parent="MainPanel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FullscreenLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Fullscreen"
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="MainPanel/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MainPanel/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Back"
 
 [node name="BottomRoll" type="TextureRect" parent="."]
