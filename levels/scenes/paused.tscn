@@ -90,6 +90,7 @@ layout_mode = 2
 [node name="ResumeButton" type="Button" parent="CanvasLayer/Main/MainPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitGameButton")
 text = "Resume"
 script = ExtResource("4_73kvt")
 
@@ -120,6 +121,7 @@ script = ExtResource("4_73kvt")
 [node name="QuitGameButton" type="Button" parent="CanvasLayer/Main/MainPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../ResumeButton")
 text = "Quit Game"
 script = ExtResource("4_73kvt")
 
