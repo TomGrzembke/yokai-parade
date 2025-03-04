@@ -69,9 +69,10 @@ despawning_level_state = NodePath("../Despawning")
 finishing_level_state = NodePath("../Finishing")
 level_state_packed_scene = ExtResource("8_232sf")
 
-[node name="Despawning" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("next_level_state")]
+[node name="Despawning" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("playing_level_state", "reset_level_state")]
 script = ExtResource("8_kgyjn")
-next_level_state = NodePath("../Playing")
+playing_level_state = NodePath("../Playing")
+reset_level_state = NodePath("../ResetLevel")
 level_state_packed_scene = ExtResource("10_7ikty")
 
 [node name="Finishing" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("next_level_state")]
@@ -108,9 +109,10 @@ level_state_packed_scene = ExtResource("13_o02i2")
 script = ExtResource("17_7gv5i")
 level_state_packed_scene = ExtResource("18_nem0v")
 
-[node name="ResetToCheckpoint" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("next_level_state")]
+[node name="ResetToCheckpoint" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("playing_level_state", "reset_level_state")]
 script = ExtResource("15_t1lu2")
-next_level_state = NodePath("../Playing")
+playing_level_state = NodePath("../Playing")
+reset_level_state = NodePath("../ResetLevel")
 level_state_packed_scene = ExtResource("16_tucxx")
 
 [node name="ResetLevel" type="Node" parent="LevelStateMachine" node_paths=PackedStringArray("next_level_state")]

@@ -16,7 +16,7 @@ var requested_level_path_index
 var current_level_path_index
 var currently_loading_level_path
 
-var player_spawn_position
+var last_checkpoint_position
 
 
 func _physics_process(_delta):
@@ -114,7 +114,7 @@ func clear_current_level():
 
 func set_current_level(level_packed_scene):
 	clear_current_level()
-	reset_player_spawn_position()
+	reset_last_checkpoint_position()
 
 	var level_scene = level_packed_scene.instantiate()
 
@@ -134,11 +134,17 @@ func get_current_level():
 	return current_level
 
 
-func reset_player_spawn_position():
-	player_spawn_position = null
+func get_is_past_first_checkpoint():
+	return last_checkpoint_position != null
+
+
+func reset_last_checkpoint_position():
+	last_checkpoint_position = null
 
 
 func get_player_spawn_position():
+	var player_spawn_position = last_checkpoint_position
+
 	if player_spawn_position == null:
 		player_spawn_position = get_current_level().get_player_spawn_position()
 
@@ -178,7 +184,7 @@ func reset_to_checkpoint():
 
 
 func reset_level():
-	reset_player_spawn_position()
+	reset_last_checkpoint_position()
 	await try_loading_level(level_paths[current_level_path_index])
 	await spawn_player()
 
@@ -194,7 +200,7 @@ func on_player_despawned():
 
 
 func on_player_reached_checkpoint(position):
-	player_spawn_position = position
+	last_checkpoint_position = position
 
 
 func on_player_reached_goal():

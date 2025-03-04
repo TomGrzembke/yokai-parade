@@ -64,6 +64,10 @@ func get_play_time():
 	return play_time
 
 
+func get_is_past_first_checkpoint():
+	return %Levels.get_is_past_first_checkpoint()
+
+
 func set_player_controls_active(active):
 	%Levels.set_player_controls_active(active)
 

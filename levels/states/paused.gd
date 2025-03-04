@@ -12,9 +12,11 @@ extends LevelState
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
+	state_scene.set_state_node(self)
+
 	parent.set_game_paused(true)
 
-	state_scene.set_state_node(self)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 	state_scene.set_playing_level_state(playing_level_state)
 	state_scene.set_options_in_game_level_state(options_in_game_level_state)
@@ -22,8 +24,6 @@ func enter(p_previous_state):
 	state_scene.set_reset_to_checkpoint_level_state(reset_to_checkpoint_level_state)
 	state_scene.set_reset_level_state(reset_level_state)
 	state_scene.set_quit_game_level_state(quit_game_level_state)
-
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func unhandled_input(event):
@@ -33,5 +33,7 @@ func unhandled_input(event):
 
 func exit():
 	super.exit()
+
+	parent.set_game_paused(false)
 
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN

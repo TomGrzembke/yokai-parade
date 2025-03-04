@@ -24,6 +24,10 @@ func enter(p_previous_state):
 
 	state_scene.set_state_node(self)
 
+	parent.set_game_paused(true)
+
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 	state_scene.update_window_fullscreen(get_window_fullscreen())
 
 	state_scene.update_volume_master(get_volume_audio_bus(0))
@@ -31,11 +35,11 @@ func enter(p_previous_state):
 	state_scene.update_volume_sfx(get_volume_audio_bus(2))
 	state_scene.update_volume_ui(get_volume_audio_bus(3))
 
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
 
 func exit():
 	super.exit()
+
+	parent.set_game_paused(false)
 
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
