@@ -88,6 +88,12 @@ position = Vector2(51.6667, 0)
 shape = SubResource("CapsuleShape2D_82728")
 debug_color = Color(0.595658, 0.545411, 0, 0.42)
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DealDamageArea"]
+position = Vector2(-47, 12)
+scale = Vector2(0.605, 0.605)
+shape = SubResource("CapsuleShape2D_82728")
+debug_color = Color(0.595658, 0.545411, 0, 0.42)
+
 [node name="HitWallRay" parent="." instance=ExtResource("5_5gjfl")]
 position = Vector2(0, -51)
 target_position = Vector2(135, 0)
