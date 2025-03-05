@@ -39,7 +39,6 @@ const INFINITY = 1e20
 @export var push_back = 500.0
 @export_range(.0, 1.5, .1) var push_height_percentage = .75
 
-@onready var abilities: Node2D = $Abilities
 @onready var cant_edge_detect_ray: RayCast2D = $CantEdgeCorrectRay
 @onready var has_air_target_ray: RayCast2D = $HasAirTargetRay
 @onready var can_edge_detect_ray: RayCast2D = $CanEdgeCorrectRay
@@ -74,6 +73,7 @@ var debug_speed_modifier = 3
 
 func _ready():
 	%Abilities.ability_changed.connect(func (color): player_ability_changed.emit(color))
+	player_despawned.connect(%Abilities.clear_abilities)
 
 
 func _physics_process(delta):
@@ -378,10 +378,6 @@ func delete_vel_mod(velocity_mod):
 
 	if check_movement_mods_empty():
 		player_control = true
-
-
-func clear_abilities():
-	abilities.clear_abilities()
 
 
 func check_movement_mods_empty():

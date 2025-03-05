@@ -28,10 +28,10 @@ func _ready():
 	abilities.player_hits.connect(func(): state_machine.start("hit"))
 	abilities.used_ability.connect(on_ability)
 	abilities.ability_changed.connect(on_pickup)
-	player.player_reached_goal.connect(func(): state_machine.start("celebration"))
-	#player.player_reached_goal.connect(func(): state_machine.start("dying"))
 
+	player.player_reached_goal.connect(func(): state_machine.start("celebration"))
 	player.player_despawned.connect(func(): state_machine.start("dying"))
+	player.player_despawned.connect(func(): default_vfx())
 
 	sort_dictionary_descending()
 
@@ -60,7 +60,6 @@ func on_ability(current_ability):
 
 func spawn_vfx(anim_name, emit_in_global, freeze_physics):
 	var vfx = vfx_instance.instantiate()
-	#add_child(vfx)
 	call_deferred("add_child", vfx)
 
 	if vfx.has_method("play"): vfx.play(anim_name, emit_in_global, freeze_physics)
@@ -79,18 +78,21 @@ func on_pickup(color):
 	spawn_vfx("absorb", false, true)
 
 	if color_blend_timer != null:
-		color_blend_timer.timeout.disconnect(reset_vfx)
+		color_blend_timer.timeout.disconnect(reset_vfx_conditionally)
 		color_blend_timer = null
 
 
 func blend_vfx_back():
 	color_blend_timer = create_timer(time_to_blend)
-	color_blend_timer.timeout.connect(reset_vfx)
+	color_blend_timer.timeout.connect(reset_vfx_conditionally)
 
 
-func reset_vfx():
+func reset_vfx_conditionally():
 	if color_blend_timer != null && color_blend_timer.time_left > 0: return
+	default_vfx()
 
+
+func default_vfx():
 	shader_mat.set_shader_parameter("end_tint", COLOR_BLACK)
 
 
