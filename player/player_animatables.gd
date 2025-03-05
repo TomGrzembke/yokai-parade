@@ -28,10 +28,10 @@ func _ready():
 	abilities.player_hits.connect(func(): state_machine.start("hit"))
 	abilities.used_ability.connect(on_ability)
 	abilities.ability_changed.connect(on_pickup)
-	player.player_reached_goal.connect(func(): state_machine.start("dying"))
+	player.player_reached_goal.connect(func(): state_machine.start("celebration"))
+	#player.player_reached_goal.connect(func(): state_machine.start("dying"))
 
 	player.player_despawned.connect(func(): state_machine.start("dying"))
-	player.player_reached_goal.connect(func(): state_machine.start("celebration"))
 
 	sort_dictionary_descending()
 
@@ -62,6 +62,10 @@ func spawn_vfx(anim_name, emit_in_global):
 	var vfx = vfx_instance.instantiate()
 	add_child(vfx)
 	if vfx.has_method("play"): vfx.play(anim_name, emit_in_global)
+
+
+func land():
+	spawn_vfx("land", true)
 
 
 func on_pickup(color):

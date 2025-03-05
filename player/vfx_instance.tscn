@@ -32,7 +32,7 @@ animations = [{
 "speed": 8.0
 }, {
 "frames": [{
-"duration": 13.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_ign40")
 }, {
 "duration": 1.0,
@@ -45,7 +45,6 @@ animations = [{
 
 [node name="VfxInstance" type="Node2D"]
 material = ExtResource("1_awcbs")
-scale = Vector2(1.25, 1.25)
 script = ExtResource("1_ul387")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
