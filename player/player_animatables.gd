@@ -55,17 +55,19 @@ func on_ability(current_ability):
 		state_machine.start("dash")
 	elif current_ability.ELEMENT_TYPE == ELEMENTS.ElementType.AIR:
 		state_machine.start("jump")
-		spawn_vfx("jump", true)
+		spawn_vfx("jump", true, true)
 
 
-func spawn_vfx(anim_name, emit_in_global):
+func spawn_vfx(anim_name, emit_in_global, freeze_physics):
 	var vfx = vfx_instance.instantiate()
-	add_child(vfx)
-	if vfx.has_method("play"): vfx.play(anim_name, emit_in_global)
+	#add_child(vfx)
+	call_deferred("add_child", vfx)
+
+	if vfx.has_method("play"): vfx.play(anim_name, emit_in_global, freeze_physics)
 
 
 func land():
-	spawn_vfx("land", true)
+	spawn_vfx("land", true, false)
 
 
 func on_pickup(color):
@@ -74,6 +76,7 @@ func on_pickup(color):
 		return
 
 	shader_mat.set_shader_parameter("end_tint", color)
+	spawn_vfx("absorb", false, true)
 
 	if color_blend_timer != null:
 		color_blend_timer.timeout.disconnect(reset_vfx)

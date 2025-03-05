@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmueqs1hbm3yo"
-path="res://.godot/imported/Untitled_Artwork_5.png-089f9340915d5153590a3016520abad6.ctex"
+uid="uid://ct5uvmei28kqk"
+path="res://.godot/imported/Christian.png-cc9db8d822e0a0a97189d64d80d8d18b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/credit_pics/Untitled_Artwork_5.png"
-dest_files=["res://.godot/imported/Untitled_Artwork_5.png-089f9340915d5153590a3016520abad6.ctex"]
+source_file="res://ui/credit_pics/Christian.png"
+dest_files=["res://.godot/imported/Christian.png-cc9db8d822e0a0a97189d64d80d8d18b.ctex"]
 
 [params]
 

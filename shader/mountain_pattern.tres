@@ -7,7 +7,7 @@
 shader = ExtResource("1_x8yg2")
 shader_parameter/overlay_alpha = 0.71
 shader_parameter/pattern_scale = 2.0
-shader_parameter/tilemap_offset = Vector2(0, 0)
+shader_parameter/tilemap_offset = Vector2(-0.31, 0)
 shader_parameter/flip_alpha = true
 shader_parameter/use_hard_blend = false
 shader_parameter/use_local = true

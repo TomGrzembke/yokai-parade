@@ -9,6 +9,7 @@ uniform bool use_hard_blend = false;
 uniform bool use_local = true;
 uniform float world_scale = 1.0;
 uniform float pattern_multiplier = 1.0;
+uniform float texture_multiplier = 1.0;
 uniform vec4 end_tint : source_color = vec4(0,0,0,1);
 const vec4 BLACK_COLOR = vec4(0,0,0,1);
 varying vec2 world_position;
@@ -46,6 +47,7 @@ vec4 hard_blend_result(vec4 texture_color, vec4 pattern, vec4 final_color){
 }
 
 vec4 overlay_pattern(vec4 texture_color){
+	texture_color.rgb = texture_color.rgb * texture_multiplier;
 	vec2 position_type = use_local ? local_position : world_position;
 	vec2 scaled_position = position_type * vec2(1.0 / 1920.0, 1.0 / 1080.0) * vec2(pattern_scale) - tilemap_offset;
 
@@ -74,7 +76,7 @@ vec4 overlay_pattern(vec4 texture_color){
 		float brightness = get_luminocity(result);
 		float flipped_brightness = 1.0 - brightness;
 		brightness = flip_alpha ? flipped_brightness : brightness;
-		result = overlay(vec4(vec3(brightness), texture_color.a), end_tint);
+		result = overlay(vec4(vec3(brightness) , texture_color.a), end_tint);
 	}
 
 	return result;
