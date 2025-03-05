@@ -12,6 +12,8 @@ func _ready():
 	%ReturnToMainMenuButton.pressed.connect(change_to_return_to_main_menu_state)
 	%QuitGameButton.pressed.connect(change_to_quit_game_level_state)
 
+	%ReturnToMainMenuButton.grab_focus()
+
 
 # Level States
 
@@ -38,6 +40,7 @@ func change_to_quit_game_level_state():
 func exit_state_transition():
 	%AnimationPlayer.stop()
 	%AnimationPlayer.play("state_transitions_long/hide_state_scene")
+
 	await %AnimationPlayer.animation_finished
 
 
