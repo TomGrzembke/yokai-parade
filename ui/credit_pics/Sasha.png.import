@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvreurs3kbpiy"
-path="res://.godot/imported/Untitled_Artwork_1.png-4813d0635b80fabd872efc81202bf7f4.ctex"
+uid="uid://cngqwl3x0o5is"
+path="res://.godot/imported/Sasha.png-93aacdd1460ac023094531b37cc5b0a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/credit_pics/Untitled_Artwork_1.png"
-dest_files=["res://.godot/imported/Untitled_Artwork_1.png-4813d0635b80fabd872efc81202bf7f4.ctex"]
+source_file="res://ui/credit_pics/Sasha.png"
+dest_files=["res://.godot/imported/Sasha.png-93aacdd1460ac023094531b37cc5b0a4.ctex"]
 
 [params]
 

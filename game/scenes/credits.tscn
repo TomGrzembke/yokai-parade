@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://game/scenes/credits.gd" id="1_ewpqn"]
 [ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="2_1lmbh"]
 [ext_resource type="Texture2D" uid="uid://umkmwt4e2066" path="res://assets/patterns/t_texture_patternwithpapertexture.png" id="2_nqjry"]
-[ext_resource type="Texture2D" uid="uid://d3aw1ef2qldki" path="res://ui/credit_pics/Untitled_Artwork.png" id="3_qgicc"]
-[ext_resource type="Texture2D" uid="uid://cvreurs3kbpiy" path="res://ui/credit_pics/Untitled_Artwork_1.png" id="4_rvwqa"]
-[ext_resource type="Texture2D" uid="uid://2yacoww7nke0" path="res://ui/credit_pics/Untitled_Artwork_2.png" id="5_d2gg1"]
-[ext_resource type="Texture2D" uid="uid://bss7opexttq4i" path="res://ui/credit_pics/Untitled_Artwork_3.png" id="6_ker7p"]
-[ext_resource type="Texture2D" uid="uid://djiq62h6cqlnt" path="res://ui/credit_pics/Untitled_Artwork_4.png" id="7_u51lg"]
-[ext_resource type="Texture2D" uid="uid://cmueqs1hbm3yo" path="res://ui/credit_pics/Untitled_Artwork_5.png" id="8_ah5le"]
-[ext_resource type="Texture2D" uid="uid://bhvu41c3m5fvo" path="res://ui/credit_pics/Untitled_Artwork_6.png" id="9_dakke"]
+[ext_resource type="Texture2D" uid="uid://d4j31qxg6nrho" path="res://ui/credit_pics/Tim.png" id="3_btdyn"]
+[ext_resource type="Texture2D" uid="uid://bgg6ubjesyxv5" path="res://ui/credit_pics/Fedir.png" id="4_adnb2"]
+[ext_resource type="Texture2D" uid="uid://cngqwl3x0o5is" path="res://ui/credit_pics/Sasha.png" id="5_3c6fk"]
+[ext_resource type="Texture2D" uid="uid://bciji618hwae" path="res://ui/credit_pics/Nadine.png" id="6_dyhcn"]
+[ext_resource type="Texture2D" uid="uid://dyiuk4rhgol72" path="res://ui/credit_pics/Aiden.png" id="7_mpjb0"]
+[ext_resource type="Texture2D" uid="uid://ct5uvmei28kqk" path="res://ui/credit_pics/Christian.png" id="8_i6s5j"]
+[ext_resource type="Texture2D" uid="uid://bhvngnwoelad2" path="res://ui/credit_pics/Tommy.png" id="9_1nq6j"]
 
 [node name="Credits" type="Node"]
 script = ExtResource("1_ewpqn")
@@ -36,37 +36,46 @@ stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main/BackCover"]
 layout_mode = 1
-offset_right = 2500.0
-offset_bottom = 1390.0
-scale = Vector2(0.77, 0.77)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 93.0
+offset_top = 45.0
+offset_right = 338.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+theme_override_constants/separation = 40
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/Main/BackCover/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 columns = 5
 
 [node name="UntitledArtwork2" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("5_d2gg1")
+texture = ExtResource("3_btdyn")
 stretch_mode = 3
 
 [node name="UntitledArtwork4" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("7_u51lg")
+texture = ExtResource("4_adnb2")
 stretch_mode = 3
 
 [node name="UntitledArtwork1" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("4_rvwqa")
+texture = ExtResource("5_3c6fk")
 stretch_mode = 3
 
 [node name="UntitledArtwork3" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("6_ker7p")
+texture = ExtResource("6_dyhcn")
 stretch_mode = 3
 
 [node name="UntitledArtwork" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("3_qgicc")
+texture = ExtResource("7_mpjb0")
 stretch_mode = 3
 
 [node name="Tim" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
@@ -116,19 +125,23 @@ columns = 4
 
 [node name="UntitledArtwork6" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
-texture = ExtResource("9_dakke")
+texture = ExtResource("8_i6s5j")
+stretch_mode = 2
 
 [node name="UntitledArtwork5" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
-texture = ExtResource("8_ah5le")
+texture = ExtResource("9_1nq6j")
+stretch_mode = 2
 
 [node name="UntitledArtwork7" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
-texture = ExtResource("8_ah5le")
+texture = ExtResource("9_1nq6j")
+stretch_mode = 2
 
 [node name="UntitledArtwork8" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
-texture = ExtResource("8_ah5le")
+texture = ExtResource("9_1nq6j")
+stretch_mode = 2
 
 [node name="Chris" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
@@ -165,6 +178,8 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 80
 text = "Back"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

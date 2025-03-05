@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djiq62h6cqlnt"
-path="res://.godot/imported/Untitled_Artwork_4.png-859d54055013f1b404c6c8e3ced472ff.ctex"
+uid="uid://bciji618hwae"
+path="res://.godot/imported/Nadine.png-9068c44767d77ba8c6c2e97ced0b9dd2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/credit_pics/Untitled_Artwork_4.png"
-dest_files=["res://.godot/imported/Untitled_Artwork_4.png-859d54055013f1b404c6c8e3ced472ff.ctex"]
+source_file="res://ui/credit_pics/Nadine.png"
+dest_files=["res://.godot/imported/Nadine.png-9068c44767d77ba8c6c2e97ced0b9dd2.ctex"]
 
 [params]
 

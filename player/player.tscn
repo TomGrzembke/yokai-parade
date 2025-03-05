@@ -151,4 +151,3 @@ trail_points_max = 300
 [connection signal="deal_damage_area_exited" from="DealDamageArea" to="Abilities" method="on_deal_damage_area_exited"]
 
 [editable path="PlayerAnimatables"]
-[editable path="PlayerAnimatables/VfxInstance"]
