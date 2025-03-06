@@ -41,6 +41,14 @@ func subscribe_events():
 	player.on_reload.connect(default_vfx)
 
 
+func _exit_tree():
+	abilities.used_ability.disconnect(on_ability)
+	abilities.ability_changed.disconnect(on_pickup)
+
+	player.player_despawned.disconnect(default_vfx)
+	player.on_reload.disconnect(default_vfx)
+
+
 func _physics_process(_delta):
 	if shader_mat.get_shader_parameter("end_tint") == COLOR_BLACK: return
 	if color_blend_timer == null || color_blend_timer.time_left <= 0: return
@@ -143,5 +151,4 @@ func sort_dictionary_descending():
 
 
 func create_timer(time):
-	if get_tree() == null: return null
 	return get_tree().create_timer(time)
