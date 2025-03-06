@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://61orpbtks2al"
-path="res://.godot/imported/p_sign_keyboardattack.png-87502abc26108ba2ac80d4ec6c36071f.ctex"
+uid="uid://dyiuk4rhgol72"
+path="res://.godot/imported/Aiden.png-9cd0ffcc6fad4c97470d26392437dfd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/signs/p_sign_keyboardattack.png"
-dest_files=["res://.godot/imported/p_sign_keyboardattack.png-87502abc26108ba2ac80d4ec6c36071f.ctex"]
+source_file="res://ui/credit_pics/Aiden.png"
+dest_files=["res://.godot/imported/Aiden.png-9cd0ffcc6fad4c97470d26392437dfd9.ctex"]
 
 [params]
 

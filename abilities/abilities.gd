@@ -1,6 +1,5 @@
 extends Node2D
 
-
 signal ability_changed(color)
 signal used_ability(ability)
 signal player_hits

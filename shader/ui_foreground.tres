@@ -1,19 +1,19 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://diak12n0funuu"]
 
 [ext_resource type="Shader" path="res://shader/exchange_gradient.gdshader" id="1_jdoyj"]
-[ext_resource type="Texture2D" uid="uid://bx1y0r1lo05y5" path="res://assets/patterns/t-texture_pinesmorerepeat.png" id="2_x0efq"]
+[ext_resource type="Texture2D" uid="uid://ba5pi8b15xb8a" path="res://assets/patterns/t_pattern_flowers.png" id="2_ciwcx"]
 
 [resource]
 shader = ExtResource("1_jdoyj")
 shader_parameter/darkness_modifier = 1.0
 shader_parameter/white_feather_range = 0.0
 shader_parameter/black_feather_range = 0.0
-shader_parameter/color_a = Color(0.333333, 0.411765, 0.85098, 1)
-shader_parameter/color_b = Color(0.0862745, 0.0941176, 0.184314, 1)
+shader_parameter/color_a = Color(0.329412, 0.666667, 0.905882, 1)
+shader_parameter/color_b = Color(0.388235, 0.458824, 0.74902, 1)
 shader_parameter/overlay_alpha = 1.0
 shader_parameter/pattern_scale = 1.0
 shader_parameter/tilemap_offset = Vector2(0, 0)
 shader_parameter/flip_alpha = true
 shader_parameter/pattern_multiplier = 1.0
 shader_parameter/end_tint = Color(0, 0, 0, 1)
-shader_parameter/pattern_texture = ExtResource("2_x0efq")
+shader_parameter/pattern_texture = ExtResource("2_ciwcx")
