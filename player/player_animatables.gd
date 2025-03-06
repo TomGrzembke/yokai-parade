@@ -25,15 +25,20 @@ var shrug_timer
 func _ready():
 	shader_mat = vfx_animation_character.material as ShaderMaterial
 	state_machine = animation_tree.get("parameters/playback")
+
+	subscribe_events()
+	sort_dictionary_descending()
+
+
+func subscribe_events():
 	abilities.player_hits.connect(func(): state_machine.start("hit"))
 	abilities.used_ability.connect(on_ability)
 	abilities.ability_changed.connect(on_pickup)
 
 	player.player_reached_goal.connect(func(): state_machine.start("celebration"))
 	player.player_despawned.connect(func(): state_machine.start("dying"))
-	player.player_despawned.connect(func(): default_vfx())
-
-	sort_dictionary_descending()
+	player.player_despawned.connect(default_vfx)
+	player.on_reload.connect(default_vfx)
 
 
 func _physics_process(_delta):
@@ -84,6 +89,7 @@ func on_pickup(color):
 
 func blend_vfx_back():
 	color_blend_timer = create_timer(time_to_blend)
+	if color_blend_timer == null: return
 	color_blend_timer.timeout.connect(reset_vfx_conditionally)
 
 
@@ -93,7 +99,6 @@ func reset_vfx_conditionally():
 
 
 func default_vfx():
-	print("a")
 	shader_mat.set_shader_parameter("end_tint", COLOR_BLACK)
 
 
@@ -138,4 +143,5 @@ func sort_dictionary_descending():
 
 
 func create_timer(time):
+	if get_tree() == null: return null
 	return get_tree().create_timer(time)
