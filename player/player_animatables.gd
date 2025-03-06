@@ -25,6 +25,12 @@ var shrug_timer
 func _ready():
 	shader_mat = vfx_animation_character.material as ShaderMaterial
 	state_machine = animation_tree.get("parameters/playback")
+
+	subscribe_events()
+	sort_dictionary_descending()
+
+
+func subscribe_events():
 	abilities.player_hits.connect(func(): state_machine.start("hit"))
 	abilities.used_ability.connect(on_ability)
 	abilities.ability_changed.connect(on_pickup)
@@ -32,8 +38,6 @@ func _ready():
 	player.player_reached_goal.connect(func(): state_machine.start("celebration"))
 	player.player_despawned.connect(func(): state_machine.start("dying"))
 	player.player_despawned.connect(func(): default_vfx())
-
-	sort_dictionary_descending()
 
 
 func _physics_process(_delta):
