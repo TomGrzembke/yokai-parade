@@ -26,6 +26,9 @@ var targets_in_range = []
 func _ready():
 	hit_cooldown_timer = create_timer(0.1)
 
+	player.player_despawned.connect(clear_abilities)
+	ability_changed.connect(player.ability_changed)
+
 
 func _physics_process(_delta):
 	refresh_wallray()

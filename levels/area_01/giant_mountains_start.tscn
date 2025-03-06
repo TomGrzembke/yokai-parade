@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dteyua7jnwy11"]
+[gd_scene load_steps=3 format=3 uid="uid://dcnspl24l4dn4"]
 
 [ext_resource type="Material" uid="uid://td4fx63dfxad" path="res://shader/mountain_pattern2.tres" id="1_5bejs"]
 [ext_resource type="Texture2D" uid="uid://c5frpar7yqfe2" path="res://levels/area_01/assets/mountains_spritesheet.png" id="2_k8x7w"]

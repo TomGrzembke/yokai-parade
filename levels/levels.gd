@@ -6,6 +6,7 @@ signal level_load_completed(level_packed_scene)
 signal player_ability_changed(color)
 signal player_despawned
 signal player_reached_goal
+signal cleared_level()
 
 
 @export var level_paths: Array[String]
@@ -108,6 +109,7 @@ func try_loading_level(level_path):
 
 func clear_current_level():
 	var current_level = get_current_level()
+	cleared_level.emit()
 	if current_level != null:
 		%CurrentLevel.remove_child(current_level)
 
@@ -170,6 +172,7 @@ func spawn_player():
 	player.player_despawned.connect(on_player_despawned)
 	player.player_reached_checkpoint.connect(on_player_reached_checkpoint)
 	player.player_reached_goal.connect(on_player_reached_goal)
+	cleared_level.connect(player.reload)
 
 	var remote_transform = RemoteTransform2D.new()
 	remote_transform.remote_path = %PlayerCamera.get_path()

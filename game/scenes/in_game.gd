@@ -82,7 +82,7 @@ func set_play_time(new_time):
 # Signal Handlers
 
 func on_player_ability_changed(color):
-	%CurrentAbility.modulate = color
+	%CurrentAbility.change_with_color(color)
 
 
 func on_player_despawned():

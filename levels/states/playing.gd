@@ -45,3 +45,6 @@ func unhandled_input(event):
 	if event.is_action_pressed("load_next_level"):
 		parent.request_setting_next_level_path_index()
 		return loading_level_state
+
+	if event.is_action_pressed("debug_screenshot_pause"):
+		parent.set_game_paused(!get_tree().paused)

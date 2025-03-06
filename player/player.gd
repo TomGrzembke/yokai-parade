@@ -5,6 +5,7 @@ signal player_despawned
 signal player_reached_checkpoint(position)
 signal player_reached_goal
 signal player_gets_pushed
+signal on_reload
 
 const INFINITY = 1e20
 
@@ -71,11 +72,6 @@ var debug_mode = false
 var debug_speed_modifier = 3
 
 
-func _ready():
-	%Abilities.ability_changed.connect(func (color): player_ability_changed.emit(color))
-	player_despawned.connect(%Abilities.clear_abilities)
-
-
 func _physics_process(delta):
 	if debug_mode:
 		debug_logic()
@@ -137,6 +133,15 @@ func ability_smoothing():
 
 		if is_on_floor():
 			outer_velocity_sources.y = 0
+
+
+func reload():
+	%Abilities.clear_abilities()
+	on_reload.emit()
+
+
+func ability_changed(color):
+	player_ability_changed.emit(color)
 
 
 func jump(delta):

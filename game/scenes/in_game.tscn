@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cisf071rha1ru"]
+[gd_scene load_steps=44 format=3 uid="uid://cisf071rha1ru"]
 
 [ext_resource type="Script" path="res://game/scenes/in_game.gd" id="1_jmwmp"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="2_7ssm8"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://c00f5fspkqsfg" path="res://levels/scenes/finishing.tscn" id="12_q0gsl"]
 [ext_resource type="PackedScene" uid="uid://dqxanhxshi7ms" path="res://levels/scenes/recaping.tscn" id="12_tbifs"]
 [ext_resource type="Texture2D" uid="uid://bsi2owtjdi83n" path="res://ui/ingame/ui_ingame_ability_bg.png" id="12_yb5sd"]
-[ext_resource type="Texture2D" uid="uid://cajispq8sq8cp" path="res://ui/ingame/ui_ingame_ability_line.png" id="13_m5arx"]
 [ext_resource type="PackedScene" uid="uid://v24eao35y2ad" path="res://levels/scenes/paused.tscn" id="13_o02i2"]
 [ext_resource type="Script" path="res://levels/states/return_to_main_menu.gd" id="15_a0dd1"]
 [ext_resource type="Script" path="res://levels/states/game_over.gd" id="15_e62cx"]
@@ -33,14 +32,17 @@
 [ext_resource type="Material" uid="uid://vmyjhk5ja4df" path="res://shader/ui_background.tres" id="27_xthkp"]
 [ext_resource type="Material" uid="uid://diak12n0funuu" path="res://shader/ui_foreground.tres" id="29_157pf"]
 [ext_resource type="Texture2D" uid="uid://b1k56xq2f22ff" path="res://ui/ingame/ui_ingame_tr_backthin.png" id="29_w8n2c"]
-[ext_resource type="Texture2D" uid="uid://f8apw8d4yauy" path="res://ui/ingame/ui_ingame_tr_main.png" id="31_q8juq"]
-[ext_resource type="Texture2D" uid="uid://dwmdm47c5unwn" path="res://ui/ingame/ui_ingame_tr_line.png" id="32_qp572"]
+[ext_resource type="Texture2D" uid="uid://f8apw8d4yauy" path="res://ui/ingame/UI_ingame_tr_main.png" id="31_q8juq"]
+[ext_resource type="Texture2D" uid="uid://dwmdm47c5unwn" path="res://ui/ingame/UI_ingame_tr_line.png" id="32_qp572"]
 [ext_resource type="Texture2D" uid="uid://doyiecwec55x1" path="res://ui/ingame/ui_ingame_tr_deco.png" id="33_18gor"]
-[ext_resource type="Texture2D" uid="uid://cnj6o61ajdyke" path="res://ui/ingame/ui_ingame_ability_main.png" id="35_by3sm"]
 [ext_resource type="Texture2D" uid="uid://dcs4angsqmkun" path="res://ui/ingame/ui_ingame_bl_backthin.png" id="36_3nxr2"]
-[ext_resource type="Texture2D" uid="uid://cyj6mx31cxvsi" path="res://ui/ingame/ui_ingame_bl_main.png" id="36_j0h8r"]
-[ext_resource type="Texture2D" uid="uid://dkyc7k5vyjc10" path="res://ui/ingame/ui_ingame_bl_line.png" id="37_bjag6"]
+[ext_resource type="Texture2D" uid="uid://cyj6mx31cxvsi" path="res://ui/ingame/UI_ingame_bl_main.png" id="36_j0h8r"]
+[ext_resource type="Texture2D" uid="uid://dkyc7k5vyjc10" path="res://ui/ingame/UI_ingame_bl_line.png" id="37_bjag6"]
 [ext_resource type="Texture2D" uid="uid://87yl10jbtk17" path="res://ui/ingame/ui_ingame_bl_deco.png" id="38_mtvf0"]
+[ext_resource type="Script" path="res://game/scenes/assets/current_ability_ui.gd" id="41_4gbec"]
+[ext_resource type="Texture2D" uid="uid://c5jcfqrvtv365" path="res://ui/ingame/ui_ingame_ability_empty.png" id="41_tsfkn"]
+[ext_resource type="Texture2D" uid="uid://c0ucro4fp5xxe" path="res://ui/ingame/ui_ingame_ability_air.png" id="42_nebps"]
+[ext_resource type="Texture2D" uid="uid://de6ebs41cg745" path="res://ui/ingame/ui_ingame_ability_fire.png" id="43_v3yth"]
 
 [node name="InGame" type="Node" node_paths=PackedStringArray("initial_level_state")]
 script = ExtResource("1_jmwmp")
@@ -258,30 +260,26 @@ offset_right = 1130.0
 grow_vertical = 0
 texture = ExtResource("38_mtvf0")
 
-[node name="Ability bg" type="TextureRect" parent="UILayer/Bottom"]
-layout_mode = 0
-offset_left = -88.0
-offset_top = -338.0
-offset_right = 364.0
-offset_bottom = 75.0
+[node name="AbilityBg" type="TextureRect" parent="UILayer/Bottom"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -390.0
+offset_right = 315.0
+grow_vertical = 0
 texture = ExtResource("12_yb5sd")
-stretch_mode = 3
 
 [node name="CurrentAbility" type="TextureRect" parent="UILayer/Bottom"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = -88.0
-offset_top = -338.0
-offset_right = 364.0
-offset_bottom = 75.0
-texture = ExtResource("35_by3sm")
-stretch_mode = 3
-
-[node name="Ability line" type="TextureRect" parent="UILayer/Bottom"]
-layout_mode = 0
-offset_left = -88.0
-offset_top = -338.0
-offset_right = 364.0
-offset_bottom = 75.0
-texture = ExtResource("13_m5arx")
-stretch_mode = 3
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -390.0
+offset_right = 315.0
+grow_vertical = 0
+texture = ExtResource("41_tsfkn")
+script = ExtResource("41_4gbec")
+air_frame = ExtResource("42_nebps")
+fire_frame = ExtResource("43_v3yth")
