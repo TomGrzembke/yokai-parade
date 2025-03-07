@@ -22,7 +22,7 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_xprnm"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 2816, 576, 0, 0, 0, 0, 3200, 576)
+"points": PackedVector2Array(0, 0, 0, 0, 2816, 576, 0, 0, 0, 0, 3144, 576)
 }
 point_count = 2
 
@@ -188,6 +188,7 @@ position = Vector2(14163, 1125)
 element_type = ExtResource("4_bqem7")
 
 [node name="AirFlyingMoving" type="Path2D" parent="Start-1stCheckpoint/Enemies"]
+position = Vector2(24, 256)
 curve = SubResource("Curve2D_xprnm")
 
 [node name="EnemyAirborne" parent="Start-1stCheckpoint/Enemies/AirFlyingMoving" instance=ExtResource("6_tj8ky")]
@@ -219,6 +220,11 @@ position = Vector2(1800, 272)
 initial_state = 200
 element_type = ExtResource("5_spnqd")
 
+[node name="EnemyGrounded" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("3_0vhd0")]
+position = Vector2(2472, 712)
+initial_state = 200
+element_type = ExtResource("5_spnqd")
+
 [node name="Controls_Signs" type="Node2D" parent="."]
 
 [node name="DoubleJump_sign" type="Sprite2D" parent="Controls_Signs"]
@@ -240,6 +246,7 @@ position = Vector2(-292, 1261)
 scale = Vector2(53.96, 1)
 
 [node name="Area1Backgrounds2" parent="." instance=ExtResource("15_hmule")]
+metadata/_edit_lock_ = true
 
 [node name="GameplayTileMapLayer" type="TileMapLayer" parent="."]
 material = ExtResource("16_ufhtr")

@@ -19,7 +19,11 @@ func exit():
 
 
 func attack():
-	parent.attack(parent.get_target_in_perception_area())
+	var target = parent.get_target_in_ranged_attack_reach()
+	if target == null: return
+	#or not target.has_method("on_took_damage"): return
+
+	target.on_took_damage(parent)
 
 
 func physics_process(_delta):
@@ -29,7 +33,7 @@ func physics_process(_delta):
 	or is_animation_running:
 		return next_state
 
-	if parent.get_target_in_perception_area() != null:
+	if parent.get_target_in_ranged_attack_reach() != null:
 		next_state = lunging_state
 	else:
 		next_state = parent.get_initial_state()

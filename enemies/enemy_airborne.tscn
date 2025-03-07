@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bll3xc6lvwc5"]
+[gd_scene load_steps=17 format=3 uid="uid://bll3xc6lvwc5"]
 
 [ext_resource type="Script" path="res://enemies/enemy_airborne.gd" id="1_vy1qu"]
 [ext_resource type="PackedScene" uid="uid://dbvyxduyy60pr" path="res://components/damage/deal_damage_area.tscn" id="3_7rhrf"]
 [ext_resource type="PackedScene" uid="uid://bpccb0pqmr7r5" path="res://components/damage/take_damage_area.tscn" id="4_85cx3"]
 [ext_resource type="Texture2D" uid="uid://ug7h6qbp1dgw" path="res://enemies/animations/assets/enemy_airborne_air_spritesheet.png" id="5_vojws"]
+[ext_resource type="PackedScene" uid="uid://ca36yjx5emens" path="res://enemies/components/ranged_attack.tscn" id="5_xg1vx"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="6_tsxge"]
 [ext_resource type="Script" path="res://enemies/states/moving_airborne.gd" id="7_16tgl"]
 [ext_resource type="Script" path="res://enemies/states/lunging.gd" id="8_81glp"]
@@ -22,12 +23,12 @@ height = 350.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_p1742"]
 radius = 35.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrlqx"]
+radius = 32.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8npgo"]
 radius = 80.0
 height = 200.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jrlqx"]
-radius = 32.0
 
 [node name="EnemyAirborne" type="PathFollow2D" node_paths=PackedStringArray("idling_state", "moving_state")]
 rotates = false
@@ -36,7 +37,7 @@ easing_curve = SubResource("Curve_lxy51")
 idling_state = NodePath("StateMachine/Idling")
 moving_state = NodePath("StateMachine/Moving")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PreviewSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture = ExtResource("5_vojws")
 hframes = 4
@@ -51,22 +52,13 @@ rotation = -1.5708
 shape = SubResource("CapsuleShape2D_u632v")
 debug_color = Color(0.734891, 0.688246, 3.85046e-07, 0.419608)
 
-[node name="DealBumpDamageArea" parent="." instance=ExtResource("3_7rhrf")]
+[node name="DealMeleeDamageArea" parent="." instance=ExtResource("3_7rhrf")]
 unique_name_in_owner = true
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DealBumpDamageArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DealMeleeDamageArea"]
 shape = SubResource("CircleShape2D_p1742")
 debug_color = Color(0.85749, 0.365079, 0, 0.42)
-
-[node name="DealAttackDamageArea" parent="." instance=ExtResource("3_7rhrf")]
-unique_name_in_owner = true
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DealAttackDamageArea"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_8npgo")
-debug_color = Color(0.976471, 0, 0.411765, 0.419608)
 
 [node name="TakeDamageArea" parent="." instance=ExtResource("4_85cx3")]
 collision_layer = 4
@@ -74,6 +66,18 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamageArea"]
 shape = SubResource("CircleShape2D_jrlqx")
 debug_color = Color(0, 0.245, 0.7, 0.419608)
+
+[node name="RangedAttack" parent="." instance=ExtResource("5_xg1vx")]
+unique_name_in_owner = true
+
+[node name="DealDamageArea" parent="RangedAttack" node_paths=PackedStringArray("subject") instance=ExtResource("3_7rhrf")]
+collision_mask = 4
+subject = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangedAttack/DealDamageArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_8npgo")
+debug_color = Color(0.976471, 0, 0.411765, 0.419608)
 
 [node name="StateMachine" parent="." instance=ExtResource("6_tsxge")]
 unique_name_in_owner = true
@@ -103,4 +107,4 @@ script = ExtResource("9_kcogj")
 
 [connection signal="area_entered" from="PerceptionArea" to="." method="on_perception_area_entered"]
 [connection signal="area_exited" from="PerceptionArea" to="." method="on_perception_area_exited"]
-[connection signal="deal_damage_area_entered" from="DealBumpDamageArea" to="." method="on_bump_damage_area_entered"]
+[connection signal="deal_damage_area_entered" from="DealMeleeDamageArea" to="." method="on_melee_damage_area_entered"]

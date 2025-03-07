@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dehfctg22n1uq"]
+
+[ext_resource type="Script" path="res://enemies/components/cliff_detection.gd" id="1_7f57t"]
+
+[node name="CliffDetection" type="Node2D"]
+script = ExtResource("1_7f57t")
+
+[node name="RightGroundDetectionRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(20, 0)
+
+[node name="LeftGroundDetectionRayCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-20, 0)

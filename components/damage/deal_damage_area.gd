@@ -5,34 +5,48 @@ signal deal_damage_area_entered(target)
 signal deal_damage_area_exited(target)
 
 
+func check_is_damage_subject(target):
+	if not target.has_method("get_damage_subject"):
+		return null
+
+	return target.get_damage_subject()
+
+
+func is_collision_between_damage_subjects(subject1, subject2):
+	return subject1 != null \
+	and subject2 != null
+
+
+func is_collision_between_distinct_subjects(subject1, subject2):
+	return subject1 != subject2
+
+
+func is_valid_subject_collision(subject1, subject2):
+	return is_collision_between_damage_subjects(subject1, subject2) \
+	and is_collision_between_distinct_subjects(subject1, subject2)
+
+
 func on_deal_damage_area_entered(source):
-	if not source.has_method("get_damage_subject"):
-		return
+	if source == null: return
 
-	var subject = get_damage_subject()
-	var source_subject = source.get_damage_subject()
+	var subject = check_is_damage_subject(self)
+	var source_subject = check_is_damage_subject(source)
 
-	if subject == null \
-	or subject == source \
-	or subject == source_subject:
-		return
+	if not is_valid_subject_collision(subject, source_subject): return
 
-	if source != null \
-	and source.has_method("deal_damage_area_entered_take_damage_area"):
+	if source.has_method("deal_damage_area_entered_take_damage_area"):
 		deal_damage_area_entered.emit(source)
 		source.deal_damage_area_entered_take_damage_area(self)
 
 
 func on_deal_damage_area_exited(source):
-	var subject = get_damage_subject()
-	var source_subject = source.get_damage_subject()
+	if source == null: return
 
-	if subject == null \
-	or subject == source \
-	or subject == source_subject:
-		return
+	var subject = check_is_damage_subject(self)
+	var source_subject = check_is_damage_subject(source)
 
-	if source != null \
-	and source.has_method("deal_damage_area_exited_take_damage_area"):
+	if not is_valid_subject_collision(subject, source_subject): return
+
+	if source.has_method("deal_damage_area_exited_take_damage_area"):
 		deal_damage_area_exited.emit(source)
 		source.deal_damage_area_exited_take_damage_area(self)

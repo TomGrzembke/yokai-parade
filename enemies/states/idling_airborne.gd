@@ -15,7 +15,7 @@ func physics_process(_delta):
 	if next_state != null:
 		return next_state
 
-	if parent.get_target_in_perception_area() != null:
+	if parent.get_target_in_ranged_attack_reach() != null:
 		next_state = lunging_enemy_state
 
 	return next_state

@@ -2,6 +2,8 @@ extends EnemyStateCatchable
 
 
 @export var lunging_state: EnemyState
+@export var cliff_detection: Node2D
+
 
 var speed = 0.0
 
@@ -29,7 +31,7 @@ func physics_process(delta):
 	var next_state = check_caught()
 
 	if next_state == null \
-	and parent.get_target_in_perception_area() != null:
+	and parent.get_target_in_ranged_attack_reach() != null:
 		next_state = lunging_state
 
 	return next_state
@@ -39,5 +41,5 @@ func update_direction():
 	var direction = parent.get_look_direction()
 	if direction != null:
 		if parent.is_on_wall() \
-		or parent.is_on_cliff():
+		or cliff_detection.is_on_cliff():
 			parent.set_look_direction(Vector2(direction.x * -1.0, direction.y).normalized())

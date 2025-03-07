@@ -1,10 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://bomxlv8ndomnc"]
+[gd_scene load_steps=18 format=3 uid="uid://bomxlv8ndomnc"]
 
 [ext_resource type="Script" path="res://enemies/enemy_grounded.gd" id="1_ckp3m"]
 [ext_resource type="PackedScene" uid="uid://dbvyxduyy60pr" path="res://components/damage/deal_damage_area.tscn" id="2_jj2bd"]
 [ext_resource type="PackedScene" uid="uid://bpccb0pqmr7r5" path="res://components/damage/take_damage_area.tscn" id="3_rf8mi"]
 [ext_resource type="Texture2D" uid="uid://cxsfo7protit" path="res://enemies/animations/assets/enemy_grounded_air_spritesheet.png" id="4_vdafv"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="5_2m4gu"]
+[ext_resource type="PackedScene" uid="uid://ca36yjx5emens" path="res://enemies/components/ranged_attack.tscn" id="5_gkvlp"]
+[ext_resource type="PackedScene" uid="uid://dehfctg22n1uq" path="res://enemies/components/cliff_detection.tscn" id="6_iy8rm"]
 [ext_resource type="Script" path="res://enemies/states/idling_grounded.gd" id="6_ltbao"]
 [ext_resource type="Script" path="res://enemies/states/moving_grounded.gd" id="7_sppxq"]
 [ext_resource type="Script" path="res://enemies/states/lunging.gd" id="8_2a3fu"]
@@ -21,12 +23,12 @@ height = 350.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_lm0ol"]
 radius = 35.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1g50l"]
+radius = 16.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xlfsh"]
 radius = 80.0
 height = 200.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1g50l"]
-radius = 16.0
 
 [node name="EnemyGrounded" type="CharacterBody2D" node_paths=PackedStringArray("idling_state", "moving_state")]
 collision_layer = 2
@@ -34,7 +36,7 @@ script = ExtResource("1_ckp3m")
 idling_state = NodePath("StateMachine/Idling")
 moving_state = NodePath("StateMachine/Moving")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PreviewSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -26)
 texture = ExtResource("4_vdafv")
@@ -44,14 +46,6 @@ frame = 1
 
 [node name="PhysicsBodyCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i3f1p")
-
-[node name="RayCast2DRight" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(20, 0)
-
-[node name="RayCast2DLeft" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(-20, 0)
 
 [node name="PerceptionArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -63,23 +57,13 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_o0kgc")
 debug_color = Color(0.733333, 0.690196, 0, 0.419608)
 
-[node name="DealBumpDamageArea" parent="." instance=ExtResource("2_jj2bd")]
+[node name="DealMeleeDamageArea" parent="." instance=ExtResource("2_jj2bd")]
 unique_name_in_owner = true
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DealBumpDamageArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DealMeleeDamageArea"]
 shape = SubResource("CircleShape2D_lm0ol")
 debug_color = Color(0.858824, 0.364706, 0, 0.419608)
-
-[node name="DealAttackDamageArea" parent="." instance=ExtResource("2_jj2bd")]
-unique_name_in_owner = true
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DealAttackDamageArea"]
-position = Vector2(0, -40)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_xlfsh")
-debug_color = Color(0.976471, 0, 0.411765, 0.419608)
 
 [node name="TakeDamageArea" parent="." instance=ExtResource("3_rf8mi")]
 collision_layer = 4
@@ -87,6 +71,22 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamageArea"]
 shape = SubResource("CircleShape2D_1g50l")
 debug_color = Color(0, 0.243137, 0.701961, 0.419608)
+
+[node name="RangedAttack" parent="." instance=ExtResource("5_gkvlp")]
+unique_name_in_owner = true
+
+[node name="DealDamageArea" parent="RangedAttack" node_paths=PackedStringArray("subject") instance=ExtResource("2_jj2bd")]
+collision_mask = 4
+subject = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangedAttack/DealDamageArea"]
+position = Vector2(0, -40)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xlfsh")
+debug_color = Color(0.976471, 0, 0.411765, 0.419608)
+
+[node name="CliffDetection" parent="." instance=ExtResource("6_iy8rm")]
+unique_name_in_owner = true
 
 [node name="StateMachine" parent="." instance=ExtResource("5_2m4gu")]
 unique_name_in_owner = true
@@ -96,9 +96,10 @@ script = ExtResource("6_ltbao")
 lunging_enemy_state = NodePath("../Lunging")
 recovering_state = NodePath("../Recovering")
 
-[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("lunging_state", "recovering_state")]
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("lunging_state", "cliff_detection", "recovering_state")]
 script = ExtResource("7_sppxq")
 lunging_state = NodePath("../Lunging")
+cliff_detection = NodePath("../../CliffDetection")
 recovering_state = NodePath("../Recovering")
 
 [node name="Lunging" type="Node" parent="StateMachine" node_paths=PackedStringArray("attacking_state", "recovering_state")]
@@ -115,5 +116,4 @@ recovering_state = NodePath("../Recovering")
 script = ExtResource("10_7g18r")
 
 [connection signal="area_entered" from="PerceptionArea" to="." method="on_perception_area_entered"]
-[connection signal="area_exited" from="PerceptionArea" to="." method="on_perception_area_exited"]
-[connection signal="deal_damage_area_entered" from="DealBumpDamageArea" to="." method="on_bump_damage_area_entered"]
+[connection signal="deal_damage_area_entered" from="DealMeleeDamageArea" to="." method="on_melee_damage_area_entered"]

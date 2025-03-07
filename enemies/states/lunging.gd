@@ -21,7 +21,7 @@ func physics_process(_delta):
 	or is_animation_running:
 		return next_state
 
-	if parent.get_target_in_perception_area() != null:
+	if parent.get_target_in_ranged_attack_reach() != null:
 		next_state = attacking_state
 	else:
 		parent.reset_look_direction()
