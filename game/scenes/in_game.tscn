@@ -270,8 +270,18 @@ offset_right = 315.0
 grow_vertical = 0
 texture = ExtResource("12_yb5sd")
 
-[node name="CurrentAbility" type="TextureRect" parent="UILayer/Bottom"]
+[node name="CurrentAbility" type="Control" parent="UILayer/Bottom" node_paths=PackedStringArray("air_frame", "fire_frame")]
 unique_name_in_owner = true
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+script = ExtResource("41_4gbec")
+air_frame = NodePath("AirAbility")
+fire_frame = NodePath("FireAbility")
+
+[node name="DefaultAbility" type="TextureRect" parent="UILayer/Bottom/CurrentAbility"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -280,6 +290,25 @@ offset_top = -390.0
 offset_right = 315.0
 grow_vertical = 0
 texture = ExtResource("41_tsfkn")
-script = ExtResource("41_4gbec")
-air_frame = ExtResource("42_nebps")
-fire_frame = ExtResource("43_v3yth")
+
+[node name="AirAbility" type="TextureRect" parent="UILayer/Bottom/CurrentAbility"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -390.0
+offset_right = 315.0
+grow_vertical = 0
+texture = ExtResource("42_nebps")
+
+[node name="FireAbility" type="TextureRect" parent="UILayer/Bottom/CurrentAbility"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -390.0
+offset_right = 315.0
+grow_vertical = 0
+texture = ExtResource("43_v3yth")
