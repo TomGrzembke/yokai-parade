@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dqgof1y6y8jv1" path="res://assets/signs/p_sign_controllerleftright.png" id="3_ykdw6"]
 
 [node name="Control_sign" type="Sprite2D"]
+z_index = -1
 position = Vector2(567, 961.625)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_mi21x")
