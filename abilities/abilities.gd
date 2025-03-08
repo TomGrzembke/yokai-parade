@@ -69,8 +69,7 @@ func catch_ability():
 func absorb_ability():
 	var nearest = get_nearest_target()
 	if nearest == null: return
-
-	if hit_wall_ray.has_target() && hit_wall_ray.get_target() is TileMapLayer: return
+	if hit_wall_ray.has_target(): return
 
 	var subject_parent = nearest.get_damage_subject()
 	if subject_parent == null: return
