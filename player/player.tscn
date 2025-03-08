@@ -131,7 +131,7 @@ position = Vector2(0, -51)
 width_curve = SubResource("Curve_xeqma")
 
 [node name="PlayerAnimatables" parent="." instance=ExtResource("7_74yxj")]
-position = Vector2(0, -51)
+position = Vector2(0, -50)
 
 [node name="Player" parent="PlayerAnimatables" index="1"]
 frame = 8
