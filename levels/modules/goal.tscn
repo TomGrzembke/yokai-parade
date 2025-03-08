@@ -1,27 +1,74 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnq2l128u47ma"]
+[gd_scene load_steps=11 format=3 uid="uid://dnq2l128u47ma"]
 
 [ext_resource type="Script" path="res://levels/modules/goal.gd" id="1_jmwwo"]
-[ext_resource type="Texture2D" uid="uid://bfe2dg8ykjd3l" path="res://levels/modules/assets/p_goal_inactive.png" id="2_lqggy"]
-[ext_resource type="Texture2D" uid="uid://b7bdx67irenol" path="res://levels/modules/assets/p_goal_active.png" id="3_bety5"]
+[ext_resource type="Texture2D" uid="uid://bq0wsylybrjvq" path="res://levels/modules/assets/p_goal_spritesheet.png" id="4_3daf8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57quu"]
+atlas = ExtResource("4_3daf8")
+region = Rect2(0, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ovgu"]
+atlas = ExtResource("4_3daf8")
+region = Rect2(440, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of5mh"]
+atlas = ExtResource("4_3daf8")
+region = Rect2(880, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s41vx"]
+atlas = ExtResource("4_3daf8")
+region = Rect2(1320, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofih3"]
+atlas = ExtResource("4_3daf8")
+region = Rect2(1760, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n130m"]
+atlas = ExtResource("4_3daf8")
+region = Rect2(2200, 0, 440, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ayieb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57quu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ovgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_of5mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s41vx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofih3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n130m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qkh4u"]
-size = Vector2(160, 160)
+size = Vector2(192, 404)
 
 [node name="Goal" type="Area2D"]
 position = Vector2(0, 20)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_jmwwo")
-texture_inactive = ExtResource("2_lqggy")
-texture_active = ExtResource("3_bety5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -80)
-texture = ExtResource("2_lqggy")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-198, -240)
+sprite_frames = SubResource("SpriteFrames_ayieb")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -80)
+position = Vector2(0, -202)
 shape = SubResource("RectangleShape2D_qkh4u")
 
 [connection signal="body_entered" from="." to="." method="on_body_entered"]
