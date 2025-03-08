@@ -47,9 +47,14 @@ func update_direction():
 	var new_direction
 
 	if current_direction != null:
-		if parent.is_on_wall() \
-		or cliff_detection_component.is_on_cliff():
+		if parent.is_on_wall():
 			new_direction = Vector2(current_direction.x * -1.0, current_direction.y).normalized()
+
+		elif cliff_detection_component.is_on_cliff_right():
+			new_direction = Vector2(-1.0, current_direction.y).normalized()
+
+		elif cliff_detection_component.is_on_cliff_left():
+			new_direction = Vector2(1.0, current_direction.y).normalized()
 
 	if target_direction != null \
 	and target_direction != Vector2.ZERO:
