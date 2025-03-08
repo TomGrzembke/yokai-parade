@@ -215,7 +215,7 @@ tracks/0/keys = {
 "start_offset": 0.0,
 "stream": ExtResource("4_wmhc6")
 }],
-"times": PackedFloat32Array(0.136019)
+"times": PackedFloat32Array(0.00106631)
 }
 tracks/0/use_blend = true
 tracks/1/type = "value"
