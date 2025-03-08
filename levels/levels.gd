@@ -176,7 +176,7 @@ func spawn_player():
 
 	var remote_transform = RemoteTransform2D.new()
 	remote_transform.remote_path = %PlayerCamera.get_path()
-	player.add_child(remote_transform)
+	player.set_cam_remote(remote_transform)
 
 	%CurrentLevel.add_child.call_deferred(player)
 	await player.tree_entered
