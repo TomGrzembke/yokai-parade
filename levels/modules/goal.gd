@@ -7,4 +7,5 @@ func on_body_entered(other):
 		return
 
 	other.on_goal_reached()
+	%AnimationPlayer.play("celebrate")
 	set_deferred("monitoring", false)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnq2l128u47ma"]
+[gd_scene load_steps=22 format=3 uid="uid://dnq2l128u47ma"]
 
 [ext_resource type="Script" path="res://levels/modules/goal.gd" id="1_jmwwo"]
+[ext_resource type="Texture2D" uid="uid://uja72e3p7hhx" path="res://levels/modules/assets/vfx_goal_spritesheet.png" id="3_kmpe4"]
 [ext_resource type="Texture2D" uid="uid://bq0wsylybrjvq" path="res://levels/modules/assets/p_goal_spritesheet.png" id="4_3daf8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_57quu"]
@@ -53,8 +54,108 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_812qe"]
+atlas = ExtResource("3_kmpe4")
+region = Rect2(0, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgi48"]
+atlas = ExtResource("3_kmpe4")
+region = Rect2(440, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kq1py"]
+atlas = ExtResource("3_kmpe4")
+region = Rect2(880, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fhs1"]
+atlas = ExtResource("3_kmpe4")
+region = Rect2(1320, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvoox"]
+atlas = ExtResource("3_kmpe4")
+region = Rect2(1760, 0, 440, 480)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sofy6"]
+atlas = ExtResource("3_kmpe4")
+region = Rect2(2200, 0, 440, 480)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uibre"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_812qe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgi48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kq1py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fhs1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvoox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sofy6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qkh4u"]
 size = Vector2(192, 404)
+
+[sub_resource type="Animation" id="Animation_wcior"]
+resource_name = "celebrate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CelebrationAnimatedSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CelebrationAnimatedSprite")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_3jmjs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CelebrationAnimatedSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oqwgx"]
+_data = {
+"RESET": SubResource("Animation_3jmjs"),
+"celebrate": SubResource("Animation_wcior")
+}
 
 [node name="Goal" type="Area2D"]
 position = Vector2(0, 20)
@@ -62,13 +163,26 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_jmwwo")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="PostAnimatedSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-198, -240)
 sprite_frames = SubResource("SpriteFrames_ayieb")
 autoplay = "default"
 
+[node name="CelebrationAnimatedSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-198, -240)
+sprite_frames = SubResource("SpriteFrames_uibre")
+frame = 1
+frame_progress = 0.88991
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -202)
 shape = SubResource("RectangleShape2D_qkh4u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_oqwgx")
+}
 
 [connection signal="body_entered" from="." to="." method="on_body_entered"]
