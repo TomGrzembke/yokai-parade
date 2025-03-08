@@ -458,7 +458,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_uoss2"]
 resource_name = "landing"
-length = 0.16
+length = 0.35
 step = 0.0
 tracks/0/type = "audio"
 tracks/0/imported = false
@@ -472,7 +472,7 @@ tracks/0/keys = {
 "start_offset": 0.0534553,
 "stream": ExtResource("6_f5xr2")
 }],
-"times": PackedFloat32Array(0.00234111)
+"times": PackedFloat32Array(0.000478465)
 }
 tracks/0/use_blend = true
 tracks/1/type = "value"
@@ -783,7 +783,7 @@ position = Vector2(0, 6)
 texture = ExtResource("1_wuri4")
 hframes = 4
 vframes = 12
-frame = 11
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
