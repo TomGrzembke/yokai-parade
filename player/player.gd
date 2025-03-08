@@ -49,6 +49,7 @@ const INFINITY = 1e20
 @export_category("Reset")
 @export var reset_time : float = .6
 
+var cam_remote
 var coyote_timer = 0.15
 var jump_buffer_timer = 0.0
 
@@ -432,6 +433,8 @@ func on_despawn():
 	if Input.get_connected_joypads().size() > 0:
 		Input.start_joy_vibration(0, 1.0, 0.0, 2.0)
 	on_death_zone.emit()
+	if cam_remote != null:
+		cam_remote.queue_free()
 
 	create_timer(reset_time).timeout.connect(func(): player_despawned.emit())
 
@@ -459,6 +462,11 @@ func on_took_damage(source):
 
 func create_timer(time):
 	return get_tree().create_timer(time)
+
+
+func set_cam_remote(remote):
+	cam_remote = remote
+	add_child(cam_remote)
 
 
 func toggle_debug():

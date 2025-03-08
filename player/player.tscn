@@ -66,6 +66,7 @@ apex_negativ_gravity = 0.25
 apex_smooth_curve = SubResource("Curve_ix1y4")
 push_back = 675.0
 push_height_percentage = 0.4
+reset_time = 0.9
 
 [node name="Abilities" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -131,6 +132,9 @@ width_curve = SubResource("Curve_xeqma")
 
 [node name="PlayerAnimatables" parent="." instance=ExtResource("7_74yxj")]
 position = Vector2(0, -51)
+
+[node name="Player" parent="PlayerAnimatables" index="1"]
+frame = 8
 
 [node name="Debug" type="Node2D" parent="."]
 position = Vector2(0, -51)
