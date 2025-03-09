@@ -59,21 +59,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [1.0, 0.2, 0.2, 1.0]
 }
-tracks/1/type = "audio"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("2_yp1do")
-}],
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_fanfare"
+}]
 }
-tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_qiw1m"]
 resource_name = "fading_outro_long"
@@ -133,4 +132,6 @@ libraries = {
 autoplay = "celebrate"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_yp1do")
 bus = &"SFX"
