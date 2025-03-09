@@ -11,6 +11,11 @@ signal music_volume_fraction_changed(fraction)
 var state_node
 
 
+# Workaround for bug in Godot that happens when AudiosStreamPlayer is started from AnimationPlayer
+func play_fanfare():
+	%AudioStreamPlayer.play()
+
+
 # Level States
 
 func _ready():
