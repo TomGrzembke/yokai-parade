@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c00f5fspkqsfg"]
 
 [ext_resource type="Script" path="res://levels/scenes/finishing.gd" id="1_b8501"]
-[ext_resource type="AudioStream" uid="uid://c5dldijo8538l" path="res://levels/scenes/assets/fanfare.wav" id="2_sbkdn"]
+[ext_resource type="AudioStream" uid="uid://c43cg58bq57yv" path="res://levels/scenes/assets/fanfare.ogg" id="2_yp1do"]
 
 [sub_resource type="Animation" id="Animation_pf1e8"]
 length = 0.001
@@ -45,35 +45,35 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_jn8ot"]
 resource_name = "celebrate"
-length = 3.5
+length = 4.0
 step = 0.125
-tracks/0/type = "audio"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AudioStreamPlayer")
+tracks/0/path = NodePath(".:music_volume_fraction")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("2_sbkdn")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:music_volume_fraction")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.375, 2, 3.5),
+"times": PackedFloat32Array(0, 0.375, 2.5, 4),
 "transitions": PackedFloat32Array(0.5, 1, 1, 1),
 "update": 0,
 "values": [1.0, 0.2, 0.2, 1.0]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_yp1do")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_qiw1m"]
 resource_name = "fading_outro_long"
