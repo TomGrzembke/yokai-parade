@@ -27,6 +27,10 @@ func to_root():
 
 
 func _physics_process(_delta):
+	if rigid_body != null && rigid_body.freeze: return
+	if rigid_body != null && rigid_body.get_linear_velocity() == Vector2.ZERO:
+		rigid_body.freeze = true
+
 	if scale.y == 1 && rotation == 0 && (rigid_body == null || rigid_body.rotation == 0): return
 
 	reset_rb()
