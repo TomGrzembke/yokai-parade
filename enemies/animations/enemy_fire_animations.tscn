@@ -1,8 +1,22 @@
-[gd_scene load_steps=40 format=3 uid="uid://ddyyhxxuwsxtk"]
+[gd_scene load_steps=42 format=3 uid="uid://ddyyhxxuwsxtk"]
 
 [ext_resource type="Script" path="res://enemies/enemy_animations.gd" id="1_ladii"]
 [ext_resource type="Texture2D" uid="uid://ba1gmfx4honp5" path="res://enemies/animations/assets/enemy_fire_spritesheet.png" id="2_t1kpb"]
 [ext_resource type="Texture2D" uid="uid://dwqiklm7ujj6i" path="res://enemies/animations/assets/vfx_animation_enemy_fire.png" id="3_4dobx"]
+[ext_resource type="Shader" path="res://shader/pattern_overlay.gdshader" id="3_5ypg4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yp3fu"]
+shader = ExtResource("3_5ypg4")
+shader_parameter/overlay_alpha = 1.0
+shader_parameter/pattern_scale = 1.0
+shader_parameter/tilemap_offset = Vector2(0, 0)
+shader_parameter/flip_alpha = true
+shader_parameter/use_hard_blend = false
+shader_parameter/use_local = true
+shader_parameter/world_scale = 1.0
+shader_parameter/pattern_multiplier = 1.0
+shader_parameter/texture_multiplier = 1.0
+shader_parameter/end_tint = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_36pp3"]
 length = 0.001
@@ -847,6 +861,7 @@ hframes = 4
 vframes = 5
 
 [node name="VfxAnimationEnemyfire" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_yp3fu")
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_4dobx")
 flip_h = true

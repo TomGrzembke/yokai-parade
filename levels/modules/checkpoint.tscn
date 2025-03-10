@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dotrddyc18eeh"]
 
 [ext_resource type="Script" path="res://levels/modules/checkpoint.gd" id="1_np4pl"]
-[ext_resource type="AudioStream" uid="uid://du6570qyr46hk" path="res://levels/modules/assets/flame_ignition.wav" id="3_q38ev"]
+[ext_resource type="AudioStream" uid="uid://l780fnf7psx4" path="res://levels/modules/assets/checkpoint_activation.ogg" id="3_3ul8b"]
 [ext_resource type="Texture2D" uid="uid://c6birnnellyn7" path="res://levels/modules/assets/p_checkpoint_spritesheet.png" id="4_hfl67"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_775ek"]
@@ -74,7 +74,7 @@ libraries = {
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("3_q38ev")
+stream = ExtResource("3_3ul8b")
 
 [connection signal="area_entered" from="." to="." method="on_checkpoint_area_entered"]
 [connection signal="body_entered" from="." to="." method="on_checkpoint_area_entered"]
