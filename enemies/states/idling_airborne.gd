@@ -1,14 +1,16 @@
-extends EnemyStateCatchable
+extends EnemyState
 
 
 @export_category("Enemy States")
 @export var attacking_melee_enemy_state: EnemyState
 @export var lunging_enemy_state: EnemyState
+@export var recovering_state: EnemyState
 
 @export_category("Components")
 @export var target_direction_component: Node2D
 @export var attack_melee_component: Node2D
 @export var attack_ranged_component: Node2D
+@export var take_damage_component: Node2D
 
 
 func enter(p_previous_state):
@@ -27,9 +29,10 @@ func physics_process(_delta):
 	else:
 		new_direction = visualisation_component.get_facing_direction()
 
-	var next_state = check_caught()
-	if next_state != null:
-		return next_state
+	if take_damage_component.get_did_take_damage():
+		return recovering_state
+
+	var next_state
 
 	if attack_melee_component.get_target_in_range() != null:
 		next_state = attacking_melee_enemy_state

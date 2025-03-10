@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf1ju7j5r32p4"]
+
+[ext_resource type="Script" path="res://enemies/components/take_damage.gd" id="1_llv8r"]
+
+[node name="TakeDamage" type="Node2D"]
+script = ExtResource("1_llv8r")

@@ -21,8 +21,6 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export var idling_state: State
 @export var moving_state: State
 
-var is_recovering = false
-
 
 func _ready():
 	check_validity()
@@ -90,28 +88,8 @@ func get_speed():
 	return speed
 
 
-# TODO: Try getting rid of this and setting monitoring and state change by returning from state
-
-func get_recovery_time():
-	return recovery_time
-
-
-func set_is_recovering(status):
-	is_recovering = status
-
-
-func get_is_recovering():
-	return is_recovering
-
-# End
-
-
 func got_caught(_source):
-	if is_recovering:
-		return null
-
 	enemy_caught.emit(self)
-	is_recovering = true
 
 	if element_type == null:
 		return null

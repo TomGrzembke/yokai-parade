@@ -23,7 +23,6 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export var moving_state: State
 
 var path_2d
-var is_recovering = false
 
 
 func _ready():
@@ -103,22 +102,6 @@ func get_max_speed():
 	return max_speed
 
 
-# TODO: Try getting rid of this and setting monitoring and state change by returning from state
-
-func get_recovery_time():
-	return recovery_time
-
-
-func set_is_recovering(status):
-	is_recovering = status
-
-
-func get_is_recovering():
-	return is_recovering
-
-# End
-
-
 func get_is_path_closed():
 	if path_2d.curve.get_point_position(0) == path_2d.curve.get_point_position(path_2d.curve.point_count - 1):
 		return true
@@ -131,11 +114,7 @@ func get_path_length():
 
 
 func got_caught(_source):
-	if is_recovering:
-		return null
-
 	enemy_caught.emit(self)
-	is_recovering = true
 
 	if element_type == null:
 		return null

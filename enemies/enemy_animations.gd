@@ -51,3 +51,4 @@ func attack():
 
 func enter_state_recovering():
 	animation_state_machine.travel("Recovering")
+	await %AnimationTree.animation_finished

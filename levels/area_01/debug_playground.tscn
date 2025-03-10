@@ -55,7 +55,6 @@ position = Vector2(12363, 228)
 
 [node name="FireGroundedMoving" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("3_0vhd0")]
 position = Vector2(2472, 712)
-initial_state = 200
 element_type = ExtResource("5_spnqd")
 
 [node name="AirGroundedMoving" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("3_0vhd0")]
