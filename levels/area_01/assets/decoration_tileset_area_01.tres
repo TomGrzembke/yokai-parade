@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://b4k5ayqgk5hiq"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://b4k5ayqgk5hiq"]
 
 [ext_resource type="Texture2D" uid="uid://b8j6cti8m1mib" path="res://levels/area_01/assets/decorations_spritesheet.png" id="1_3mbo6"]
 [ext_resource type="Material" uid="uid://chh61ywjldyw6" path="res://shader/tree_swaying.tres" id="1_lol7o"]
@@ -6,6 +6,19 @@
 [ext_resource type="Material" uid="uid://dg38mj2jlnh07" path="res://shader/dangle_big_swaying.tres" id="2_66c5t"]
 [ext_resource type="Material" uid="uid://bsgxon8dsp785" path="res://shader/dangle_small_swaying.tres" id="3_nlxc8"]
 [ext_resource type="Material" uid="uid://b4h6pjcy33k1e" path="res://shader/dangle_medium_swaying.tres" id="5_nh267"]
+[ext_resource type="Shader" path="res://shader/swaying_foliage.gdshader" id="6_h253j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_50w3e"]
+shader = ExtResource("6_h253j")
+shader_parameter/ankered_top = false
+shader_parameter/heightOffset = 0.91
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.0
+shader_parameter/maxStrength = 1.0
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 2.0
+shader_parameter/detail = 1.0
+shader_parameter/wind_id = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p06g3"]
 texture = ExtResource("1_3mbo6")
@@ -38,6 +51,7 @@ use_texture_padding = false
 43:6/0 = 0
 48:8/size_in_atlas = Vector2i(3, 4)
 48:8/0 = 0
+48:8/0/material = SubResource("ShaderMaterial_50w3e")
 49:49/size_in_atlas = Vector2i(24, 32)
 49:49/0 = 0
 0:82/size_in_atlas = Vector2i(9, 10)
@@ -60,15 +74,15 @@ use_texture_padding = false
 26:94/size_in_atlas = Vector2i(17, 11)
 26:94/0 = 0
 26:94/0/material = ExtResource("5_nh267")
-26:105/size_in_atlas = Vector2i(24, 11)
-26:105/0 = 0
-26:105/0/material = ExtResource("2_66c5t")
 72:0/size_in_atlas = Vector2i(35, 34)
 72:0/0 = 0
 72:0/0/material = ExtResource("1_lol7o")
 0:94/size_in_atlas = Vector2i(14, 10)
 0:94/0 = 0
 0:94/0/material = ExtResource("5_nh267")
+26:106/size_in_atlas = Vector2i(24, 10)
+26:106/0 = 0
+26:106/0/material = ExtResource("2_66c5t")
 
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_p06g3")

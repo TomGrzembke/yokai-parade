@@ -22,8 +22,9 @@ region_enabled = true
 region_rect = Rect2(1039.51, 254.247, 902.831, 606.821)
 
 [node name="GiantMountain2" type="Sprite2D" parent="."]
+z_index = 2
 material = ExtResource("1_5bejs")
-position = Vector2(-217.004, 1565.05)
+position = Vector2(-118, 1378)
 scale = Vector2(1.98913, 1.98913)
 texture = ExtResource("2_k8x7w")
 hframes = 4
