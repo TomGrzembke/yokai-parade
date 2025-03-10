@@ -43,4 +43,4 @@ func physics_process(_delta):
 func update_direction(look_at_target):
 	if look_at_target != null:
 		var new_direction = parent.global_position.direction_to(look_at_target.global_position).normalized()
-		parent.set_look_direction(new_direction)
+		parent.set_facing_direction(new_direction)

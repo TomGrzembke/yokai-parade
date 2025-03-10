@@ -24,10 +24,10 @@ func physics_process(_delta):
 	if target_direction != null:
 		new_direction = Vector2(target_direction.x, 0.0).normalized()
 	else:
-		new_direction = parent.get_initial_look_direction()
+		new_direction = parent.get_initial_facing_direction()
 
 	if new_direction != null:
-		parent.set_look_direction(new_direction)
+		parent.set_facing_direction(new_direction)
 
 	var next_state = check_caught()
 	if next_state != null:

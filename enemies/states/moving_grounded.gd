@@ -30,8 +30,8 @@ func physics_process(delta):
 	parent.handle_gravity(delta)
 	update_direction()
 
-	parent.velocity = Vector2(parent.get_look_direction().x * speed, parent.velocity.y)
-	parent.set_look_direction(parent.velocity.normalized())
+	parent.velocity = Vector2(parent.get_facing_direction().x * speed, parent.velocity.y)
+	parent.set_facing_direction(parent.velocity.normalized())
 	parent.move_and_slide()
 
 	var next_state = check_caught()
@@ -48,7 +48,7 @@ func physics_process(delta):
 
 
 func update_direction():
-	var current_direction = parent.get_look_direction()
+	var current_direction = parent.get_facing_direction()
 	var target_direction = target_direction_component.get_target_direction()
 	var new_direction
 
@@ -68,4 +68,4 @@ func update_direction():
 
 	if new_direction == null: return
 
-	parent.set_look_direction(new_direction)
+	parent.set_facing_direction(new_direction)

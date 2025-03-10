@@ -14,7 +14,7 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export var element_type: EnemyElementType
 
 @export_category("Movement")
-@export_enum("Right:1", "Left:-1") var initial_look_direction = -1
+@export_enum("Right:1", "Left:-1") var initial_facing_direction = -1
 @export var max_speed = 150.0
 @export var easing_curve: Curve
 
@@ -25,7 +25,7 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 var path_2d
 var is_recovering = false
 var state_animations_scene
-var look_direction
+var facing_direction
 
 
 func _ready():
@@ -39,7 +39,7 @@ func _ready():
 	state_animations_scene.position = %PreviewSprite.position
 	%PreviewSprite.visible = false
 
-	look_direction = get_initial_look_direction()
+	facing_direction = get_initial_facing_direction()
 
 	var init_state = get_initial_state()
 	%StateMachine.init(self, init_state)
@@ -93,20 +93,20 @@ func get_initial_state():
 			return idling_state
 
 
-func get_initial_look_direction():
-	match initial_look_direction:
+func get_initial_facing_direction():
+	match initial_facing_direction:
 		1: return Vector2.RIGHT
 		-1: return Vector2.LEFT
 
 
-func set_look_direction(value):
-	look_direction = value
-	if look_direction != null:
-		state_animations_scene.update_direction(look_direction)
+func set_facing_direction(value):
+	facing_direction = value
+	if facing_direction != null:
+		state_animations_scene.update_direction(facing_direction)
 
 
-func get_look_direction():
-	return look_direction
+func get_facing_direction():
+	return facing_direction
 
 
 func get_state_animations_scene():
