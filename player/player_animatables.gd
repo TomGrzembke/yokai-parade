@@ -77,11 +77,11 @@ func on_ability(current_ability):
 	shrug_timer = create_timer(shrug_cooldown)
 
 
-func spawn_vfx(anim_name, emit_in_global, freeze_physics, _z_index = null):
+func spawn_vfx(anim_name, emit_in_global, freeze_physics, _z_index = null, flip_parent = null, clear_after_move = false):
 	var vfx = vfx_instance.instantiate()
 	call_deferred("add_child", vfx)
 
-	if vfx.has_method("play"): vfx.play(anim_name, emit_in_global, freeze_physics, _z_index)
+	if vfx.has_method("play"): vfx.play(anim_name, emit_in_global, freeze_physics, _z_index, flip_parent, clear_after_move)
 
 
 func land():
@@ -135,7 +135,7 @@ func different_idles(anim_name):
 		if random_value >= idle_animation_probability[key]: continue
 
 		state_machine.start(key)
-		spawn_vfx(key, true, true, 1)
+		spawn_vfx(key, false, true, 1, player, true)
 		return
 
 	var last_key = idle_animation_probability.keys()[idle_animation_probability.size() - 1]
@@ -160,6 +160,7 @@ func sort_dictionary_descending():
 		sorted_dict[key] = idle_animation_probability[key]
 
 	idle_animation_probability = sorted_dict
+	print(sorted_dict)
 
 
 func create_timer(time):

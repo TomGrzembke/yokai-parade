@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbliic3r4vcsa"]
+[gd_scene load_steps=6 format=3 uid="uid://bbliic3r4vcsa"]
 
 [ext_resource type="Script" path="res://levels/scenes/starting.gd" id="1_07kil"]
+[ext_resource type="AudioStream" uid="uid://cg6kgb137bbob" path="res://levels/scenes/assets/claves.ogg" id="2_dm3nm"]
 
 [sub_resource type="Animation" id="Animation_4jxod"]
 length = 0.001
@@ -105,6 +106,29 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_dm3nm")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_dm3nm")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_dm3nm")
+}],
+"times": PackedFloat32Array(1, 1.625, 2.25)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_23dp4"]
 _data = {
@@ -154,3 +178,6 @@ libraries = {
 "": SubResource("AnimationLibrary_23dp4")
 }
 autoplay = "countdown"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
