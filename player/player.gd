@@ -46,6 +46,7 @@ const INFINITY = 1e20
 @onready var cant_edge_detect_ray: RayCast2D = $CantEdgeCorrectRay
 @onready var has_air_target_ray: RayCast2D = $HasAirTargetRay
 @onready var can_edge_detect_ray: RayCast2D = $CanEdgeCorrectRay
+@onready var is_next_to_wall = $IsNextToWall
 
 @export_category("Reset")
 @export var reset_time : float = .6
@@ -278,6 +279,8 @@ func edge_correction():
 	if is_falling(): return
 	if cant_edge_detect_ray.has_target(): return
 	if has_air_target_ray.has_target(): return
+	if is_next_to_wall.has_target(): return
+
 	if !can_edge_detect_ray.has_target():return
 
 	is_using_edge_correction = true

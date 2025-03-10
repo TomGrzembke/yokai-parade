@@ -116,6 +116,10 @@ target_position = Vector2(-32, -102)
 position = Vector2(0, -174)
 target_position = Vector2(111, -0.595001)
 
+[node name="IsNextToWall" parent="." instance=ExtResource("5_5gjfl")]
+position = Vector2(0, -50)
+target_position = Vector2(111, -0.595001)
+
 [node name="CanEdgeCorrectRay" parent="." instance=ExtResource("5_5gjfl")]
 position = Vector2(0, -51)
 target_position = Vector2(50, -85)
