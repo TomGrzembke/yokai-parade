@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://enemies/enemy_animations.gd" id="1_k13mu"]
 [ext_resource type="Texture2D" uid="uid://ug7h6qbp1dgw" path="res://enemies/animations/assets/enemy_airborne_air_spritesheet.png" id="2_2mfax"]
 [ext_resource type="Texture2D" uid="uid://bs8134b3xsw0g" path="res://enemies/animations/assets/vfx_enemy_airborne_air.png" id="3_1oahi"]
-[ext_resource type="Material" path="res://shader/air_overlay.tres" id="3_78wji"]
+[ext_resource type="Material" uid="uid://02qc1ogeb27d" path="res://shader/air_overlay.tres" id="3_78wji"]
 [ext_resource type="AudioStream" uid="uid://ynagq2iy6gj2" path="res://enemies/animations/assets/air_enemy_discover.ogg" id="4_v2t8v"]
 [ext_resource type="AudioStream" uid="uid://dmfyxwtxotbsh" path="res://enemies/animations/assets/air_enemy_take_damage.ogg" id="5_46l7v"]
 
@@ -611,6 +611,18 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/3/use_blend = true
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VfxEnemyairFlying:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
 
 [sub_resource type="Animation" id="Animation_64f50"]
 resource_name = "recovering_right"
@@ -667,6 +679,18 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/3/use_blend = true
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VfxEnemyairFlying:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vyi56"]
 _data = {
