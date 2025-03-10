@@ -6,6 +6,7 @@ extends EnemyStateCatchable
 @export var lunging_enemy_state: EnemyState
 
 @export_category("Components")
+@export var visualisation_component: Node2D
 @export var target_direction_component: Node2D
 @export var attack_melee_component: Node2D
 @export var attack_ranged_component: Node2D
@@ -14,7 +15,7 @@ extends EnemyStateCatchable
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	state_animations_scene.enter_state_idling()
+	visualisation_component.enter_state_idling()
 
 
 func physics_process(_delta):
@@ -23,11 +24,9 @@ func physics_process(_delta):
 
 	if target_direction != null:
 		new_direction = Vector2(target_direction.x, 0.0).normalized()
+		visualisation_component.set_facing_direction(new_direction)
 	else:
-		new_direction = parent.get_initial_facing_direction()
-
-	if new_direction != null:
-		parent.set_facing_direction(new_direction)
+		new_direction = visualisation_component.get_facing_direction()
 
 	var next_state = check_caught()
 	if next_state != null:

@@ -22,20 +22,12 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export var moving_state: State
 
 var is_recovering = false
-var state_animations_scene
-var facing_direction
 
 
 func _ready():
 	check_validity()
 
-	state_animations_scene = element_type.animations_grounded.instantiate()
-	add_child(state_animations_scene)
-
-	state_animations_scene.position = %PreviewSprite.position
 	%PreviewSprite.visible = false
-
-	facing_direction = get_initial_facing_direction()
 
 	var init_state = get_initial_state()
 	%StateMachine.init(self, init_state)
@@ -72,6 +64,14 @@ func check_validity():
 	assert(is_valid, "Error: Enemy not set up properly, check errors above!")
 
 
+func get_element_animations_scene_instance():
+	return element_type.animations_grounded.instantiate()
+
+
+func get_initial_position():
+	return %PreviewSprite.position
+
+
 func get_initial_state():
 	match initial_state:
 		STATES.EnemyInitialState.MOVING:
@@ -84,20 +84,6 @@ func get_initial_facing_direction():
 	match initial_facing_direction:
 		1: return Vector2.RIGHT
 		-1: return Vector2.LEFT
-
-
-func set_facing_direction(direction):
-	facing_direction = direction
-	if facing_direction != null:
-		state_animations_scene.update_direction(direction)
-
-
-func get_facing_direction():
-	return facing_direction
-
-
-func get_state_animations_scene():
-	return state_animations_scene
 
 
 func get_speed():
@@ -118,11 +104,6 @@ func get_is_recovering():
 	return is_recovering
 
 # End
-
-
-func handle_gravity(delta):
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 
 
 func got_caught(_source):

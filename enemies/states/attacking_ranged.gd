@@ -2,6 +2,7 @@ extends EnemyStateCatchable
 
 
 @export_category("Components")
+@export var visualisation_component: Node2D
 @export var attack_ranged_component: Node2D
 
 var is_animation_running = false
@@ -11,7 +12,7 @@ func enter(p_previous_state):
 	super.enter(p_previous_state)
 
 	is_animation_running = true
-	await state_animations_scene.enter_state_attacking()
+	await visualisation_component.enter_state_attacking()
 	is_animation_running = false
 
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://enemies/enemy_animations.gd" id="1_k13mu"]
 [ext_resource type="Texture2D" uid="uid://ug7h6qbp1dgw" path="res://enemies/animations/assets/enemy_airborne_air_spritesheet.png" id="2_2mfax"]
 [ext_resource type="Texture2D" uid="uid://bs8134b3xsw0g" path="res://enemies/animations/assets/vfx_enemy_airborne_air.png" id="3_1oahi"]
-[ext_resource type="Material" uid="uid://02qc1ogeb27d" path="res://shader/air_overlay.tres" id="3_78wji"]
+[ext_resource type="Material" path="res://shader/air_overlay.tres" id="3_78wji"]
 [ext_resource type="AudioStream" uid="uid://ynagq2iy6gj2" path="res://enemies/animations/assets/air_enemy_discover.ogg" id="4_v2t8v"]
 [ext_resource type="AudioStream" uid="uid://dmfyxwtxotbsh" path="res://enemies/animations/assets/air_enemy_take_damage.ogg" id="5_46l7v"]
 
@@ -70,7 +70,7 @@ tracks/4/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_ugv3d"]
+[sub_resource type="Animation" id="Animation_ruf6r"]
 resource_name = "attacking_left"
 length = 0.4625
 step = 0.0625
@@ -119,10 +119,10 @@ tracks/3/path = NodePath("VfxEnemyairFlying:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.1875, 0.25, 0.3125),
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.25, 0.375),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [8, 9, 10, 9, 0]
+"values": [8, 9, 10, 9, 8]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -556,7 +556,7 @@ tracks/3/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_4284t"]
+[sub_resource type="Animation" id="Animation_3ucbj"]
 resource_name = "recovering_left"
 length = 3.0
 step = 0.125
@@ -570,7 +570,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75, 1.875, 2, 2.125, 2.25, 2.375, 2.5, 2.625, 2.75, 2.875),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 2]
+"values": [4, 5, 12, 13, 14, 15, 14, 13, 12, 13, 14, 15, 14, 13, 12, 13, 14, 15, 14, 13, 12, 13, 14, 15]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -626,7 +626,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75, 1.875, 2, 2.125, 2.25, 2.375, 2.5, 2.625, 2.75, 2.875),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 2]
+"values": [4, 5, 12, 13, 14, 15, 14, 13, 12, 13, 14, 15, 14, 13, 12, 13, 14, 15, 14, 13, 12, 13, 14, 15]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -671,7 +671,7 @@ tracks/3/use_blend = true
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vyi56"]
 _data = {
 "RESET": SubResource("Animation_jungp"),
-"attacking_left": SubResource("Animation_ugv3d"),
+"attacking_left": SubResource("Animation_ruf6r"),
 "attacking_right": SubResource("Animation_vb2iu"),
 "idling_left": SubResource("Animation_xhmbr"),
 "idling_right": SubResource("Animation_x8mv4"),
@@ -679,7 +679,7 @@ _data = {
 "lunging_right": SubResource("Animation_sfejl"),
 "moving_left": SubResource("Animation_jofk5"),
 "moving_right": SubResource("Animation_0x6ew"),
-"recovering_left": SubResource("Animation_4284t"),
+"recovering_left": SubResource("Animation_3ucbj"),
 "recovering_right": SubResource("Animation_64f50")
 }
 
@@ -798,7 +798,7 @@ script = ExtResource("1_k13mu")
 texture = ExtResource("2_2mfax")
 flip_h = true
 hframes = 4
-vframes = 3
+vframes = 4
 frame = 2
 
 [node name="VfxEnemyairFlying" type="Sprite2D" parent="."]
@@ -826,6 +826,6 @@ parameters/Attacking/blend_position = 0
 parameters/Idling/blend_position = 0
 parameters/Lunging/blend_position = -0.995829
 parameters/Moving/blend_position = Vector2(0, 0)
-parameters/Recovering/blend_position = 0
+parameters/Recovering/blend_position = 0.99651
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

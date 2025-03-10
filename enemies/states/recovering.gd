@@ -2,6 +2,7 @@ extends EnemyState
 
 
 @export_category("Components")
+@export var visualisation_component: Node2D
 @export var attack_melee_component: Node2D
 
 var recovery_timer
@@ -11,7 +12,7 @@ func enter(p_previous_state):
 	super.enter(p_previous_state)
 
 	attack_melee_component.set_deal_damage_active(false)
-	state_animations_scene.enter_state_recovering()
+	visualisation_component.enter_state_recovering()
 
 	recovery_timer = get_tree().create_timer(parent.get_recovery_time())
 	recovery_timer.timeout.connect(func(): parent.set_is_recovering(false))

@@ -225,6 +225,12 @@ position = Vector2(1800, 272)
 initial_state = 200
 element_type = ExtResource("5_spnqd")
 
+[node name="AirGroundedIdling" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("3_0vhd0")]
+position = Vector2(1824, 792)
+initial_state = 200
+element_type = ExtResource("4_bqem7")
+initial_facing_direction = 1
+
 [node name="Deathzones" type="Node2D" parent="."]
 
 [node name="DespawnArea" parent="Deathzones" instance=ExtResource("14_20vgg")]

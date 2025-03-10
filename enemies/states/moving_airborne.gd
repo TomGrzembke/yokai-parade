@@ -6,6 +6,7 @@ extends EnemyStateCatchable
 @export var lunging_enemy_state: EnemyState
 
 @export_category("Components")
+@export var visualisation_component: Node2D
 @export var target_direction_component: Node2D
 @export var attack_melee_component: Node2D
 @export var attack_ranged_component: Node2D
@@ -29,7 +30,7 @@ func init(p_parent):
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	state_animations_scene.enter_state_moving()
+	visualisation_component.enter_state_moving()
 
 
 func physics_process(delta):
@@ -74,5 +75,5 @@ func update_direction():
 		last_position = position
 		return
 
-	parent.set_facing_direction((position - last_position).normalized())
+	visualisation_component.set_facing_direction((position - last_position).normalized())
 	last_position = position

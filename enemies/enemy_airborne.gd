@@ -24,8 +24,6 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 
 var path_2d
 var is_recovering = false
-var state_animations_scene
-var facing_direction
 
 
 func _ready():
@@ -33,13 +31,7 @@ func _ready():
 
 	check_validity()
 
-	state_animations_scene = element_type.animations_airborne.instantiate()
-	add_child(state_animations_scene)
-
-	state_animations_scene.position = %PreviewSprite.position
 	%PreviewSprite.visible = false
-
-	facing_direction = get_initial_facing_direction()
 
 	var init_state = get_initial_state()
 	%StateMachine.init(self, init_state)
@@ -85,6 +77,14 @@ func check_validity():
 	assert(is_valid, "Error: Enemy not set up properly, check errors in console!")
 
 
+func get_element_animations_scene_instance():
+	return element_type.animations_airborne.instantiate()
+
+
+func get_initial_position():
+	return %PreviewSprite.position
+
+
 func get_initial_state():
 	match initial_state:
 		STATES.EnemyInitialState.MOVING:
@@ -97,20 +97,6 @@ func get_initial_facing_direction():
 	match initial_facing_direction:
 		1: return Vector2.RIGHT
 		-1: return Vector2.LEFT
-
-
-func set_facing_direction(value):
-	facing_direction = value
-	if facing_direction != null:
-		state_animations_scene.update_direction(facing_direction)
-
-
-func get_facing_direction():
-	return facing_direction
-
-
-func get_state_animations_scene():
-	return state_animations_scene
 
 
 func get_max_speed():

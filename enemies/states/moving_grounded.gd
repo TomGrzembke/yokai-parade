@@ -6,6 +6,7 @@ extends EnemyStateCatchable
 @export var lunging_enemy_state: EnemyState
 
 @export_category("Components")
+@export var visualisation_component: Node2D
 @export var cliff_detection_component: Node2D
 @export var target_direction_component: Node2D
 @export var attack_melee_component: Node2D
@@ -23,15 +24,15 @@ func init(p_parent):
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	state_animations_scene.enter_state_moving()
+	visualisation_component.enter_state_moving()
 
 
 func physics_process(delta):
-	parent.handle_gravity(delta)
+	handle_gravity(delta)
 	update_direction()
 
-	parent.velocity = Vector2(parent.get_facing_direction().x * speed, parent.velocity.y)
-	parent.set_facing_direction(parent.velocity.normalized())
+	parent.velocity = Vector2(visualisation_component.get_facing_direction().x * speed, parent.velocity.y)
+	visualisation_component.set_facing_direction(parent.velocity.normalized())
 	parent.move_and_slide()
 
 	var next_state = check_caught()
@@ -47,8 +48,13 @@ func physics_process(delta):
 	return next_state
 
 
+func handle_gravity(delta):
+	if not parent.is_on_floor():
+		parent.velocity += parent.get_gravity() * delta
+
+
 func update_direction():
-	var current_direction = parent.get_facing_direction()
+	var current_direction = visualisation_component.get_facing_direction()
 	var target_direction = target_direction_component.get_target_direction()
 	var new_direction
 
@@ -68,4 +74,4 @@ func update_direction():
 
 	if new_direction == null: return
 
-	parent.set_facing_direction(new_direction)
+	visualisation_component.set_facing_direction(new_direction)
