@@ -6,5 +6,6 @@ func _ready():
 		grab_focus()
 	)
 
+
 func _pressed():
 	disabled = true

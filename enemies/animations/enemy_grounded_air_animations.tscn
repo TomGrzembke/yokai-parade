@@ -1,8 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://b5x05pl1dh0ey"]
+[gd_scene load_steps=39 format=3 uid="uid://b5x05pl1dh0ey"]
 
 [ext_resource type="Texture2D" uid="uid://cxsfo7protit" path="res://enemies/animations/assets/enemy_grounded_air_spritesheet.png" id="1_ngobw"]
 [ext_resource type="Script" path="res://enemies/enemy_animations.gd" id="1_t3cf0"]
 [ext_resource type="Texture2D" uid="uid://diek5e44plaf3" path="res://enemies/animations/assets/vfx_enemy_grounded_air.png" id="3_3p7um"]
+[ext_resource type="Material" uid="uid://02qc1ogeb27d" path="res://shader/air_overlay.tres" id="3_ub5ow"]
 
 [sub_resource type="Animation" id="Animation_563iv"]
 length = 0.001
@@ -188,6 +189,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [13, 14, 15, 14, 0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VfxEnemyairGrounded:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_vbn0e"]
@@ -776,11 +789,12 @@ hframes = 4
 vframes = 4
 
 [node name="VfxEnemyairGrounded" type="Sprite2D" parent="."]
+material = ExtResource("3_ub5ow")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_3p7um")
 flip_h = true
 hframes = 4
-vframes = 4
+vframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
