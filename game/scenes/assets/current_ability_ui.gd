@@ -8,6 +8,7 @@ const ELEMENTS = preload("res://elements/elements.gd")
 @export var fire_frame : TextureRect
 
 var blend_timer
+var current_blendout
 
 func change_with_color(color):
 	if is_color_element(color, ELEMENTS.ElementType.AIR):
@@ -32,19 +33,23 @@ func _physics_process(_delta):
 
 
 func activate_rect(rect):
+	if current_blendout != null:
+		current_blendout.modulate = get_white_set_alpha(0)
+
 	rect.modulate = get_white_set_alpha(1)
+	current_blendout = rect
 
 	if blend_timer == null: return
 	blend_timer.time_left = 0.0
 
 
 func fadeout_rect(rect):
-	var current_value
+	var current_value = 0.0
 	var time_percentage =  1.0 - blend_timer.time_left / blend_time
-	if blend_curve == null:
-		current_value = lerpf(rect.modulate.a, 0.0, time_percentage)
-	else:
-		current_value = lerpf(rect.modulate.a, 0.0, blend_curve.sample(time_percentage))
+	var current_color = 1.0 if rect == current_blendout else rect.modulate.a
+	var step = time_percentage if blend_curve == null else blend_curve.sample(time_percentage)
+
+	current_value = lerpf(current_color, 0.0, step)
 
 	rect.modulate = get_white_set_alpha(current_value)
 
