@@ -358,10 +358,10 @@ tracks/3/path = NodePath("VfxEnemyairGrounded:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [8]
+"values": [18, 19, 18, 19]
 }
 
 [sub_resource type="Animation" id="Animation_yuilb"]
@@ -399,10 +399,10 @@ tracks/2/path = NodePath("VfxEnemyairGrounded:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [8]
+"values": [18, 19, 18, 19]
 }
 tracks/3/type = "value"
 tracks/3/imported = false

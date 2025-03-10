@@ -1,22 +1,24 @@
-[gd_scene load_steps=42 format=3 uid="uid://ddyyhxxuwsxtk"]
+[gd_scene load_steps=43 format=3 uid="uid://ddyyhxxuwsxtk"]
 
 [ext_resource type="Script" path="res://enemies/enemy_animations.gd" id="1_ladii"]
 [ext_resource type="Texture2D" uid="uid://ba1gmfx4honp5" path="res://enemies/animations/assets/enemy_fire_spritesheet.png" id="2_t1kpb"]
 [ext_resource type="Texture2D" uid="uid://dwqiklm7ujj6i" path="res://enemies/animations/assets/vfx_animation_enemy_fire.png" id="3_4dobx"]
 [ext_resource type="Shader" path="res://shader/pattern_overlay.gdshader" id="3_5ypg4"]
+[ext_resource type="Texture2D" uid="uid://ba5pi8b15xb8a" path="res://assets/patterns/t_pattern_flowers.png" id="4_hkkv2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yp3fu"]
 shader = ExtResource("3_5ypg4")
 shader_parameter/overlay_alpha = 1.0
-shader_parameter/pattern_scale = 1.0
+shader_parameter/pattern_scale = 1.835
 shader_parameter/tilemap_offset = Vector2(0, 0)
 shader_parameter/flip_alpha = true
 shader_parameter/use_hard_blend = false
 shader_parameter/use_local = true
 shader_parameter/world_scale = 1.0
-shader_parameter/pattern_multiplier = 1.0
+shader_parameter/pattern_multiplier = 1.376
 shader_parameter/texture_multiplier = 1.0
 shader_parameter/end_tint = Color(0, 0, 0, 1)
+shader_parameter/pattern_texture = ExtResource("4_hkkv2")
 
 [sub_resource type="Animation" id="Animation_36pp3"]
 length = 0.001
@@ -399,6 +401,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VfxAnimationEnemyfire:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 12, 13]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VfxAnimationEnemyfire:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_al0ud"]
 resource_name = "lunging_right"
@@ -427,6 +453,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VfxAnimationEnemyfire:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.125, 0.1875),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 12, 13]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VfxAnimationEnemyfire:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_i3rq7"]
