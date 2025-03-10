@@ -448,8 +448,7 @@ func land():
 
 
 func on_despawn():
-	if Input.get_connected_joypads().size() > 0:
-		Input.start_joy_vibration(0, 1.0, 0.0, 2.0)
+	controller_vibration(0.3, 0.3, 1.2)
 	on_death_zone.emit()
 	if cam_remote != null:
 		cam_remote.queue_free()
@@ -476,8 +475,12 @@ func on_took_damage(source):
 	add_velocity_modifier(VelocityModifier.new(push_vel, .2, 3, true))
 	player_gets_pushed.emit()
 
-	if Input.get_connected_joypads().size() > 0:
-		Input.start_joy_vibration(0, 0.5, 0.0, 0.5)
+	controller_vibration(0.4, 0.0, 0.5)
+
+
+func controller_vibration(weak_strength, strong_strength, duration):
+	if Input.get_connected_joypads().size() <= 0: return
+	Input.start_joy_vibration(0, weak_strength, strong_strength, duration)
 
 
 func create_timer(time):

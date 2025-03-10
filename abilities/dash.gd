@@ -22,8 +22,6 @@ func _physics_process(_delta):
 
 
 func use(player_manager):
-	joystick_vibrate()
-
 	var vel_modifier = VelocityModifier.new(Vector2(dash_velocity, 0), dash_duration, 1, \
 	disable_player_movement, true)
 
@@ -35,6 +33,7 @@ func use(player_manager):
 	animation_player = $AnimationPlayer
 	animation_player.play("on_ability")
 
+	controller_vibration(0.3, 1.0, dash_duration)
 	if get_parent() == null:
 		call_deferred("exit")
 		return
@@ -76,6 +75,6 @@ func create_timer(time):
 	return get_tree().create_timer(time)
 
 
-func joystick_vibrate():
-	if Input.get_connected_joypads().size() > 0:
-		Input.start_joy_vibration(0, 1.0, 0.0, dash_duration)
+func controller_vibration(weak_strength, strong_strength, duration):
+	if Input.get_connected_joypads().size() <= 0: return
+	Input.start_joy_vibration(0, weak_strength, strong_strength, duration)
