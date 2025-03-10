@@ -706,10 +706,10 @@ tracks/4/path = NodePath("VfxAnimationEnemyfire:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 1, 1.125, 1.25, 1.375, 1.5, 1.62305),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7, 8, 20, 21, 22, 23, 22, 21]
+"values": [4, 5, 6, 7, 8]
 }
 
 [sub_resource type="Animation" id="Animation_2732v"]
@@ -771,10 +771,10 @@ tracks/4/path = NodePath("VfxAnimationEnemyfire:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 1, 1.125, 1.25, 1.375, 1.5, 1.62305),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7, 8, 20, 21, 22, 23, 22, 21]
+"values": [4, 5, 6, 7, 8]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vyi56"]
