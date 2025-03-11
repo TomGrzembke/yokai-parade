@@ -36,8 +36,8 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_3tghh"]
-_data = [Vector2(0, 0.252747), 0.0, 0.824712, 0, 0, Vector2(0.121547, 0.582418), 4.32902, 4.32902, 0, 0, Vector2(0.232044, 0.285714), 0.0, 0.0, 0, 0, Vector2(0.303867, 0.505494), 0.0, 0.0, 0, 0, Vector2(0.392265, 0.307692), 0.0, 0.0, 0, 0, Vector2(0.447514, 0.736264), 0.0, 0.0, 0, 0, Vector2(0.585635, 0.263736), 0.0, 0.0, 0, 0, Vector2(0.674033, 0.483516), 0.0, 0.0, 0, 0, Vector2(0.745856, 0.747253), 0.0, 0.0, 0, 0, Vector2(0.883978, 0.571429), 0.0, 0.0, 0, 0, Vector2(1, 0.945055), 1.17867, 0.0, 0, 0]
-point_count = 11
+_data = [Vector2(0, 0.252747), 0.0, 0.824712, 0, 0, Vector2(1, 0.945055), 1.17867, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_hcowl"]
 offsets = PackedFloat32Array(0.234043, 1)
@@ -157,14 +157,14 @@ top_level = true
 z_index = -1
 position = Vector2(0, -13)
 points = PackedVector2Array(2, -1, -89, 13, -131, 17)
-width = 31.0
+width = 30.0
 width_curve = SubResource("Curve_3tghh")
 default_color = Color(0, 0, 0, 1)
 joint_mode = 1
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("14_p1m7a")
-trail_points_max = 15
+trail_points_max = 16
 
 [node name="MovementLine" type="Line2D" parent="Debug/MovementLines"]
 top_level = true
