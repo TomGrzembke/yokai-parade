@@ -26,7 +26,7 @@ func enter(p_previous_state):
 
 func unhandled_input(event):
 	if event.is_action_pressed("pause_game"):
-		state_scene.change_to_level_state(previous_state)
+		state_scene.change_to_level_state(playing_level_state)
 
 
 func exit():
