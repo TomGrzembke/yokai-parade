@@ -332,7 +332,8 @@ tile_map_data = PackedByteArray("AAATABUABQAIAAIAAAAUABUABQAIAAIAAAAVABUABQAFAAI
 tile_set = ExtResource("18_wer3n")
 
 [node name="TileMapForeground" type="TileMapLayer" parent="."]
-z_index = 10
+z_index = 5
+z_as_relative = false
 tile_map_data = PackedByteArray("AAB0AxkAAAAjAAwAABDBAiMAAAAjAAwAAABTADoAAAA1AAkAAACwACEAAAAkACgAAACyAB4AAAAlACQAAACIACEAAAAkACgAAACIAB8AAAAlACQAAACXAuj/AAAlACQAAACbAuv/AAAXACEAAADYBe3/AAAaAGoAAADrBen/AAAaAF4AAADyBfL/AAAZAFIAAADSBef/AAAlAAYAAADWBej/AAArAAYAAADQBen/AAAwAAgAAADhBen/AAAwAAgAAADrBeP/AAArAAYAAADpBeT/AAAwAAgAAADwBeX/AAAwAAgAAADwBeb/AAAwAAgAAADdBej/AAAwAAgAAADwBe3/AAAwAAgAAADzBe7/AAAwAAgAAAA=")
 tile_set = ExtResource("11_p05d4")
 
@@ -341,3 +342,13 @@ position = Vector2(-232, 1069)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_c3u4k")
+
+[connection signal="body_entered" from="GameplayTileMapLayer/Goal" to="GameplayTileMapLayer/Goal" method="on_body_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@21960" to="GameplayTileMapLayer/@Area2D@21960" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@21960" to="GameplayTileMapLayer/@Area2D@21960" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@21961" to="GameplayTileMapLayer/@Area2D@21961" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@21961" to="GameplayTileMapLayer/@Area2D@21961" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@21962" to="GameplayTileMapLayer/@Area2D@21962" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@21962" to="GameplayTileMapLayer/@Area2D@21962" method="on_checkpoint_area_entered"]

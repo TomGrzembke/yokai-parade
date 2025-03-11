@@ -10,8 +10,6 @@ signal on_jump
 signal on_land
 signal on_reload
 
-const INFINITY = 1e20
-
 @export_category("Movement")
 @export var speed = 300.0
 @export var acceleration = 80.0
@@ -302,8 +300,10 @@ func reset_vertical_velocity():
 
 
 func clamp_fall_speed():
-	if fall_speed_clamp == 0: return;
-	velocity.y = clampf(velocity.y, -INFINITY, fall_speed_clamp)
+	if fall_speed_clamp == 0: return
+	if velocity.y < fall_speed_clamp: return
+
+	velocity.y = fall_speed_clamp
 
 
 func apex_modifier(delta):

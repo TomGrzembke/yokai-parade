@@ -1,5 +1,7 @@
 extends Node2D
+
 @onready var anim_sprite
+
 var rigid_body
 var freeze_physics
 var flip_parent
@@ -34,9 +36,7 @@ func to_root():
 
 func _physics_process(_delta):
 	flip()
-
 	clear_after_action()
-
 	reset_rb()
 
 
@@ -64,15 +64,13 @@ func has_anim(animation_name):
 
 func on_animation_finished():
 	queue_free()
-	pass
 
 
 func reset_rb():
 	if rigid_body != null && rigid_body.freeze: return
-
-
 	if flip_parent != null: return
 	if scale.y == 1 && rotation == 0 && (rigid_body == null || rigid_body.rotation == 0): return
+
 	call_deferred("freeze_on_sleep")
 	scale.y = 1
 	rotation = 0
