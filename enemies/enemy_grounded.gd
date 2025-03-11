@@ -14,28 +14,18 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export var element_type: EnemyElementType
 
 @export_category("Movement")
-@export_enum("Right:1", "Left:-1") var initial_look_direction = -1
+@export_enum("Right:1", "Left:-1") var initial_facing_direction = -1
 @export var speed = 150.0
 
 @export_category("State Machine")
 @export var idling_state: State
 @export var moving_state: State
 
-var is_recovering = false
-var state_animations_scene
-var look_direction
-
 
 func _ready():
 	check_validity()
 
-	state_animations_scene = element_type.animations_grounded.instantiate()
-	add_child(state_animations_scene)
-
-	state_animations_scene.position = %PreviewSprite.position
 	%PreviewSprite.visible = false
-
-	look_direction = get_initial_look_direction()
 
 	var init_state = get_initial_state()
 	%StateMachine.init(self, init_state)
@@ -72,6 +62,14 @@ func check_validity():
 	assert(is_valid, "Error: Enemy not set up properly, check errors above!")
 
 
+func get_element_animations_scene_instance():
+	return element_type.animations_grounded.instantiate()
+
+
+func get_initial_position():
+	return %PreviewSprite.position
+
+
 func get_initial_state():
 	match initial_state:
 		STATES.EnemyInitialState.MOVING:
@@ -80,57 +78,18 @@ func get_initial_state():
 			return idling_state
 
 
-func get_initial_look_direction():
-	match initial_look_direction:
+func get_initial_facing_direction():
+	match initial_facing_direction:
 		1: return Vector2.RIGHT
 		-1: return Vector2.LEFT
-
-
-func set_look_direction(direction):
-	look_direction = direction
-	if look_direction != null:
-		state_animations_scene.update_direction(direction)
-
-
-func get_look_direction():
-	return look_direction
-
-
-func get_state_animations_scene():
-	return state_animations_scene
 
 
 func get_speed():
 	return speed
 
 
-# TODO: Try getting rid of this and setting monitoring and state change by returning from state
-
-func get_recovery_time():
-	return recovery_time
-
-
-func set_is_recovering(status):
-	is_recovering = status
-
-
-func get_is_recovering():
-	return is_recovering
-
-# End
-
-
-func handle_gravity(delta):
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-
 func got_caught(_source):
-	if is_recovering:
-		return null
-
 	enemy_caught.emit(self)
-	is_recovering = true
 
 	if element_type == null:
 		return null

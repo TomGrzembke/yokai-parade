@@ -15,7 +15,7 @@ func enter(p_previous_state):
 
 	state_scene = level_state_packed_scene.instantiate()
 	state_scene.set_state_node(self)
-	parent.load_level_state_scene(state_scene)
+	context.load_level_state_scene(state_scene)
 
 
 func exit():
@@ -24,8 +24,8 @@ func exit():
 	if state_scene == null:
 		return
 
-	parent.unload_level_state_scene(state_scene)
+	context.unload_level_state_scene(state_scene)
 
 
 func change_state(next_level_state):
-	parent.change_to_level_state(next_level_state)
+	context.change_to_level_state(next_level_state)

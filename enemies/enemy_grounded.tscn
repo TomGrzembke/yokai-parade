@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://bomxlv8ndomnc"]
+[gd_scene load_steps=23 format=3 uid="uid://bomxlv8ndomnc"]
 
 [ext_resource type="Script" path="res://enemies/enemy_grounded.gd" id="1_ckp3m"]
 [ext_resource type="PackedScene" uid="uid://dbvyxduyy60pr" path="res://components/damage/deal_damage_area.tscn" id="2_jj2bd"]
 [ext_resource type="PackedScene" uid="uid://bpccb0pqmr7r5" path="res://components/damage/take_damage_area.tscn" id="3_rf8mi"]
+[ext_resource type="PackedScene" uid="uid://b4r3q7mgxf88x" path="res://enemies/components/visualisation.tscn" id="4_go320"]
 [ext_resource type="Texture2D" uid="uid://cxsfo7protit" path="res://enemies/animations/assets/enemy_grounded_air_spritesheet.png" id="4_vdafv"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="5_2m4gu"]
 [ext_resource type="PackedScene" uid="uid://c5em4yoaov666" path="res://enemies/components/attack_melee.tscn" id="5_8ohmy"]
@@ -12,15 +13,13 @@
 [ext_resource type="Script" path="res://enemies/states/idling_grounded.gd" id="6_ltbao"]
 [ext_resource type="Script" path="res://enemies/states/moving_grounded.gd" id="7_sppxq"]
 [ext_resource type="Script" path="res://enemies/states/lunging.gd" id="8_2a3fu"]
+[ext_resource type="PackedScene" uid="uid://cf1ju7j5r32p4" path="res://enemies/components/take_damage.tscn" id="9_51vph"]
 [ext_resource type="Script" path="res://enemies/states/attacking_ranged.gd" id="9_dbaq0"]
 [ext_resource type="Script" path="res://enemies/states/recovering.gd" id="10_7g18r"]
 [ext_resource type="Script" path="res://enemies/states/attacking_melee.gd" id="13_rt86t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3f1p"]
 radius = 34.0147
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1g50l"]
-radius = 16.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vqxbx"]
 radius = 80.0
@@ -33,6 +32,9 @@ radius = 35.0
 radius = 80.0
 height = 200.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1g50l"]
+radius = 16.0
+
 [node name="EnemyGrounded" type="CharacterBody2D" node_paths=PackedStringArray("idling_state", "moving_state")]
 collision_layer = 16
 script = ExtResource("1_ckp3m")
@@ -44,18 +46,22 @@ unique_name_in_owner = true
 position = Vector2(0, -26)
 texture = ExtResource("4_vdafv")
 hframes = 4
-vframes = 4
+vframes = 5
 frame = 1
 
 [node name="PhysicsBodyCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i3f1p")
 
-[node name="TakeDamageArea" parent="." instance=ExtResource("3_rf8mi")]
-collision_layer = 4
+[node name="Visualisation" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("4_go320")]
+entity = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamageArea"]
-shape = SubResource("CircleShape2D_1g50l")
-debug_color = Color(0, 0.243137, 0.701961, 0.419608)
+[node name="CliffDetection" parent="." instance=ExtResource("6_iy8rm")]
+
+[node name="RightCliffDetectionRayCast" type="RayCast2D" parent="CliffDetection"]
+position = Vector2(20, 0)
+
+[node name="LeftCliffDetectionRayCast" type="RayCast2D" parent="CliffDetection"]
+position = Vector2(-20, 0)
 
 [node name="TargetDirection" parent="." instance=ExtResource("5_hi5le")]
 
@@ -91,55 +97,70 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_xlfsh")
 debug_color = Color(0.976471, 0, 0.411765, 0.419608)
 
-[node name="CliffDetection" parent="." instance=ExtResource("6_iy8rm")]
+[node name="TakeDamage" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("9_51vph")]
+entity = NodePath("..")
 
-[node name="RightCliffDetectionRayCast" type="RayCast2D" parent="CliffDetection"]
-position = Vector2(20, 0)
+[node name="TakeDamageArea" parent="TakeDamage" node_paths=PackedStringArray("subject") instance=ExtResource("3_rf8mi")]
+collision_layer = 4
+subject = NodePath("../..")
 
-[node name="LeftCliffDetectionRayCast" type="RayCast2D" parent="CliffDetection"]
-position = Vector2(-20, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamage/TakeDamageArea"]
+shape = SubResource("CircleShape2D_1g50l")
+debug_color = Color(0, 0.243137, 0.701961, 0.419608)
 
 [node name="StateMachine" parent="." instance=ExtResource("5_2m4gu")]
 unique_name_in_owner = true
 
-[node name="Idling" type="Node" parent="StateMachine" node_paths=PackedStringArray("attacking_melee_enemy_state", "lunging_enemy_state", "target_direction_component", "attack_melee_component", "attack_ranged_component", "recovering_state")]
+[node name="Idling" type="Node" parent="StateMachine" node_paths=PackedStringArray("attacking_melee_enemy_state", "lunging_enemy_state", "recovering_state", "target_direction_component", "attack_melee_component", "attack_ranged_component", "take_damage_component", "visualisation_component")]
 script = ExtResource("6_ltbao")
 attacking_melee_enemy_state = NodePath("../AttackingMelee")
 lunging_enemy_state = NodePath("../Lunging")
+recovering_state = NodePath("../Recovering")
 target_direction_component = NodePath("../../TargetDirection")
 attack_melee_component = NodePath("../../AttackMelee")
 attack_ranged_component = NodePath("../../AttackRanged")
-recovering_state = NodePath("../Recovering")
+take_damage_component = NodePath("../../TakeDamage")
+visualisation_component = NodePath("../../Visualisation")
 
-[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("attacking_melee_enemy_state", "lunging_enemy_state", "cliff_detection_component", "target_direction_component", "attack_melee_component", "attack_ranged_component", "recovering_state")]
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("attacking_melee_enemy_state", "lunging_enemy_state", "recovering_state", "cliff_detection_component", "target_direction_component", "attack_melee_component", "attack_ranged_component", "take_damage_component", "visualisation_component")]
 script = ExtResource("7_sppxq")
 attacking_melee_enemy_state = NodePath("../AttackingMelee")
 lunging_enemy_state = NodePath("../Lunging")
+recovering_state = NodePath("../Recovering")
 cliff_detection_component = NodePath("../../CliffDetection")
 target_direction_component = NodePath("../../TargetDirection")
 attack_melee_component = NodePath("../../AttackMelee")
 attack_ranged_component = NodePath("../../AttackRanged")
-recovering_state = NodePath("../Recovering")
+take_damage_component = NodePath("../../TakeDamage")
+visualisation_component = NodePath("../../Visualisation")
 
-[node name="Lunging" type="Node" parent="StateMachine" node_paths=PackedStringArray("attacking_melee_enemy_state", "attacking_ranged_enemy_state", "target_direction_component", "attack_melee_component", "attack_ranged_component", "recovering_state")]
+[node name="Lunging" type="Node" parent="StateMachine" node_paths=PackedStringArray("attacking_melee_enemy_state", "attacking_ranged_enemy_state", "recovering_state", "target_direction_component", "attack_melee_component", "attack_ranged_component", "take_damage_component", "visualisation_component")]
 script = ExtResource("8_2a3fu")
 attacking_melee_enemy_state = NodePath("../AttackingMelee")
 attacking_ranged_enemy_state = NodePath("../AttackingRanged")
+recovering_state = NodePath("../Recovering")
 target_direction_component = NodePath("../../TargetDirection")
 attack_melee_component = NodePath("../../AttackMelee")
 attack_ranged_component = NodePath("../../AttackRanged")
-recovering_state = NodePath("../Recovering")
+take_damage_component = NodePath("../../TakeDamage")
+visualisation_component = NodePath("../../Visualisation")
 
-[node name="AttackingMelee" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_melee_component", "recovering_state")]
+[node name="AttackingMelee" type="Node" parent="StateMachine" node_paths=PackedStringArray("recovering_state", "attack_melee_component", "take_damage_component", "visualisation_component")]
 script = ExtResource("13_rt86t")
+recovering_state = NodePath("../Recovering")
 attack_melee_component = NodePath("../../AttackMelee")
-recovering_state = NodePath("../Recovering")
+take_damage_component = NodePath("../../TakeDamage")
+visualisation_component = NodePath("../../Visualisation")
 
-[node name="AttackingRanged" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_ranged_component", "recovering_state")]
+[node name="AttackingRanged" type="Node" parent="StateMachine" node_paths=PackedStringArray("recovering_state", "attack_ranged_component", "take_damage_component", "visualisation_component")]
 script = ExtResource("9_dbaq0")
-attack_ranged_component = NodePath("../../AttackRanged")
 recovering_state = NodePath("../Recovering")
+attack_ranged_component = NodePath("../../AttackRanged")
+take_damage_component = NodePath("../../TakeDamage")
+visualisation_component = NodePath("../../Visualisation")
 
-[node name="Recovering" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_melee_component")]
+[node name="Recovering" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_melee_component", "take_damage_component", "visualisation_component")]
 script = ExtResource("10_7g18r")
 attack_melee_component = NodePath("../../AttackMelee")
+take_damage_component = NodePath("../../TakeDamage")
+visualisation_component = NodePath("../../Visualisation")

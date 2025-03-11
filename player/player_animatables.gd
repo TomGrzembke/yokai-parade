@@ -7,6 +7,7 @@ const COLOR_BLACK = Color(0,0,0,1)
 @export var blend_curve : Curve
 @export var default_vfx_col : Color
 @export var vfx_instance : PackedScene
+@export var line_material : ShaderMaterial
 @export_category("Shrug")
 @export var shrug_cooldown : float = .8
 @export_category("Idle")
@@ -14,29 +15,31 @@ const COLOR_BLACK = Color(0,0,0,1)
 @onready var player: CharacterBody2D = $".."
 @onready var abilities: Node2D = $"../Abilities"
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var vfx_animation_character = $VfxAnimationCharacter
+
+var default_line_color
 var shader_mat
 var color_blend_timer
-var state_machine
+var animator
 var shrug_timer
 
 
 func _ready():
 	shader_mat = vfx_animation_character.material as ShaderMaterial
-	state_machine = animation_tree.get("parameters/playback")
+	animator = animation_tree.get("parameters/playback")
+	default_line_color = line_material.get_shader_parameter("end_tint")
 
 	subscribe_events()
 	sort_dictionary_descending()
 
 
 func subscribe_events():
-	abilities.player_hits.connect(func(): state_machine.start("hit"))
+	abilities.player_hits.connect(func(): animator.start("hit"))
 	abilities.used_ability.connect(on_ability)
 	abilities.ability_changed.connect(on_pickup)
 
-	player.player_reached_goal.connect(func(): state_machine.start("celebration"))
-	player.player_gets_pushed.connect(func(): state_machine.start("got_hit"))
+	player.player_reached_goal.connect(func(): animator.start("celebration"))
+	player.player_gets_pushed.connect(func(): animator.start("got_hit"))
 	player.on_death_zone.connect(player_death)
 	player.player_despawned.connect(default_vfx)
 	player.on_reload.connect(default_vfx)
@@ -51,29 +54,41 @@ func _exit_tree():
 	player.on_death_zone.disconnect(player_death)
 	player.player_despawned.disconnect(default_vfx)
 	player.on_reload.disconnect(default_vfx)
+	player.on_land.disconnect(land)
 
 
 func _physics_process(_delta):
+	blend_vfx()
+
+
+func blend_vfx():
 	if shader_mat.get_shader_parameter("end_tint") == COLOR_BLACK: return
 	if color_blend_timer == null || color_blend_timer.time_left <= 0: return
 
 	var step = blend_curve.sample(1.0 - color_blend_timer.time_left / time_to_blend)
 	shader_mat.set_shader_parameter("end_tint", lerp(shader_mat.get_shader_parameter("end_tint"), default_vfx_col, step))
+	line_material.set_shader_parameter("end_tint", lerp(shader_mat.get_shader_parameter("end_tint"), default_line_color, step))
 
 
 func on_ability(current_ability):
 	if current_ability == null:
-		if shrug_timer == null || shrug_timer.time_left == 0:
-			state_machine.start("no_ability_hit")
-			shrug_timer = create_timer(shrug_cooldown)
+		shrug_anim()
 		return
 
 	if current_ability.ELEMENT_TYPE == ELEMENTS.ElementType.FIRE:
-		state_machine.start("dash")
+		animator.start("dash")
 	elif current_ability.ELEMENT_TYPE == ELEMENTS.ElementType.AIR:
-		state_machine.start("double_jump")
+		animator.start("double_jump")
 		spawn_vfx("air_jump", true, true)
 
+	shrug_timer = create_timer(shrug_cooldown)
+
+
+func shrug_anim():
+	if shrug_timer != null && shrug_timer.time_left != 0: return
+
+	animator.start("no_ability_hit")
+	spawn_vfx("no_ability", false, true, null, player)
 	shrug_timer = create_timer(shrug_cooldown)
 
 
@@ -81,7 +96,8 @@ func spawn_vfx(anim_name, emit_in_global, freeze_physics, _z_index = null, flip_
 	var vfx = vfx_instance.instantiate()
 	call_deferred("add_child", vfx)
 
-	if vfx.has_method("play"): vfx.play(anim_name, emit_in_global, freeze_physics, _z_index, flip_parent, clear_after_move)
+	if vfx.has_method("play"):
+		vfx.play(anim_name, emit_in_global, freeze_physics, _z_index, flip_parent, clear_after_move)
 
 
 func land():
@@ -90,7 +106,7 @@ func land():
 
 func player_death():
 	spawn_vfx("dying", true, true)
-	state_machine.start("dying")
+	animator.start("dying")
 
 
 func on_pickup(color):
@@ -99,6 +115,7 @@ func on_pickup(color):
 		return
 
 	shader_mat.set_shader_parameter("end_tint", color)
+	line_material.set_shader_parameter("end_tint", color)
 	spawn_vfx("absorb", false, true)
 
 	if color_blend_timer != null:
@@ -119,6 +136,7 @@ func reset_vfx_conditionally():
 
 func default_vfx():
 	shader_mat.set_shader_parameter("end_tint", COLOR_BLACK)
+	line_material.set_shader_parameter("end_tint", default_line_color)
 
 
 func _on_animation_finished(anim_name):
@@ -134,12 +152,12 @@ func different_idles(anim_name):
 	for key in idle_animation_probability:
 		if random_value >= idle_animation_probability[key]: continue
 
-		state_machine.start(key)
+		animator.start(key)
 		spawn_vfx(key, false, true, 1, player, true)
 		return
 
 	var last_key = idle_animation_probability.keys()[idle_animation_probability.size() - 1]
-	state_machine.start(last_key)
+	animator.start(last_key)
 
 
 func get_total_idle_percentage():
@@ -160,7 +178,6 @@ func sort_dictionary_descending():
 		sorted_dict[key] = idle_animation_probability[key]
 
 	idle_animation_probability = sorted_dict
-	print(sorted_dict)
 
 
 func create_timer(time):

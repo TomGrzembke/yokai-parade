@@ -1,14 +1,16 @@
-extends EnemyStateCatchable
+extends EnemyState
 
 
 @export_category("Enemy States")
 @export var attacking_melee_enemy_state: EnemyState
 @export var lunging_enemy_state: EnemyState
+@export var recovering_state: EnemyState
 
 @export_category("Components")
 @export var target_direction_component: Node2D
 @export var attack_melee_component: Node2D
 @export var attack_ranged_component: Node2D
+@export var take_damage_component: Node2D
 
 var last_position
 var speed = 0.0
@@ -18,18 +20,18 @@ var progression_direction = 1.0
 var progress_ratio_raw = 0.0
 
 
-func init(p_parent):
-	super.init(p_parent)
+func init(p_context):
+	super.init(p_context)
 
-	speed = parent.get_max_speed()
-	path_length = parent.get_path_length()
-	is_path_closed = parent.get_is_path_closed()
+	speed = context.get_max_speed()
+	path_length = context.get_path_length()
+	is_path_closed = context.get_is_path_closed()
 
 
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	state_animations_scene.enter_state_moving()
+	visualisation_component.enter_state_moving()
 
 
 func physics_process(delta):
@@ -45,20 +47,20 @@ func physics_process(delta):
 			progress_ratio_raw += overflow
 			progression_direction = 1.0
 
-		if parent.easing_curve != null:
-			parent.progress_ratio = parent.easing_curve.sample(progress_ratio_raw)
+		if context.easing_curve != null:
+			context.progress_ratio = context.easing_curve.sample(progress_ratio_raw)
 		else:
-			parent.progress_ratio = progress_ratio_raw
+			context.progress_ratio = progress_ratio_raw
 
 	else:
-		parent.progress_ratio = progress_ratio_raw
+		context.progress_ratio = progress_ratio_raw
 
 	update_direction()
 
-	var next_state = check_caught()
+	if take_damage_component.get_did_take_damage():
+		return recovering_state
 
-	if next_state != null:
-		return next_state
+	var next_state
 
 	if attack_melee_component.get_target_in_range() != null:
 		next_state = attacking_melee_enemy_state
@@ -69,10 +71,10 @@ func physics_process(delta):
 
 
 func update_direction():
-	var position = parent.global_position
+	var position = context.global_position
 	if last_position == null:
 		last_position = position
 		return
 
-	parent.set_look_direction((position - last_position).normalized())
+	visualisation_component.set_facing_direction((position - last_position).normalized())
 	last_position = position

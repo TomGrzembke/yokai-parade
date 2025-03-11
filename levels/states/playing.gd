@@ -12,15 +12,15 @@ extends LevelState
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	parent.player_despawned.connect(func(): change_state(despawning_level_state))
-	parent.player_reached_goal.connect(func(): change_state(finishing_level_state))
+	context.player_despawned.connect(func(): change_state(despawning_level_state))
+	context.player_reached_goal.connect(func(): change_state(finishing_level_state))
 
-	parent.set_player_controls_active(true)
+	context.set_player_controls_active(true)
 
 
 func process(delta):
-	var play_time = parent.get_play_time()
-	parent.set_play_time(play_time + delta)
+	var play_time = context.get_play_time()
+	context.set_play_time(play_time + delta)
 
 
 func unhandled_input(event):
@@ -37,12 +37,12 @@ func unhandled_input(event):
 		return
 
 	if event.is_action_pressed("load_previous_level"):
-		parent.request_setting_previous_level_path_index()
+		context.request_setting_previous_level_path_index()
 		return loading_level_state
 
 	if event.is_action_pressed("load_next_level"):
-		parent.request_setting_next_level_path_index()
+		context.request_setting_next_level_path_index()
 		return loading_level_state
 
 	if event.is_action_pressed("debug_screenshot_pause"):
-		parent.set_game_paused(!get_tree().paused)
+		context.set_game_paused(!get_tree().paused)

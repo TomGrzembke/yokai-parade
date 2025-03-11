@@ -4,7 +4,7 @@ const ELEMENTS = preload("res://elements/elements.gd")
 const ELEMENT_TYPE = ELEMENTS.ElementType.AIR
 
 @export var double_jump_vel = 800.0
-@export var double_jump_duration = 0.0
+@export var double_jump_duration = 0.1
 @export var disable_player_movement := false
 @export var velocity_curve : Curve
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -20,8 +20,8 @@ func use(player_manager):
 
 	animation_player = $AnimationPlayer
 	animation_player.play("on_ability")
-	contoller_rumble()
 
+	controller_vibration(0.5, 1.0, .1)
 	if get_parent() == null:
 		call_deferred("exit")
 		return
@@ -37,9 +37,9 @@ func get_color():
 	return ELEMENTS.get_color(ELEMENT_TYPE)
 
 
-func contoller_rumble():
+func controller_vibration(weak_strength, strong_strength, duration):
 	if Input.get_connected_joypads().size() <= 0: return
-	Input.start_joy_vibration(0, 0.0, 1.0, 0.5)
+	Input.start_joy_vibration(0, weak_strength, strong_strength, duration)
 
 
 func create_timer(time):

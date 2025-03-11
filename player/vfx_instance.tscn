@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://h3ruips3t7l8"]
+[gd_scene load_steps=30 format=3 uid="uid://h3ruips3t7l8"]
 
 [ext_resource type="Material" uid="uid://c68p80bnif4bc" path="res://assets/vfx/player_vfx.tres" id="1_awcbs"]
 [ext_resource type="Script" path="res://player/vfx_instance.gd" id="1_ul387"]
@@ -99,6 +99,10 @@ region = Rect2(200, 1080, 200, 120)
 atlas = ExtResource("2_yam44")
 region = Rect2(400, 1080, 200, 120)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_eifmx"]
+atlas = ExtResource("2_yam44")
+region = Rect2(600, 240, 200, 120)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3awqp"]
 animations = [{
 "frames": [{
@@ -116,7 +120,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"absorb",
-"speed": 12.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -209,6 +213,14 @@ animations = [{
 "loop": false,
 "name": &"land",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_eifmx")
+}],
+"loop": false,
+"name": &"no_ability",
+"speed": 8.0
 }]
 
 [node name="VfxInstance" type="Node2D"]
@@ -227,6 +239,6 @@ shape = SubResource("RectangleShape2D_lmtn4")
 z_index = 1
 material = ExtResource("1_awcbs")
 sprite_frames = SubResource("SpriteFrames_3awqp")
-animation = &"idling3"
+animation = &"absorb"
 
 [connection signal="animation_finished" from="RigidBody2D/AnimatedSprite2D" to="." method="on_animation_finished"]

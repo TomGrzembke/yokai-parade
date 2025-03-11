@@ -17,7 +17,7 @@ func enter(p_previous_state):
 	state_scene.set_reset_level_state(reset_level_state)
 	state_scene.set_quit_game_level_state(quit_game_level_state)
 
-	state_scene.set_play_time(parent.get_play_time())
+	state_scene.set_play_time(context.get_play_time())
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -29,12 +29,12 @@ func exit():
 
 
 func get_requested_level_path_index():
-	return parent.get_requested_level_path_index()
+	return context.get_requested_level_path_index()
 
 
 func request_setting_next_level_path_index():
-	parent.request_setting_next_level_path_index()
+	context.request_setting_next_level_path_index()
 
 
 func request_setting_previous_level_path_index():
-	parent.request_setting_previous_level_path_index()
+	context.request_setting_previous_level_path_index()

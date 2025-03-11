@@ -14,7 +14,7 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export var element_type: EnemyElementType
 
 @export_category("Movement")
-@export_enum("Right:1", "Left:-1") var initial_look_direction = -1
+@export_enum("Right:1", "Left:-1") var initial_facing_direction = -1
 @export var max_speed = 150.0
 @export var easing_curve: Curve
 
@@ -23,9 +23,6 @@ const STATES = preload("res://enemies/enemy_initial_states.gd")
 @export var moving_state: State
 
 var path_2d
-var is_recovering = false
-var state_animations_scene
-var look_direction
 
 
 func _ready():
@@ -33,13 +30,7 @@ func _ready():
 
 	check_validity()
 
-	state_animations_scene = element_type.animations_airborne.instantiate()
-	add_child(state_animations_scene)
-
-	state_animations_scene.position = %PreviewSprite.position
 	%PreviewSprite.visible = false
-
-	look_direction = get_initial_look_direction()
 
 	var init_state = get_initial_state()
 	%StateMachine.init(self, init_state)
@@ -85,6 +76,14 @@ func check_validity():
 	assert(is_valid, "Error: Enemy not set up properly, check errors in console!")
 
 
+func get_element_animations_scene_instance():
+	return element_type.animations_airborne.instantiate()
+
+
+func get_initial_position():
+	return %PreviewSprite.position
+
+
 func get_initial_state():
 	match initial_state:
 		STATES.EnemyInitialState.MOVING:
@@ -93,44 +92,14 @@ func get_initial_state():
 			return idling_state
 
 
-func get_initial_look_direction():
-	match initial_look_direction:
+func get_initial_facing_direction():
+	match initial_facing_direction:
 		1: return Vector2.RIGHT
 		-1: return Vector2.LEFT
 
 
-func set_look_direction(value):
-	look_direction = value
-	if look_direction != null:
-		state_animations_scene.update_direction(look_direction)
-
-
-func get_look_direction():
-	return look_direction
-
-
-func get_state_animations_scene():
-	return state_animations_scene
-
-
 func get_max_speed():
 	return max_speed
-
-
-# TODO: Try getting rid of this and setting monitoring and state change by returning from state
-
-func get_recovery_time():
-	return recovery_time
-
-
-func set_is_recovering(status):
-	is_recovering = status
-
-
-func get_is_recovering():
-	return is_recovering
-
-# End
 
 
 func get_is_path_closed():
@@ -145,11 +114,7 @@ func get_path_length():
 
 
 func got_caught(_source):
-	if is_recovering:
-		return null
-
 	enemy_caught.emit(self)
-	is_recovering = true
 
 	if element_type == null:
 		return null

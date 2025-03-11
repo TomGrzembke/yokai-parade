@@ -4,10 +4,10 @@ extends Node
 var current_state
 
 
-func init(parent, initial_state):
+func init(context, initial_state):
 	current_state = initial_state
 	for child in get_children():
-		child.init(parent)
+		child.init(context)
 
 	change_state(current_state)
 

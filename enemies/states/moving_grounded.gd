@@ -1,43 +1,45 @@
-extends EnemyStateCatchable
+extends EnemyState
 
 
 @export_category("Enemy States")
 @export var attacking_melee_enemy_state: EnemyState
 @export var lunging_enemy_state: EnemyState
+@export var recovering_state: EnemyState
 
 @export_category("Components")
 @export var cliff_detection_component: Node2D
 @export var target_direction_component: Node2D
 @export var attack_melee_component: Node2D
 @export var attack_ranged_component: Node2D
+@export var take_damage_component: Node2D
 
 var speed = 0.0
 
 
-func init(p_parent):
-	super(p_parent)
+func init(p_context):
+	super(p_context)
 
-	speed = parent.get_speed()
+	speed = context.get_speed()
 
 
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	state_animations_scene.enter_state_moving()
+	visualisation_component.enter_state_moving()
 
 
 func physics_process(delta):
-	parent.handle_gravity(delta)
+	handle_gravity(delta)
 	update_direction()
 
-	parent.velocity = Vector2(parent.get_look_direction().x * speed, parent.velocity.y)
-	parent.set_look_direction(parent.velocity.normalized())
-	parent.move_and_slide()
+	context.velocity = Vector2(visualisation_component.get_facing_direction().x * speed, context.velocity.y)
+	visualisation_component.set_facing_direction(context.velocity.normalized())
+	context.move_and_slide()
 
-	var next_state = check_caught()
+	if take_damage_component.get_did_take_damage():
+		return recovering_state
 
-	if next_state != null:
-		return next_state
+	var next_state
 
 	if attack_melee_component.get_target_in_range() != null:
 		next_state = attacking_melee_enemy_state
@@ -47,13 +49,18 @@ func physics_process(delta):
 	return next_state
 
 
+func handle_gravity(delta):
+	if not context.is_on_floor():
+		context.velocity += context.get_gravity() * delta
+
+
 func update_direction():
-	var current_direction = parent.get_look_direction()
+	var current_direction = visualisation_component.get_facing_direction()
 	var target_direction = target_direction_component.get_target_direction()
 	var new_direction
 
 	if current_direction != null:
-		if parent.is_on_wall():
+		if context.is_on_wall():
 			new_direction = Vector2(current_direction.x * -1.0, current_direction.y).normalized()
 
 		elif cliff_detection_component.is_on_cliff_right():
@@ -68,4 +75,4 @@ func update_direction():
 
 	if new_direction == null: return
 
-	parent.set_look_direction(new_direction)
+	visualisation_component.set_facing_direction(new_direction)

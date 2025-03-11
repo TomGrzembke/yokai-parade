@@ -1,5 +1,7 @@
 extends Node2D
+
 @onready var anim_sprite
+
 var rigid_body
 var freeze_physics
 var flip_parent
@@ -12,6 +14,7 @@ func play(animation_name, emit_in_global = false, _freeze_physics = false, _z_in
 	anim_sprite = $RigidBody2D/AnimatedSprite2D
 	flip_parent = _flip_parent
 	clear_after_move = _clear_after_move
+	freeze_physics = _freeze_physics
 
 	if !has_anim(animation_name):
 		queue_free()
@@ -21,7 +24,6 @@ func play(animation_name, emit_in_global = false, _freeze_physics = false, _z_in
 	if emit_in_global: call_deferred("to_root")
 
 	call_deferred("reset_rb")
-	freeze_physics = _freeze_physics
 	rigid_body.freeze = freeze_physics
 
 	if _z_index != null:
@@ -34,9 +36,7 @@ func to_root():
 
 func _physics_process(_delta):
 	flip()
-
 	clear_after_action()
-
 	reset_rb()
 
 
@@ -64,17 +64,20 @@ func has_anim(animation_name):
 
 func on_animation_finished():
 	queue_free()
-	pass
 
 
 func reset_rb():
 	if rigid_body != null && rigid_body.freeze: return
-	if rigid_body != null && rigid_body.get_linear_velocity() == Vector2.ZERO:
-		rigid_body.freeze = true
-
 	if flip_parent != null: return
 	if scale.y == 1 && rotation == 0 && (rigid_body == null || rigid_body.rotation == 0): return
 
+	call_deferred("freeze_on_sleep")
 	scale.y = 1
 	rotation = 0
 	rigid_body.rotation = 0
+
+
+func freeze_on_sleep():
+	if rigid_body == null || rigid_body.get_linear_velocity() != Vector2.ZERO: return
+
+	rigid_body.freeze = true

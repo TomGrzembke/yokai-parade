@@ -7,15 +7,15 @@ extends LevelState
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	parent.set_player_controls_active(false)
+	context.set_player_controls_active(false)
 
-	parent.play_game_music()
+	context.play_game_music()
 
 
 func exit():
 	super.exit()
 
-	parent.set_player_controls_active(true)
+	context.set_player_controls_active(true)
 
 
 func unhandled_input(event):

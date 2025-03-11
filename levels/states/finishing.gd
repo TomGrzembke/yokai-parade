@@ -11,7 +11,7 @@ func enter(p_previous_state):
 
 	super.enter(p_previous_state)
 
-	parent.set_player_controls_active(false)
+	context.set_player_controls_active(false)
 
 
 func change_to_next_level_state():
@@ -19,8 +19,8 @@ func change_to_next_level_state():
 
 
 func set_music_volume_fraction(fraction):
-	parent.set_music_volume(linear_to_db(stored_volume_linear * fraction))
+	context.set_music_volume(linear_to_db(stored_volume_linear * fraction))
 
 
 func get_music_volume_linear():
-	return db_to_linear(parent.get_music_volume())
+	return db_to_linear(context.get_music_volume())

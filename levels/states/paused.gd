@@ -12,7 +12,7 @@ extends LevelState
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	parent.set_game_paused(true)
+	context.set_game_paused(true)
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -32,6 +32,6 @@ func unhandled_input(event):
 func exit():
 	super.exit()
 
-	parent.set_game_paused(false)
+	context.set_game_paused(false)
 
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN

@@ -5,7 +5,7 @@ extends GameState
 
 
 func play_title_music():
-	parent.play_title_music()
+	context.play_title_music()
 
 
 # Game States

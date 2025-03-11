@@ -2,19 +2,19 @@ extends GameState
 
 
 func set_window_fullscreen(active):
-	parent.set_window_fullscreen(active)
+	context.set_window_fullscreen(active)
 
 
 func get_window_fullscreen():
-	return parent.get_window_fullscreen()
+	return context.get_window_fullscreen()
 
 
 func set_volume_audio_bus(bus_id, volume_db):
-	parent.set_volume_audio_bus(bus_id, volume_db)
+	context.set_volume_audio_bus(bus_id, volume_db)
 
 
 func get_volume_audio_bus(bus_id):
-	return parent.get_volume_audio_bus(bus_id)
+	return context.get_volume_audio_bus(bus_id)
 
 
 # Game States

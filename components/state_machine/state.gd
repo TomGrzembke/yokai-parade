@@ -2,12 +2,12 @@ extends Node
 class_name State
 
 
-var parent
+var context
 var previous_state
 
 
-func init(p_parent):
-	parent = p_parent
+func init(p_context):
+	context = p_context
 
 
 func enter(p_previous_state):
