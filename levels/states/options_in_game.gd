@@ -1,6 +1,5 @@
 extends LevelState
 
-
 func set_window_fullscreen(is_on):
 	context.set_window_fullscreen(is_on)
 
@@ -32,6 +31,11 @@ func enter(p_previous_state):
 	state_scene.update_volume_music(get_volume_audio_bus(1))
 	state_scene.update_volume_sfx(get_volume_audio_bus(2))
 	state_scene.update_volume_ui(get_volume_audio_bus(3))
+
+
+func unhandled_input(event):
+	if event.is_action_pressed("pause_game"):
+		change_state(previous_state)
 
 
 func exit():
