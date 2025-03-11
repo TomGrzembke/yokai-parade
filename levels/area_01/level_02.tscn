@@ -70,7 +70,6 @@ element_type = ExtResource("9_5kbpl")
 [node name="AirGroundedIdling4" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("8_vvroe")]
 position = Vector2(4301, 309)
 element_type = ExtResource("9_5kbpl")
-initial_look_direction = 1
 
 [node name="AirGroundedMoving7" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("8_vvroe")]
 position = Vector2(3314, 159)
@@ -89,7 +88,6 @@ curve = SubResource("Curve2D_nj15r")
 [node name="EnemyAirborne" parent="Start-1stCheckpoint/Enemies/FireFlyingIdling2" instance=ExtResource("11_o4jt2")]
 position = Vector2(6903, 863)
 element_type = ExtResource("10_3y1es")
-initial_look_direction = 1
 metadata/_edit_lock_ = true
 
 [node name="FireFlyingIdling3" type="Path2D" parent="Start-1stCheckpoint/Enemies"]
@@ -124,7 +122,6 @@ element_type = ExtResource("9_5kbpl")
 position = Vector2(6516, 680)
 initial_state = 200
 element_type = ExtResource("9_5kbpl")
-initial_look_direction = 1
 
 [node name="AirGroundedIdling5" parent="1st-2ndCheckpoint/Enemies" instance=ExtResource("8_vvroe")]
 position = Vector2(9635, 757)
@@ -196,7 +193,6 @@ curve = SubResource("Curve2D_txxkq")
 position = Vector2(5955, 843)
 initial_state = 200
 element_type = ExtResource("10_3y1es")
-initial_look_direction = 1
 
 [node name="AirFlyingIdling3" type="Path2D" parent="1st-2ndCheckpoint/Enemies"]
 position = Vector2(4655, -680)
@@ -280,7 +276,6 @@ element_type = ExtResource("9_5kbpl")
 [node name="AirGroundedIdling6" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_vvroe")]
 position = Vector2(12912, -479)
 element_type = ExtResource("9_5kbpl")
-initial_look_direction = 1
 
 [node name="AirGroundedMoving" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_vvroe")]
 position = Vector2(15994, -919)
@@ -294,7 +289,6 @@ element_type = ExtResource("9_5kbpl")
 [node name="AirGroundedIdling7" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_vvroe")]
 position = Vector2(15074, -1208)
 element_type = ExtResource("9_5kbpl")
-initial_look_direction = 1
 
 [node name="AirGroundedMoving7" parent="2nd-3rdCheckpoint/Enemies" instance=ExtResource("8_vvroe")]
 position = Vector2(13632, -760)
@@ -346,7 +340,6 @@ curve = SubResource("Curve2D_nj15r")
 [node name="EnemyAirborne" parent="2nd-3rdCheckpoint/Enemies/FireFlyingIdling7" instance=ExtResource("11_o4jt2")]
 position = Vector2(6903, 863)
 element_type = ExtResource("10_3y1es")
-initial_look_direction = 1
 
 [node name="AirFlyingIdling5" type="Path2D" parent="2nd-3rdCheckpoint/Enemies"]
 position = Vector2(5673, -730)
@@ -456,6 +449,15 @@ tile_set = ExtResource("18_m31j8")
 position = Vector2(-288, 1072)
 
 [node name="TileMapForeground" type="TileMapLayer" parent="."]
-z_index = 1
+z_index = 5
+z_as_relative = false
 tile_map_data = PackedByteArray("AADYAEcAAAAlACQAAABiAysAAAAjAAwAAAA=")
 tile_set = ExtResource("8_iox8e")
+
+[connection signal="area_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@22840" to="GameplayTileMapLayer/@Area2D@22840" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@22840" to="GameplayTileMapLayer/@Area2D@22840" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@22843" to="GameplayTileMapLayer/@Area2D@22843" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@22843" to="GameplayTileMapLayer/@Area2D@22843" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/Goal" to="GameplayTileMapLayer/Goal" method="on_body_entered"]

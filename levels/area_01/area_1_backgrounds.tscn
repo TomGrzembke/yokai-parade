@@ -247,7 +247,7 @@ repeat_times = 3
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Flowers"]
 physics_interpolation_mode = 1
-z_index = 18
+z_index = 20
 material = SubResource("CanvasItemMaterial_0adue")
 position = Vector2(0, 400)
 emitting = false
