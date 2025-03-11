@@ -143,6 +143,7 @@ end_cap_mode = 2
 
 [node name="PlayerAnimatables" parent="." instance=ExtResource("7_74yxj")]
 position = Vector2(0, -50)
+line_material = ExtResource("9_hbaoq")
 
 [node name="Debug" type="Node2D" parent="."]
 position = Vector2(0, -25)
