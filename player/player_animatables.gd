@@ -7,6 +7,7 @@ const COLOR_BLACK = Color(0,0,0,1)
 @export var blend_curve : Curve
 @export var default_vfx_col : Color
 @export var vfx_instance : PackedScene
+@export var line_material : ShaderMaterial
 @export_category("Shrug")
 @export var shrug_cooldown : float = .8
 @export_category("Idle")
@@ -16,6 +17,7 @@ const COLOR_BLACK = Color(0,0,0,1)
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var vfx_animation_character = $VfxAnimationCharacter
 
+var default_line_color
 var shader_mat
 var color_blend_timer
 var animator
@@ -25,6 +27,7 @@ var shrug_timer
 func _ready():
 	shader_mat = vfx_animation_character.material as ShaderMaterial
 	animator = animation_tree.get("parameters/playback")
+	default_line_color = line_material.get_shader_parameter("end_tint")
 
 	subscribe_events()
 	sort_dictionary_descending()
@@ -64,6 +67,7 @@ func blend_vfx():
 
 	var step = blend_curve.sample(1.0 - color_blend_timer.time_left / time_to_blend)
 	shader_mat.set_shader_parameter("end_tint", lerp(shader_mat.get_shader_parameter("end_tint"), default_vfx_col, step))
+	line_material.set_shader_parameter("end_tint", lerp(shader_mat.get_shader_parameter("end_tint"), default_line_color, step))
 
 
 func on_ability(current_ability):
@@ -111,6 +115,7 @@ func on_pickup(color):
 		return
 
 	shader_mat.set_shader_parameter("end_tint", color)
+	line_material.set_shader_parameter("end_tint", color)
 	spawn_vfx("absorb", false, true)
 
 	if color_blend_timer != null:
@@ -131,6 +136,7 @@ func reset_vfx_conditionally():
 
 func default_vfx():
 	shader_mat.set_shader_parameter("end_tint", COLOR_BLACK)
+	line_material.set_shader_parameter("end_tint", default_line_color)
 
 
 func _on_animation_finished(anim_name):

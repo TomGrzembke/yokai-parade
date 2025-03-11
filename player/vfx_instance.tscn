@@ -120,7 +120,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"absorb",
-"speed": 12.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -239,6 +239,6 @@ shape = SubResource("RectangleShape2D_lmtn4")
 z_index = 1
 material = ExtResource("1_awcbs")
 sprite_frames = SubResource("SpriteFrames_3awqp")
-animation = &"no_ability"
+animation = &"absorb"
 
 [connection signal="animation_finished" from="RigidBody2D/AnimatedSprite2D" to="." method="on_animation_finished"]
