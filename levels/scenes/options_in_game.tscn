@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw0g44fku0ne6"]
+[gd_scene load_steps=6 format=3 uid="uid://dw0g44fku0ne6"]
 
 [ext_resource type="Script" path="res://levels/scenes/options_in_game.gd" id="1_fvlq8"]
+[ext_resource type="Shader" path="res://shader/blur.gdshader" id="2_2xj68"]
 [ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="2_m0nu1"]
 [ext_resource type="PackedScene" uid="uid://c04lg3aglqhgy" path="res://options/options.tscn" id="2_sfmog"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nov2v"]
+shader = ExtResource("2_2xj68")
+shader_parameter/lod = 0.833
 
 [node name="OptionsInGame" type="Node"]
 script = ExtResource("1_fvlq8")
@@ -17,6 +22,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Blur" type="ColorRect" parent="CanvasLayer/Main"]
+material = SubResource("ShaderMaterial_nov2v")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Main"]
+modulate = Color(1, 1, 1, 0.227451)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.85098, 0.823529, 0.941176, 1)
 
 [node name="Options" parent="CanvasLayer/Main" instance=ExtResource("2_sfmog")]
 unique_name_in_owner = true
