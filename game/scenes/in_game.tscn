@@ -148,6 +148,7 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 grow_horizontal = 0
+scale = Vector2(0.75, 0.75)
 mouse_filter = 1
 
 [node name="UiIngameTrBack" type="TextureRect" parent="UILayer/Top"]
@@ -216,9 +217,12 @@ layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_left = -3.0
+offset_top = -30.0
+offset_right = 37.0
+offset_bottom = 10.0
 grow_vertical = 0
+scale = Vector2(0.75, 0.75)
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 

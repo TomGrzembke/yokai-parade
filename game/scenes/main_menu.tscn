@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dk3wuo1sfknyo"]
 
 [ext_resource type="Script" path="res://game/scenes/main_menu.gd" id="1_qg7wj"]
-[ext_resource type="Texture2D" uid="uid://umkmwt4e2066" path="res://assets/patterns/t_texture_patternwithpapertexture.png" id="2_6u7ei"]
+[ext_resource type="Texture2D" uid="uid://bpqxl54lmx415" path="res://ui/misc/ui_bg_3.png" id="2_nfcyx"]
 [ext_resource type="Texture2D" uid="uid://blc60y10cn7yx" path="res://ui/ui_outline_mainmenu_rip.png" id="3_2t40p"]
 [ext_resource type="Texture2D" uid="uid://bjn40nw0c0byv" path="res://ui/ui_panel_mainmenu.png" id="4_12tus"]
 [ext_resource type="Script" path="res://ui/custom_controls/button_focus_on_hover.gd" id="5_a6jfj"]
@@ -28,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6u7ei")
+texture = ExtResource("2_nfcyx")
 stretch_mode = 5
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Main"]

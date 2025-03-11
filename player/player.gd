@@ -96,6 +96,7 @@ func _physics_process(delta):
 	ability_smoothing()
 	calc_vel_mods()
 	apply_velocity()
+	edge_stuck_correction()
 	clamp_fall_speed()
 	move_and_slide()
 	land()
@@ -164,6 +165,7 @@ func jump(delta):
 	variable_jump_height()
 	update_jump_buffer(delta)
 	edge_correction()
+
 	cached_local_velocity = local_velocity
 
 
@@ -284,6 +286,14 @@ func edge_correction():
 	is_using_edge_correction = true
 	local_velocity.x *= -x_edge_correction
 	local_velocity.y *= y_edge_correction
+
+
+func edge_stuck_correction():
+	if get_real_velocity() != Vector2.ZERO: return
+	if move_dir == 0: return
+	if is_next_to_wall.has_target(): return
+
+	velocity.y -= 100.0
 
 
 func can_use_jump_buffer():
