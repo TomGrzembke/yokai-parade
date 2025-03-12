@@ -52,6 +52,10 @@ func play_game_music():
 	state_node.play_game_music()
 
 
+func fade_to_game_over_music():
+	state_node.fade_to_game_over_music()
+
+
 func get_music_volume():
 	return get_volume_audio_bus(1)
 

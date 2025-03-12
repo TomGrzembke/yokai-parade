@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://daq0ts878ltif"]
+[gd_scene load_steps=20 format=3 uid="uid://daq0ts878ltif"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_g4chm"]
 [ext_resource type="AudioStream" uid="uid://db38udv3jlgxu" path="res://assets/music/menumusic_yokaiparade.ogg" id="2_cgdsn"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="2_me8mb"]
 [ext_resource type="AudioStream" uid="uid://c1rlww86snhj4" path="res://assets/music/backgroundmusic_yokaiparade.ogg" id="3_glkxr"]
+[ext_resource type="AudioStream" uid="uid://b6usctu45cptm" path="res://assets/music/gameovermusic_yokaiparade.ogg" id="4_toql7"]
 [ext_resource type="PackedScene" uid="uid://cisf071rha1ru" path="res://game/scenes/in_game.tscn" id="12_omxsr"]
 [ext_resource type="Script" path="res://game/states/quit_game.gd" id="15_45678"]
 [ext_resource type="Script" path="res://game/states/startup.gd" id="15_nvaqt"]
@@ -25,6 +26,7 @@ script = ExtResource("1_g4chm")
 initial_game_state = NodePath("GameStateMachine/Startup")
 title_music_stream = ExtResource("2_cgdsn")
 game_music_stream = ExtResource("3_glkxr")
+game_over_music_stream = ExtResource("4_toql7")
 
 [node name="GameStateMachine" parent="." instance=ExtResource("2_me8mb")]
 unique_name_in_owner = true

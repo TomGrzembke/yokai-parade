@@ -4,6 +4,7 @@ extends Node
 @export var initial_game_state: GameState
 @export var title_music_stream: AudioStream
 @export var game_music_stream: AudioStream
+@export var game_over_music_stream: AudioStream
 
 var current_game_state_scene
 
@@ -26,6 +27,10 @@ func play_title_music():
 
 func play_game_music():
 	play_music(game_music_stream)
+
+
+func fade_to_game_over_music():
+	play_music(game_over_music_stream)
 
 
 func play_music(stream):

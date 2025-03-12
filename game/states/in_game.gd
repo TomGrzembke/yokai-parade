@@ -25,6 +25,10 @@ func play_game_music():
 	context.play_game_music()
 
 
+func fade_to_game_over_music():
+	context.fade_to_game_over_music()
+
+
 # Game States
 
 func enter(p_previous_state):
