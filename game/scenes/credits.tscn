@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://daf1dxr8obptf"]
+[gd_scene load_steps=13 format=3 uid="uid://daf1dxr8obptf"]
 
 [ext_resource type="Script" path="res://game/scenes/credits.gd" id="1_ewpqn"]
 [ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="2_1lmbh"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://dyiuk4rhgol72" path="res://ui/credit_pics/Aiden.png" id="7_mpjb0"]
 [ext_resource type="Texture2D" uid="uid://ct5uvmei28kqk" path="res://ui/credit_pics/Christian.png" id="8_i6s5j"]
 [ext_resource type="Texture2D" uid="uid://bhvngnwoelad2" path="res://ui/credit_pics/Tommy.png" id="9_1nq6j"]
+[ext_resource type="Texture2D" uid="uid://bctt0a2iiygat" path="res://ui/credit_pics/laziri_music.png" id="10_ub6n7"]
+[ext_resource type="Texture2D" uid="uid://dgxxfgcvowm6u" path="res://ui/credit_pics/lucy_momo.png" id="11_dwnug"]
 
 [node name="Credits" type="Node"]
 script = ExtResource("1_ewpqn")
@@ -133,14 +135,14 @@ layout_mode = 2
 texture = ExtResource("9_1nq6j")
 stretch_mode = 2
 
-[node name="UntitledArtwork7" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
-layout_mode = 2
-texture = ExtResource("9_1nq6j")
-stretch_mode = 2
-
 [node name="UntitledArtwork8" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
-texture = ExtResource("9_1nq6j")
+texture = ExtResource("10_ub6n7")
+stretch_mode = 2
+
+[node name="UntitledArtwork7" type="TextureRect" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
+layout_mode = 2
+texture = ExtResource("11_dwnug")
 stretch_mode = 2
 
 [node name="Chris" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
@@ -159,19 +161,19 @@ Shader-programmer &
 Game-Engineering"
 horizontal_alignment = 1
 
-[node name="Lucy&Momo" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Lucy & Momo
-Voiceactors "
-horizontal_alignment = 1
-
 [node name="laziri_music" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "laziri_music
 Music & 
 Sound-Design"
+horizontal_alignment = 1
+
+[node name="Lucy&Momo" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Lucy & Momo
+Voiceactors "
 horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="CanvasLayer/Main/BackCover/VBoxContainer"]
