@@ -23,7 +23,7 @@ func get_progress_percent():
 	return progress * 100.0
 
 
-func update_progress_percent(delta):
+func update_progress_percent(_delta):
 	%ProgressBar.value = move_toward(%ProgressBar.value, get_progress_percent(), PROGRESS_BAR_LERP_SPEED_FACTOR)
 
 	if %ProgressBar.value == 100.0 \
