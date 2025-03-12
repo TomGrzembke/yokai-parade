@@ -279,6 +279,12 @@ offset_right = 1547.0
 offset_bottom = 730.0
 texture = ExtResource("5_c7ss1")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_krax2")
+}
+
 [node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("12_f1o50")
@@ -288,9 +294,3 @@ bus = &"SFX"
 unique_name_in_owner = true
 stream = ExtResource("16_n4wg6")
 bus = &"UI"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_krax2")
-}
