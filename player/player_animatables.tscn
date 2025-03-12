@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://b173nlre4ndsy"]
+[gd_scene load_steps=71 format=3 uid="uid://b173nlre4ndsy"]
 
 [ext_resource type="Script" path="res://player/player_animatables.gd" id="1_japyu"]
 [ext_resource type="Texture2D" uid="uid://dchjx31w1tyge" path="res://player/assets/player_spritesheet.png" id="1_wuri4"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://dgk7beqkylhis" path="res://sounds/player_landing.wav" id="6_f5xr2"]
 [ext_resource type="AudioStream" uid="uid://coy5ai5tktmgg" path="res://sounds/player_walking.wav" id="7_rrgwt"]
 [ext_resource type="AudioStream" uid="uid://cvdi5cwdtgjef" path="res://sounds/player_ability_double_jump.wav" id="13_8mpil"]
+[ext_resource type="Script" path="res://sounds/sound_player.gd" id="14_mxwfv"]
 
 [sub_resource type="Curve" id="Curve_uxwp6"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
@@ -183,77 +184,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [36, 29, 30]
 }
-tracks/1/type = "audio"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimatables/AudioStreamPlayer2D")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("13_8mpil")
-}],
-"times": PackedFloat32Array(0.000434416)
-}
-tracks/1/use_blend = true
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.070718),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.169045),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [4, 4]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_hhc52"]
-resource_name = "dying"
-length = 0.6
-step = 0.125
-tracks/0/type = "audio"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimatables/AudioStreamPlayer2D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.155839,
-"stream": ExtResource("2_jfhhs")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -261,22 +191,91 @@ tracks/1/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.070718),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.169045),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerAnimatables/EnvironmentalSounds")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [ExtResource("13_8mpil")],
+"method": &"emit_sound"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hhc52"]
+resource_name = "dying"
+length = 0.6
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/2/type = "value"
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/2/path = NodePath("PlayerAnimatables/VoiceSounds")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"values": [{
+"args": [ExtResource("2_jfhhs")],
+"method": &"emit_sound"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_qskf8"]
@@ -324,68 +323,67 @@ tracks/2/keys = {
 resource_name = "got_hit"
 length = 0.5
 step = 0.125
-tracks/0/type = "audio"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimatables/AudioStreamPlayer2D")
+tracks/0/path = NodePath("PlayerAnimatables/Player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("3_yjdp8")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimatables/Player:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [21, 22]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [21, 22, 4]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/4/type = "value"
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/4/path = NodePath("PlayerAnimatables/VoiceSounds")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"values": [{
+"args": [ExtResource("3_yjdp8")],
+"method": &"emit_sound"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_v1rfk"]
@@ -395,7 +393,7 @@ step = 0.0
 tracks/0/type = "audio"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimatables/AudioStreamPlayer2D")
+tracks/0/path = NodePath("PlayerAnimatables/EnvironmentalSounds")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -668,100 +666,29 @@ tracks/3/keys = {
 resource_name = "jump"
 length = 0.4
 step = 0.0
-tracks/0/type = "audio"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimatables/AudioStreamPlayer2D")
+tracks/0/path = NodePath("PlayerAnimatables/Player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0240493,
-"start_offset": 0.0365549,
-"stream": ExtResource("5_irw32")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimatables/Player:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.125),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [29, 30]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0.00110418),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [4]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_uoss2"]
-resource_name = "landing"
-length = 0.2
-step = 0.0
-tracks/0/type = "audio"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimatables/AudioStreamPlayer2D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": [{
-"end_offset": 0.175193,
-"start_offset": 0.0534553,
-"stream": ExtResource("6_f5xr2")
-}],
-"times": PackedFloat32Array(0.000478465)
-}
-tracks/0/use_blend = true
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimatables/Player:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.055092),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [36, 37]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -787,17 +714,86 @@ tracks/3/keys = {
 "update": 1,
 "values": [0]
 }
-tracks/4/type = "value"
+tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
+tracks/4/path = NodePath("PlayerAnimatables/EnvironmentalSounds")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [ExtResource("5_irw32")],
+"method": &"emit_sound"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_uoss2"]
+resource_name = "landing"
+length = 0.21
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimatables/Player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.055092),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [36, 37]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [4]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerAnimatables/EnvironmentalSounds")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.03),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [ExtResource("6_f5xr2")],
+"method": &"emit_sound"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_cmshr"]
@@ -869,56 +865,55 @@ tracks/0/keys = {
 "update": 1,
 "values": [1, 2, 3, 0]
 }
-tracks/1/type = "audio"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimatables/AudioStreamPlayer2D")
+tracks/1/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"clips": [{
-"end_offset": 0.112551,
-"start_offset": 0.0,
-"stream": ExtResource("7_rrgwt")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/1/use_blend = true
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/4/type = "value"
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimatables/VfxAnimationCharacter:z_index")
+tracks/4/path = NodePath("PlayerAnimatables/EnvironmentalSounds")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"values": [{
+"args": [ExtResource("7_rrgwt")],
+"method": &"emit_sound"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x7y5v"]
@@ -1150,8 +1145,15 @@ tree_root = SubResource("AnimationNodeStateMachine_h8ooh")
 advance_expression_base_node = NodePath("../..")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="EnvironmentalSounds" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 5
 bus = &"SFX"
+script = ExtResource("14_mxwfv")
+
+[node name="VoiceSounds" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 5
+bus = &"SFX"
+script = ExtResource("14_mxwfv")
 
 [node name="VfxInstance" parent="." instance=ExtResource("5_av5c8")]
 visible = false
