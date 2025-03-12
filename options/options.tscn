@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://c04lg3aglqhgy"]
+[gd_scene load_steps=19 format=3 uid="uid://c04lg3aglqhgy"]
 
 [ext_resource type="Script" path="res://options/options.gd" id="1_c48yv"]
 [ext_resource type="Texture2D" uid="uid://c5mky68gcqspu" path="res://ui/ui_outline_hori.png" id="2_4yiuk"]
 [ext_resource type="Texture2D" uid="uid://c3i6sr0g87h2b" path="res://ui/ui_panel_horimain.png" id="2_d7f8b"]
 [ext_resource type="Texture2D" uid="uid://ck7yd2b51exe3" path="res://ui/ui_panel_horibottom.png" id="3_bf6v8"]
 [ext_resource type="Texture2D" uid="uid://cwvx7x2akvm35" path="res://ui/UI_Controls_Controller.png" id="3_jg2bf"]
+[ext_resource type="Theme" uid="uid://bqdlc5vw8gpa5" path="res://assets/theme/theme.tres" id="4_0yobf"]
 [ext_resource type="Texture2D" uid="uid://de8n4chrqn73o" path="res://ui/ui_panel_horitop.png" id="4_bvb6k"]
 [ext_resource type="Texture2D" uid="uid://ccwi7avw2apse" path="res://ui/UI_Controls_keyboard.png" id="4_e2u6s"]
 [ext_resource type="Texture2D" uid="uid://b7bu0g5d2kfpc" path="res://ui/ui_panel_deco.png" id="5_c7ss1"]
@@ -13,6 +14,7 @@
 [ext_resource type="Script" path="res://ui/custom_controls/button_focus_on_hover.gd" id="7_8s0a2"]
 [ext_resource type="AudioStream" uid="uid://c475r5in65dtp" path="res://sounds/menu_button1.wav" id="7_a73mq"]
 [ext_resource type="AudioStream" uid="uid://b63j8p43v3758" path="res://player/assets/player_ability_fire_dash.wav" id="12_f1o50"]
+[ext_resource type="AudioStream" uid="uid://y0n2o3rt44od" path="res://sounds/menu_button2.wav" id="13_gpyir"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6pi0t"]
 
@@ -113,6 +115,7 @@ layout_mode = 2
 
 [node name="OptionsLabel" type="Label" parent="MainPanel/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("4_0yobf")
 text = "Options"
 horizontal_alignment = 1
 
@@ -225,10 +228,10 @@ script = ExtResource("6_uxoii")
 [node name="BackButton" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 931.1
-offset_top = 859.1
-offset_right = 1005.1
-offset_bottom = 911.1
+offset_left = 916.0
+offset_top = 864.0
+offset_right = 1035.0
+offset_bottom = 916.0
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../MainPanel/PanelContainer/VBoxContainer/HBoxContainer/FullscreenCheckBox")
 focus_neighbor_bottom = NodePath("../MainPanel/PanelContainer/VBoxContainer/SettingsGridContainer/VolumeMasterSlider")
@@ -268,6 +271,16 @@ offset_top = 72.0
 offset_right = 1547.0
 offset_bottom = 730.0
 texture = ExtResource("5_c7ss1")
+
+[node name="UiAudioStreamPlayerHover" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_a73mq")
+bus = &"UI"
+
+[node name="UiAudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("13_gpyir")
+bus = &"UI"
 
 [node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
