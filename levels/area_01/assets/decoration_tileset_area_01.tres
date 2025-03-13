@@ -13,7 +13,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3cqu5"]
 shader = ExtResource("6_asdgi")
 shader_parameter/color_to_replace = Color(0.537255, 0.776471, 0.803922, 1)
-shader_parameter/feather_range = 0.1
+shader_parameter/feather_range = 0.162
 shader_parameter/tilemap_offset = Vector2(0, 0)
 shader_parameter/pattern_scale = 5.01
 shader_parameter/pattern_texture = ExtResource("7_glknk")
