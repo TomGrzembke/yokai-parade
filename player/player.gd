@@ -292,6 +292,7 @@ func edge_stuck_correction():
 	if get_real_velocity() != Vector2.ZERO: return
 	if move_dir == 0: return
 	if is_next_to_wall.has_target(): return
+	if cached_local_velocity != Vector2.ZERO: return
 
 	velocity.y -= 100.0
 

@@ -8,5 +8,9 @@ extends LevelState
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 	state_scene.set_return_to_main_menu_level_state(return_to_main_menu_level_state)
 	state_scene.set_quit_game_level_state(quit_game_level_state)
+
+	context.fade_to_game_over_music()

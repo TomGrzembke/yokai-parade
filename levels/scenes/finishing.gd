@@ -11,7 +11,7 @@ var state_node
 # Level States
 
 func _ready():
-	# Workaround for audio bug in Godot that occurs in web builds on Chromium-based
+	# HACK: Workaround for audio bug in Godot that occurs in web builds on Chromium-based
 	# browsers when AudiosStreamPlayer is started from AnimationPlayer
 	%AudioStreamPlayer.play()
 	await %AnimationPlayer.animation_finished

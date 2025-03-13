@@ -141,6 +141,7 @@ offset_bottom = 40.0
 texture = ExtResource("2_chnw0")
 
 [node name="Main" type="Control" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
 z_index = 100
 layout_mode = 3
 anchors_preset = 15

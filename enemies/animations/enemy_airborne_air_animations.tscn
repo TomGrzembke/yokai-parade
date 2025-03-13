@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://0wrfx826uek5"]
+[gd_scene load_steps=41 format=3 uid="uid://0wrfx826uek5"]
 
 [ext_resource type="Script" path="res://enemies/enemy_animations.gd" id="1_k13mu"]
 [ext_resource type="Texture2D" uid="uid://ug7h6qbp1dgw" path="res://enemies/animations/assets/enemy_airborne_air_spritesheet.png" id="2_2mfax"]
@@ -7,6 +7,71 @@
 [ext_resource type="AudioStream" uid="uid://ynagq2iy6gj2" path="res://enemies/animations/assets/enemy_air_lunge.ogg" id="4_v2t8v"]
 [ext_resource type="AudioStream" uid="uid://dmfyxwtxotbsh" path="res://enemies/animations/assets/enemy_air_take_damage.ogg" id="5_46l7v"]
 [ext_resource type="AudioStream" uid="uid://cy08pyap7232e" path="res://enemies/animations/assets/enemy_air_attack.ogg" id="5_ijcuf"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xggdm"]
+animation = &"idling_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uckwt"]
+animation = &"idling_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_agmwi"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_xggdm")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_uckwt")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k3ivs"]
+animation = &"moving_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_juhag"]
+animation = &"moving_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_at0pr"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_k3ivs")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_juhag")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yvtet"]
+animation = &"lunging_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4irbo"]
+animation = &"lunging_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_gnvpm"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_yvtet")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_4irbo")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j7dcn"]
+animation = &"attacking_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cd8xs"]
+animation = &"attacking_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_3bkvh"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_j7dcn")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_cd8xs")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0g2ag"]
+animation = &"recovering_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ltxtg"]
+animation = &"recovering_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_wg44s"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_0g2ag")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_ltxtg")
+blend_point_1/pos = 1.0
+blend_mode = 1
 
 [sub_resource type="Animation" id="Animation_jungp"]
 length = 0.001
@@ -70,6 +135,12 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tgi7t"]
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("5_ijcuf")
 
 [sub_resource type="Animation" id="Animation_ruf6r"]
 resource_name = "attacking_left"
@@ -147,13 +218,19 @@ tracks/5/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("5_ijcuf")
+"stream": SubResource("AudioStreamRandomizer_tgi7t")
 }],
 "times": PackedFloat32Array(0)
 }
 tracks/5/use_blend = true
 
-[sub_resource type="Animation" id="Animation_vb2iu"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7yjml"]
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("5_ijcuf")
+
+[sub_resource type="Animation" id="Animation_p1201"]
 resource_name = "attacking_right"
 length = 0.4625
 step = 0.0625
@@ -229,7 +306,7 @@ tracks/5/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": null
+"stream": SubResource("AudioStreamRandomizer_7yjml")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -343,6 +420,12 @@ tracks/3/keys = {
 "values": [0, 1, 3, 2, 1, 0]
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q1ddt"]
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("4_v2t8v")
+
 [sub_resource type="Animation" id="Animation_up30f"]
 resource_name = "lunging_left"
 length = 0.25
@@ -393,7 +476,7 @@ tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("4_v2t8v")
+"stream": SubResource("AudioStreamRandomizer_q1ddt")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -410,6 +493,12 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jb8nt"]
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("4_v2t8v")
 
 [sub_resource type="Animation" id="Animation_sfejl"]
 resource_name = "lunging_right"
@@ -461,7 +550,7 @@ tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("4_v2t8v")
+"stream": SubResource("AudioStreamRandomizer_jb8nt")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -587,6 +676,12 @@ tracks/3/keys = {
 "values": [false]
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3805g"]
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("5_46l7v")
+
 [sub_resource type="Animation" id="Animation_3ucbj"]
 resource_name = "recovering_left"
 length = 3.0
@@ -637,7 +732,7 @@ tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("5_46l7v")
+"stream": SubResource("AudioStreamRandomizer_3805g")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -654,6 +749,12 @@ tracks/4/keys = {
 "update": 1,
 "values": [8]
 }
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wiue5"]
+random_pitch = 1.3
+random_volume_offset_db = 0.3
+streams_count = 1
+stream_0/stream = ExtResource("5_46l7v")
 
 [sub_resource type="Animation" id="Animation_64f50"]
 resource_name = "recovering_right"
@@ -705,7 +806,7 @@ tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("5_46l7v")
+"stream": SubResource("AudioStreamRandomizer_wiue5")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -727,7 +828,7 @@ tracks/4/keys = {
 _data = {
 "RESET": SubResource("Animation_jungp"),
 "attacking_left": SubResource("Animation_ruf6r"),
-"attacking_right": SubResource("Animation_vb2iu"),
+"attacking_right": SubResource("Animation_p1201"),
 "idling_left": SubResource("Animation_xhmbr"),
 "idling_right": SubResource("Animation_x8mv4"),
 "lunging_left": SubResource("Animation_up30f"),
@@ -737,71 +838,6 @@ _data = {
 "recovering_left": SubResource("Animation_3ucbj"),
 "recovering_right": SubResource("Animation_64f50")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xggdm"]
-animation = &"idling_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uckwt"]
-animation = &"idling_right"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_agmwi"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_xggdm")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_uckwt")
-blend_point_1/pos = 1.0
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k3ivs"]
-animation = &"moving_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_juhag"]
-animation = &"moving_right"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_at0pr"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_k3ivs")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_juhag")
-blend_point_1/pos = 1.0
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yvtet"]
-animation = &"lunging_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4irbo"]
-animation = &"lunging_right"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_gnvpm"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_yvtet")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_4irbo")
-blend_point_1/pos = 1.0
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j7dcn"]
-animation = &"attacking_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cd8xs"]
-animation = &"attacking_right"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_3bkvh"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_j7dcn")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_cd8xs")
-blend_point_1/pos = 1.0
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0g2ag"]
-animation = &"recovering_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ltxtg"]
-animation = &"recovering_right"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_wg44s"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_0g2ag")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_ltxtg")
-blend_point_1/pos = 1.0
-blend_mode = 1
 
 [node name="EnemyAirborneAirAnimations" type="Node2D"]
 script = ExtResource("1_k13mu")
@@ -821,11 +857,6 @@ flip_h = true
 hframes = 4
 vframes = 4
 frame = 8
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_vyi56")
-}
 
 [node name="IdlingBlendSpace" type="AnimationTree" parent="."]
 unique_name_in_owner = true
@@ -866,6 +897,11 @@ root_node = NodePath("%RecoveringBlendSpace/..")
 tree_root = SubResource("AnimationNodeBlendSpace1D_wg44s")
 anim_player = NodePath("../AnimationPlayer")
 parameters/blend_position = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vyi56")
+}
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"

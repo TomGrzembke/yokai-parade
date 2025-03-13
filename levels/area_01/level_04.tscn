@@ -751,13 +751,3 @@ position = Vector2(101, -54)
 position = Vector2(20, 60)
 rotation = 0.0154002
 shape = SubResource("RectangleShape2D_5svx8")
-
-[connection signal="area_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
-[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@25597" to="GameplayTileMapLayer/@Area2D@25597" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@25597" to="GameplayTileMapLayer/@Area2D@25597" method="on_checkpoint_area_entered"]
-[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@25602" to="GameplayTileMapLayer/@Area2D@25602" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@25602" to="GameplayTileMapLayer/@Area2D@25602" method="on_checkpoint_area_entered"]
-[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@25606" to="GameplayTileMapLayer/@Area2D@25606" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@25606" to="GameplayTileMapLayer/@Area2D@25606" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/Goal" to="GameplayTileMapLayer/Goal" method="on_body_entered"]

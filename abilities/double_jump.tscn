@@ -1,46 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cc0wce22gon55"]
+[gd_scene load_steps=3 format=3 uid="uid://cc0wce22gon55"]
 
 [ext_resource type="Script" path="res://abilities/double_jump.gd" id="1_c33vj"]
-[ext_resource type="AudioStream" uid="uid://cvdi5cwdtgjef" path="res://sounds/player_ability_double_jump.wav" id="2_3rka5"]
 
 [sub_resource type="Curve" id="Curve_rgr0d"]
 _data = [Vector2(0, 1), 0.0, -0.149137, 0, 0, Vector2(1, 0.769231), -0.0549454, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="Animation" id="Animation_sjsra"]
-resource_name = "on_ability"
-length = 0.2
-tracks/0/type = "audio"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AudioStreamPlayer2D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.102931,
-"stream": ExtResource("2_3rka5")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_68x86"]
-_data = {
-"on_ability": SubResource("Animation_sjsra")
-}
 
 [node name="DoubleJump" type="Node2D"]
 script = ExtResource("1_c33vj")
 double_jump_vel = 625.0
 double_jump_duration = 0.25
 velocity_curve = SubResource("Curve_rgr0d")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = -12.701
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_68x86")
-}

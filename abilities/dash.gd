@@ -10,7 +10,6 @@ const ELEMENT_TYPE = ELEMENTS.ElementType.FIRE
 @export var damage_linger_duration : float = .4
 @export var disable_player_movement := true
 @export var velocity_curve : Curve
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var is_dashing := false
 var target_in_damage_radius
@@ -29,9 +28,6 @@ func use(player_manager):
 	vel_modifier.set_curve(velocity_curve)
 	player_manager.add_velocity_modifier(vel_modifier)
 	is_dashing = true
-
-	animation_player = $AnimationPlayer
-	animation_player.play("on_ability")
 
 	controller_vibration(0.3, 1.0, dash_duration)
 	if get_parent() == null:

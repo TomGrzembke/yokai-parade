@@ -36,7 +36,7 @@ func update_progress_percent(_delta):
 
 
 func update_progress(p_progress):
-	# Loader can set progress back to 0.0 after loading, so we skip updating once we reached 1.0
+	# HACK: Loader can set progress back to 0.0 after loading, so we skip updating once we reached 1.0
 	if has_loading_finished:
 		return
 
