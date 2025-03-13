@@ -43,9 +43,9 @@ float get_idling(vec2 vertex, vec2 uv, float _time){
     float diff = pow(maxStrength - minStrength, 2.0);
     float strength = clamp(minStrength + diff + sin(_time / interval) * diff, minStrength, maxStrength) * strengthScale;
     float anker_pos = ankered_top ? uv.y : 1.0 - uv.y;
-	float wind = (sin(_time) + cos(_time * detail)) * strength * max(0.0, anker_pos - heightOffset);
+	float current_offset = (sin(_time) + cos(_time * detail)) * strength * max(0.0, anker_pos - heightOffset);
     
-    return wind; 
+    return current_offset; 
 }
 
 void vertex() {
