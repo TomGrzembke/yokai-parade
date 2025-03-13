@@ -40,5 +40,6 @@ func set_debug_speed():
 func modify_debug_speed(faster):
 	player.set_debug_speed_modifier(debug_speed + (debug_speed_steps if faster else -debug_speed_steps))
 
+
 func modify_tokens(faster):
 	player.add_current_speed_tokens(player.max_token_amount * instant_token_percentage if faster else -player.max_token_amount)
