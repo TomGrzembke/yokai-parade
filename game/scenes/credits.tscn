@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://daf1dxr8obptf"]
+[gd_scene load_steps=14 format=3 uid="uid://daf1dxr8obptf"]
 
 [ext_resource type="Script" path="res://game/scenes/credits.gd" id="1_ewpqn"]
 [ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="2_1lmbh"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bhvngnwoelad2" path="res://ui/credit_pics/Tommy.png" id="9_1nq6j"]
 [ext_resource type="Texture2D" uid="uid://bctt0a2iiygat" path="res://ui/credit_pics/laziri_music.png" id="10_ub6n7"]
 [ext_resource type="Texture2D" uid="uid://dgxxfgcvowm6u" path="res://ui/credit_pics/lucy_momo.png" id="11_dwnug"]
+[ext_resource type="Script" path="res://ui/custom_controls/button_focus_on_hover.gd" id="12_be12s"]
 
 [node name="Credits" type="Node"]
 script = ExtResource("1_ewpqn")
@@ -194,6 +195,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 80
 text = "Back"
+script = ExtResource("12_be12s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

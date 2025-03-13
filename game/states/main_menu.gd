@@ -7,6 +7,10 @@ extends GameState
 @export var quit_game_state: GameState
 
 
+func unmute_ui_bus():
+	context.unmute_ui_bus()
+
+
 # Game States
 
 func enter(p_previous_state):

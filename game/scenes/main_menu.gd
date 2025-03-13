@@ -21,6 +21,10 @@ func _ready():
 	%StartButton.grab_focus()
 
 
+func _input(_event):
+	state_node.unmute_ui_bus()
+
+
 # Game States
 
 func set_state_node(node):

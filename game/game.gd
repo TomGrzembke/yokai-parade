@@ -18,6 +18,8 @@ var stored_ui_volume
 
 
 func _ready() -> void:
+	AudioServer.set_bus_mute(UI_BUS_ID, true)
+
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 	%GameStateMachine.init(self, initial_game_state)
@@ -73,6 +75,12 @@ func fade_out_audio(duration):
 	OS.delay_msec(50)
 
 	set_volume_audio_bus_master.call(current_volume_master)
+
+
+# UI Sounds
+
+func unmute_ui_bus():
+	AudioServer.set_bus_mute(UI_BUS_ID, false)
 
 
 # Options
