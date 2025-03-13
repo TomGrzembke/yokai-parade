@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://chw071c302k1s"]
+[gd_scene load_steps=22 format=4 uid="uid://chw071c302k1s"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_5yuc3"]
 [ext_resource type="PackedScene" uid="uid://dnq2l128u47ma" path="res://levels/modules/goal.tscn" id="2_12oxi"]
@@ -13,6 +13,12 @@
 [ext_resource type="Material" uid="uid://wyxyitttdya3" path="res://shader/TilemapShader.tres" id="16_ufhtr"]
 [ext_resource type="TileSet" uid="uid://4v2t32qfx3hb" path="res://levels/area_01/assets/tileset_area_01.tres" id="17_0fatb"]
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/modules/player_spawn_point.tscn" id="18_ywyf1"]
+
+[sub_resource type="Curve2D" id="Curve2D_8yv0d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 5653, -77, 0, 0, 0, 0, 5653, -19)
+}
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_j4ig6"]
 _data = {
@@ -62,6 +68,14 @@ script = ExtResource("1_5yuc3")
 position = Vector2(12363, 228)
 
 [node name="Enemies" type="Node2D" parent="Start-1stCheckpoint"]
+
+[node name="ProblemFireEnemy" type="Path2D" parent="Start-1stCheckpoint/Enemies"]
+curve = SubResource("Curve2D_8yv0d")
+
+[node name="EnemyAirborne" parent="Start-1stCheckpoint/Enemies/ProblemFireEnemy" instance=ExtResource("6_tj8ky")]
+position = Vector2(5653, -77)
+element_type = ExtResource("5_spnqd")
+initial_facing_direction = 1
 
 [node name="FireGroundedMoving" parent="Start-1stCheckpoint/Enemies" instance=ExtResource("3_0vhd0")]
 position = Vector2(2472, 712)
