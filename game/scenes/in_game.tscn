@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cisf071rha1ru"]
+[gd_scene load_steps=46 format=3 uid="uid://cisf071rha1ru"]
 
 [ext_resource type="Script" path="res://game/scenes/in_game.gd" id="1_jmwmp"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="2_7ssm8"]
@@ -35,10 +35,11 @@
 [ext_resource type="Texture2D" uid="uid://f8apw8d4yauy" path="res://ui/ingame/UI_ingame_tr_main.png" id="31_q8juq"]
 [ext_resource type="Texture2D" uid="uid://dwmdm47c5unwn" path="res://ui/ingame/UI_ingame_tr_line.png" id="32_qp572"]
 [ext_resource type="Texture2D" uid="uid://doyiecwec55x1" path="res://ui/ingame/ui_ingame_tr_deco.png" id="33_18gor"]
+[ext_resource type="Texture2D" uid="uid://bk6yvw0rqhqpi" path="res://ui/ingame/ui_ingame_bl_shadow.png" id="35_wabwe"]
 [ext_resource type="Texture2D" uid="uid://dcs4angsqmkun" path="res://ui/ingame/ui_ingame_bl_backthin.png" id="36_3nxr2"]
 [ext_resource type="Texture2D" uid="uid://cyj6mx31cxvsi" path="res://ui/ingame/UI_ingame_bl_main.png" id="36_j0h8r"]
 [ext_resource type="Texture2D" uid="uid://dkyc7k5vyjc10" path="res://ui/ingame/UI_ingame_bl_line.png" id="37_bjag6"]
-[ext_resource type="Texture2D" uid="uid://87yl10jbtk17" path="res://ui/ingame/ui_ingame_bl_deco.png" id="38_mtvf0"]
+[ext_resource type="Texture2D" uid="uid://bcyobs8gbqmb2" path="res://ui/ingame/ui_ingame_bl_deco_shadow.png" id="39_pno3a"]
 [ext_resource type="Script" path="res://game/scenes/assets/current_ability_ui.gd" id="41_4gbec"]
 [ext_resource type="Texture2D" uid="uid://c5jcfqrvtv365" path="res://ui/ingame/ui_ingame_ability_empty.png" id="41_tsfkn"]
 [ext_resource type="Texture2D" uid="uid://c0ucro4fp5xxe" path="res://ui/ingame/ui_ingame_ability_air.png" id="42_nebps"]
@@ -226,6 +227,16 @@ scale = Vector2(0.75, 0.75)
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="UiIngameBlShadow" type="TextureRect" parent="UILayer/Bottom"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -1064.0
+offset_right = 1130.0
+grow_vertical = 0
+texture = ExtResource("35_wabwe")
+
 [node name="UiIngameBlBack" type="TextureRect" parent="UILayer/Bottom"]
 material = ExtResource("27_xthkp")
 layout_mode = 1
@@ -266,7 +277,7 @@ anchor_bottom = 1.0
 offset_top = -1064.0
 offset_right = 1130.0
 grow_vertical = 0
-texture = ExtResource("38_mtvf0")
+texture = ExtResource("39_pno3a")
 
 [node name="AbilityBg" type="TextureRect" parent="UILayer/Bottom"]
 layout_mode = 1
