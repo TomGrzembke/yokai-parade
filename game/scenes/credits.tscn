@@ -19,7 +19,6 @@ script = ExtResource("1_ewpqn")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main" type="Control" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,7 +83,7 @@ stretch_mode = 3
 [node name="Tim" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Tim
+text = "Tim Unverzagt
 Producer &
 Game-design"
 horizontal_alignment = 1
@@ -92,7 +91,7 @@ horizontal_alignment = 1
 [node name="Fedir" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Fedir
+text = "Fedir Stepanenko
 Level-design &
 Game-Design"
 horizontal_alignment = 1
@@ -100,7 +99,7 @@ horizontal_alignment = 1
 [node name="Sasha" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Sasha
+text = "Sasha Zhelezniak
 Art-Lead &
 Game-Graphics"
 horizontal_alignment = 1
@@ -108,7 +107,7 @@ horizontal_alignment = 1
 [node name="Nadine" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Nadine
+text = "Nadine Schwertfeger
 VFX-artist &
 Game-graphics"
 horizontal_alignment = 1
@@ -116,7 +115,7 @@ horizontal_alignment = 1
 [node name="Aiden" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Aiden
+text = "Aiden Willmann
 UI/UX-Artist &
 Game-Graphics"
 horizontal_alignment = 1
@@ -149,7 +148,7 @@ stretch_mode = 2
 [node name="Chris" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Chris
+text = "Chris Schneider
 Programming &
 Game-Engineering"
 horizontal_alignment = 1
@@ -157,7 +156,7 @@ horizontal_alignment = 1
 [node name="Tommy" type="Label" parent="CanvasLayer/Main/BackCover/VBoxContainer/GridContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Tommy
+text = "Tommy Grzembke
 Shader-programmer &
 Game-Engineering"
 horizontal_alignment = 1
