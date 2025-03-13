@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dx3jk3e4ywyta"]
+[gd_scene load_steps=25 format=4 uid="uid://dx3jk3e4ywyta"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_imax2"]
 [ext_resource type="PackedScene" uid="uid://bomxlv8ndomnc" path="res://enemies/enemy_grounded.tscn" id="2_sq6oc"]
@@ -12,6 +12,7 @@
 [ext_resource type="TileSet" uid="uid://4v2t32qfx3hb" path="res://levels/area_01/assets/tileset_area_01.tres" id="10_qmpae"]
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/modules/player_spawn_point.tscn" id="11_sedop"]
 [ext_resource type="Texture2D" uid="uid://couuf66tkbqkh" path="res://levels/area_01/assets/clouds_blue.png" id="12_jujtq"]
+[ext_resource type="Texture2D" uid="uid://dtej7x8500dgn" path="res://player/assets/placeholder_char.png" id="13_guxkb"]
 
 [sub_resource type="Curve2D" id="Curve2D_pehu7"]
 _data = {
@@ -22,10 +23,10 @@ point_count = 2
 [sub_resource type="Environment" id="Environment_c3u4k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5svx8"]
-size = Vector2(224.142, 10.1155)
+size = Vector2(254.637, 10.1155)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_htlxf"]
-size = Vector2(526.497, 10.6226)
+size = Vector2(562.227, 10.6226)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mwba"]
 size = Vector2(172.547, 32.6365)
@@ -652,7 +653,7 @@ position = Vector2(21434, 1376)
 scale = Vector2(13.84, 1)
 
 [node name="DespawnArea8" parent="Deathzones" instance=ExtResource("6_m58lr")]
-position = Vector2(23933, 1228)
+position = Vector2(23933, 1388)
 scale = Vector2(1.88006, 1)
 
 [node name="DespawnArea9" parent="Deathzones" instance=ExtResource("6_m58lr")]
@@ -702,26 +703,24 @@ region_rect = Rect2(0, 0, 2541.21, 1491)
 [node name="StaticBody2D" type="StaticBody2D" parent="Clouds_Platforms/Two_Clouds"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Clouds_Platforms/Two_Clouds/StaticBody2D"]
-position = Vector2(-763.071, 426.606)
+position = Vector2(-729.156, 429.117)
 rotation = 0.0739182
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_5svx8")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Clouds_Platforms/Two_Clouds/StaticBody2D"]
-position = Vector2(406.115, 509.407)
+position = Vector2(423.883, 511.273)
 rotation = 0.104662
 shape = SubResource("RectangleShape2D_htlxf")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Clouds_Platforms/Two_Clouds/StaticBody2D"]
 position = Vector2(-545.434, 436.336)
 rotation = -0.205146
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_0mwba")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Clouds_Platforms/Two_Clouds/StaticBody2D"]
 position = Vector2(-225.858, 423.232)
 rotation = 0.0450846
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_xdqfg")
 
 [node name="One_Cloud_Small" type="Sprite2D" parent="Clouds_Platforms"]
@@ -780,7 +779,6 @@ shape = SubResource("RectangleShape2D_qx8fl")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Clouds_Platforms/One_Cloud_Big/StaticBody2D"]
 position = Vector2(154.23, 65.9268)
 rotation = -0.0632619
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_l2hvd")
 
 [node name="One_Cloud_Big2" type="Sprite2D" parent="Clouds_Platforms"]
@@ -812,15 +810,19 @@ shape = SubResource("RectangleShape2D_4ohq2")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Clouds_Platforms/One_Cloud_Big2/StaticBody2D"]
 position = Vector2(321.359, 58.019)
 rotation = -0.00287295
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_gf5r0")
+
+[node name="PlaceholderChar" type="Sprite2D" parent="Clouds_Platforms"]
+position = Vector2(-716, 1401)
+scale = Vector2(0.436003, 0.436003)
+texture = ExtResource("13_guxkb")
 
 [connection signal="area_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
 [connection signal="body_entered" from="GameplayTileMapLayer/Checkpoint" to="GameplayTileMapLayer/Checkpoint" method="on_checkpoint_area_entered"]
-[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@19408" to="GameplayTileMapLayer/@Area2D@19408" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@19408" to="GameplayTileMapLayer/@Area2D@19408" method="on_checkpoint_area_entered"]
-[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@19413" to="GameplayTileMapLayer/@Area2D@19413" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@19413" to="GameplayTileMapLayer/@Area2D@19413" method="on_checkpoint_area_entered"]
-[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@19417" to="GameplayTileMapLayer/@Area2D@19417" method="on_checkpoint_area_entered"]
-[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@19417" to="GameplayTileMapLayer/@Area2D@19417" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@23117" to="GameplayTileMapLayer/@Area2D@23117" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@23117" to="GameplayTileMapLayer/@Area2D@23117" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@23122" to="GameplayTileMapLayer/@Area2D@23122" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@23122" to="GameplayTileMapLayer/@Area2D@23122" method="on_checkpoint_area_entered"]
+[connection signal="area_entered" from="GameplayTileMapLayer/@Area2D@23126" to="GameplayTileMapLayer/@Area2D@23126" method="on_checkpoint_area_entered"]
+[connection signal="body_entered" from="GameplayTileMapLayer/@Area2D@23126" to="GameplayTileMapLayer/@Area2D@23126" method="on_checkpoint_area_entered"]
 [connection signal="body_entered" from="GameplayTileMapLayer/Goal" to="GameplayTileMapLayer/Goal" method="on_body_entered"]
