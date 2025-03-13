@@ -1,11 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk3wuo1sfknyo"]
+[gd_scene load_steps=12 format=3 uid="uid://dk3wuo1sfknyo"]
 
 [ext_resource type="Script" path="res://game/scenes/main_menu.gd" id="1_qg7wj"]
+[ext_resource type="Texture2D" uid="uid://4hwatvbm4qvk" path="res://ui/menu_assets_1.png" id="2_fke76"]
 [ext_resource type="Texture2D" uid="uid://bpqxl54lmx415" path="res://ui/misc/ui_bg_3.png" id="2_nfcyx"]
+[ext_resource type="Texture2D" uid="uid://b5dugavbj118y" path="res://ui/menu_assets_2.png" id="2_p6eoe"]
+[ext_resource type="Shader" path="res://shader/pattern_overlay.gdshader" id="2_teyr1"]
 [ext_resource type="Texture2D" uid="uid://blc60y10cn7yx" path="res://ui/ui_outline_mainmenu_rip.png" id="3_2t40p"]
+[ext_resource type="Texture2D" uid="uid://ba5pi8b15xb8a" path="res://assets/patterns/t_pattern_flowers.png" id="3_jb33e"]
 [ext_resource type="Texture2D" uid="uid://bjn40nw0c0byv" path="res://ui/ui_panel_mainmenu.png" id="4_12tus"]
 [ext_resource type="Script" path="res://ui/custom_controls/button_focus_on_hover.gd" id="5_a6jfj"]
 [ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="5_hmdbx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72yal"]
+shader = ExtResource("2_teyr1")
+shader_parameter/overlay_alpha = 0.146
+shader_parameter/pattern_scale = 0.755
+shader_parameter/tilemap_offset = Vector2(0, 0)
+shader_parameter/flip_alpha = false
+shader_parameter/use_hard_blend = false
+shader_parameter/use_local = true
+shader_parameter/world_scale = 1.0
+shader_parameter/pattern_multiplier = 1.0
+shader_parameter/texture_multiplier = 1.0
+shader_parameter/end_tint = Color(0, 0, 0, 1)
+shader_parameter/pattern_texture = ExtResource("3_jb33e")
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_qg7wj")
@@ -20,8 +38,230 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="MainMenuDecorations" type="Control" parent="CanvasLayer/Main"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Mountain" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(845, 558)
+texture = ExtResource("2_fke76")
+region_enabled = true
+region_rect = Rect2(2154.11, 11.5774, 877.64, 1066.03)
+
+[node name="BubbleEnd" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(520, 680)
+scale = Vector2(0.845, 0.845)
+texture = ExtResource("2_fke76")
+region_enabled = true
+region_rect = Rect2(867.513, 62.1221, 560.587, 555.992)
+
+[node name="PlayerIcon" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(363, 364)
+scale = Vector2(0.845, 0.845)
+texture = ExtResource("2_fke76")
+region_enabled = true
+region_rect = Rect2(0, 0, 697.499, 608.924)
+
+[node name="PlayerSweat" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(370, 344)
+texture = ExtResource("2_fke76")
+region_enabled = true
+region_rect = Rect2(1694.61, 140.237, 445.713, 248.129)
+
+[node name="Moon" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1176, 84)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(2291.45, 42.2727, 124.545, 119.091)
+
+[node name="Cloud1" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1742, 56)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(344.827, 26.1562, 373.639, 167.493)
+
+[node name="Cloud2" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(206, 969)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(717.577, 64.3058, 386.027, 172.614)
+
+[node name="Cloud3" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(837, 137)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(7.76683, 30.005, 338.951, 178.891)
+
+[node name="Cloud4" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(786, 504)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(718.253, 39.1817, 372.205, 212.41)
+
+[node name="Cloud5" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(716, 581)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(1835, 38.9737, 280.615, 179.282)
+
+[node name="Cloud6" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(900, 347)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(1111.9, 43.0766, 292.308, 196.821)
+
+[node name="Cloud7" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1164, 297)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(348.417, 58.7868, 367.489, 150.109)
+
+[node name="Flower1" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(56.0001, 1023)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(804.016, 688.564, 154.339, 143.621)
+
+[node name="Flower2" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(156, 1008)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(1180.69, 670.759, 184.349, 195.067)
+
+[node name="Flower3" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(356, 864)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(1542.95, 664.329, 190.779, 190.78)
+
+[node name="Flower4" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(68, 913)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(484.02, 707.2, 90.0308, 92.1744)
+
+[node name="Flower5" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(152, 775)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(867.723, 282.77, 117.897, 128.615)
+
+[node name="Flower6" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(64, 214)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(484.02, 707.2, 90.0308, 92.1744)
+
+[node name="Flower7" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(47, 48)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(484.02, 707.2, 90.0308, 92.1744)
+
+[node name="Flower8" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(343, 49)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(484.02, 707.2, 90.0308, 92.1744)
+
+[node name="Flower9" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(86, 135)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(461.389, 259.796, 203.684, 169.161)
+
+[node name="Flower10" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(163, 83)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(72.4049, 212.89, 190.333, 199.118)
+
+[node name="Flower11" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(292, 139)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(857.357, 287.389, 139.953, 125.781)
+
+[node name="Flower12" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1848, 91)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(1547.39, 658.434, 172.325, 184.013)
+
+[node name="Flower13" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1813, 196)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(823.744, 481.949, 118.872, 111.077)
+
+[node name="Flower14" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1867, 336)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(466.061, 468.218, 134.875, 116.718)
+
+[node name="Flower15" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1858, 998)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(430.898, 868.077, 188.636, 212.215)
+
+[node name="Flower16" type="Sprite2D" parent="CanvasLayer/Main/MainMenuDecorations"]
+z_index = 5
+position = Vector2(1289, 942)
+scale = Vector2(0.751223, 0.751223)
+texture = ExtResource("2_p6eoe")
+region_enabled = true
+region_rect = Rect2(45.1223, 863.438, 219.029, 219.03)
 
 [node name="BackCover" type="TextureRect" parent="CanvasLayer/Main"]
+material = SubResource("ShaderMaterial_72yal")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,8 +276,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 371.0
-offset_right = 371.0
+offset_left = 596.0
+offset_right = 596.0
 grow_horizontal = 2
 grow_vertical = 2
 
