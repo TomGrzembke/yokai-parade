@@ -142,7 +142,8 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/Main/MainPanel/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeadingLabel"
-text = "Level finished in"
+text = "completed Level X of Y
+Total time:"
 horizontal_alignment = 1
 
 [node name="PlayTimeLabel" type="Label" parent="CanvasLayer/Main/MainPanel/VBoxContainer/MarginContainer/VBoxContainer"]
