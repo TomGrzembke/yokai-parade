@@ -125,14 +125,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -233.5
-offset_top = -243.0
-offset_right = 232.5
-offset_bottom = 280.0
+offset_left = -225.0
+offset_top = -233.0
+offset_right = 225.0
+offset_bottom = 233.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 40
 
-[node name="LevelInfoLabel" type="Label" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer"]
+layout_mode = 2
+
+[node name="LevelInfoLabel" type="Label" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"HeadingLabel"
@@ -140,44 +144,33 @@ theme_override_font_sizes/font_size = 54
 text = "Finished Level X of Y!"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 15
-theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeadingLabel"
 theme_override_font_sizes/font_size = 54
 text = "Total time:"
 horizontal_alignment = 1
 
-[node name="PlayTimeLabel" type="Label" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="PlayTimeLabel" type="Label" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 54
 text = "00:00"
 horizontal_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Main"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -124.0
-offset_top = -499.0
-offset_right = 124.0
-offset_bottom = -231.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="NextLevelButton" type="Button" parent="CanvasLayer/Main/VBoxContainer2"]
+[node name="NextLevelButton" type="Button" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitGameButton")
@@ -185,21 +178,21 @@ theme_override_font_sizes/font_size = 50
 text = "Next Level"
 script = ExtResource("5_33r4r")
 
-[node name="ResetLevelButton" type="Button" parent="CanvasLayer/Main/VBoxContainer2"]
+[node name="ResetLevelButton" type="Button" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Retry"
 script = ExtResource("5_33r4r")
 
-[node name="ReturnToMainMenuButton" type="Button" parent="CanvasLayer/Main/VBoxContainer2"]
+[node name="ReturnToMainMenuButton" type="Button" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Main Menu"
 script = ExtResource("5_33r4r")
 
-[node name="QuitGameButton" type="Button" parent="CanvasLayer/Main/VBoxContainer2"]
+[node name="QuitGameButton" type="Button" parent="CanvasLayer/Main/UiPanelRecapmain/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../NextLevelButton")

@@ -37,7 +37,7 @@ func set_level_info(first_level_index, current_level_index, level_index_count):
 	else:
 		current_level_text = "Level %s of %s" % [current_level_number, levels_above_first_count]
 
-	var info_text = "Completed %s!" % current_level_text
+	var info_text = "Completed\n %s!" % current_level_text
 	%LevelInfoLabel.text = info_text
 
 
