@@ -7,7 +7,7 @@
 _data = [Vector2(0, 0), 0.0, 3.85371, 0, 0, Vector2(1, 1), 0.316434, 0.0, 0, 0]
 point_count = 2
 
-[node name="Levels" type="Node"]
+[node name="LevelCoordinator" type="Node"]
 script = ExtResource("1_blmvj")
 debug_level_path = "res://levels/area_01/debug_playground.tscn"
 

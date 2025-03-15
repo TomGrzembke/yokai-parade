@@ -1,5 +1,5 @@
 extends Node
-# TODO: Rename this to LevelCoordinator
+
 
 signal level_load_progress(progress)
 signal level_load_completed(level_packed_scene)
