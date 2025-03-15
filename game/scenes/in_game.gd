@@ -1,36 +1,32 @@
 extends Node
 
 
+signal level_load_progress(progress)
+signal level_cleared
 signal player_despawned
 signal player_reached_goal
-signal level_load_progress(progress)
 
 
 @export_category("Level States")
 @export var initial_level_state: LevelState
 
-@export_category("Debug Mode")
-@export var is_debug_mode_active = false
-
-
-var play_time
 var state_node
 var current_level_state_scene
+var play_time
+var last_checkpoint_position
 
 
 func _ready():
-	%LevelCoordinator.player_ability_changed.connect(on_player_ability_changed)
-	%LevelCoordinator.player_despawned.connect(on_player_despawned)
-	%LevelCoordinator.player_reached_goal.connect(on_player_reached_goal)
-	%LevelCoordinator.level_load_progress.connect(on_level_load_progress)
-
-	if OS.has_feature("debug"):
-		%LevelCoordinator.set_is_debug_level_active(is_debug_mode_active)
+	%LevelHook.level_load_progress.connect(on_level_load_progress)
+	%LevelHook.level_cleared.connect(func (): level_cleared.emit())
 
 	reset_play_time()
+
 	request_setting_next_level_path_index()
 	%LevelStateMachine.init(self, initial_level_state)
 
+
+# Options
 
 func set_window_fullscreen(active):
 	state_node.set_window_fullscreen(active)
@@ -48,6 +44,8 @@ func get_volume_audio_bus(bus_id):
 	return state_node.get_volume_audio_bus(bus_id)
 
 
+# Music
+
 func play_game_music():
 	state_node.play_game_music()
 
@@ -64,50 +62,10 @@ func set_music_volume(volume_db):
 	set_volume_audio_bus(1, volume_db)
 
 
+# Pausing
+
 func set_game_paused(should_pause):
 	get_tree().paused = should_pause
-
-
-func reset_play_time():
-	set_play_time(0.0)
-
-
-func get_play_time():
-	return play_time
-
-
-func get_is_past_first_checkpoint():
-	return %LevelCoordinator.get_is_past_first_checkpoint()
-
-
-func set_player_controls_active(active):
-	%LevelCoordinator.set_player_controls_active(active)
-
-
-# UI
-
-# TODO: The state for this should probably be in the CurrentLevel scene
-func set_play_time(new_time):
-	play_time = new_time
-	%PlayTimeLabel.text = "%5.2f" % play_time
-
-
-# Signal Handlers
-
-func on_player_ability_changed(color):
-	%CurrentAbility.change_with_color(color)
-
-
-func on_player_despawned():
-	player_despawned.emit()
-
-
-func on_player_reached_goal():
-	player_reached_goal.emit()
-
-
-func on_level_load_progress(progress):
-	level_load_progress.emit(progress)
 
 
 # Level Loading
@@ -141,21 +99,110 @@ func request_setting_next_level_path_index():
 
 
 func try_changing_to_requested_level():
-	reset_play_time()
-	return await %LevelCoordinator.try_changing_to_requested_level()
+	return await %LevelCoordinator.try_changing_to_requested_level(%LevelHook)
 
+
+func on_level_load_progress(progress):
+	level_load_progress.emit(progress)
+
+
+# Player
 
 func spawn_player():
-	await %LevelCoordinator.spawn_player()
+	var player = get_node_or_null("Player")
+	if player != null:
+		remove_child(player)
+		await get_tree().process_frame
+
+	assert(get_node_or_null("Player") == null, "Error: Player not cleared yet!")
+
+	var player_scene = preload("res://player/player.tscn")
+	player = player_scene.instantiate()
+	player.position = get_player_spawn_position()
+
+	player.player_ability_changed.connect(on_player_ability_changed)
+	player.player_despawned.connect(on_player_despawned)
+	player.player_reached_checkpoint.connect(on_player_reached_checkpoint)
+	player.player_reached_goal.connect(on_player_reached_goal)
+	level_cleared.connect(player.reload)
+
+	add_child.call_deferred(player)
+	await player.tree_entered
+
+	var remote_transform = RemoteTransform2D.new()
+	remote_transform.remote_path = %PlayerCamera.get_path()
+
+	player.set_cam_remote(remote_transform)
+
+
+func get_player_spawn_position():
+	var player_spawn_position = last_checkpoint_position
+
+	if player_spawn_position == null:
+		player_spawn_position = %LevelHook.get_initial_player_spawn_position()
+
+	return player_spawn_position
+
+
+func set_player_controls_active(active):
+	var player = get_node_or_null("Player")
+
+	if player == null:
+		return
+
+	player.set_controls_active(active)
+
+
+func on_player_ability_changed(color):
+	%CurrentAbility.change_with_color(color)
+
+
+func on_player_despawned():
+	player_despawned.emit()
+
+
+func on_player_reached_checkpoint(position):
+	last_checkpoint_position = position
+
+
+func on_player_reached_goal():
+	player_reached_goal.emit()
+
+
+# Checkpoints
+
+func get_is_past_first_checkpoint():
+	return last_checkpoint_position != null
+
+
+func reset_last_checkpoint_position():
+	last_checkpoint_position = null
 
 
 func reset_to_checkpoint():
-	await %LevelCoordinator.reset_to_checkpoint()
+	await spawn_player()
 
 
-func reset_level():
-	await %LevelCoordinator.reset_level()
-	reset_play_time() # TODO: Move to CurrentLevel script once it exists
+func load_currently_active_level():
+	await %LevelHook.activate_current_level_packed_scene()
+	reset_last_checkpoint_position()
+	reset_play_time()
+	await spawn_player()
+
+
+# Play Time
+
+func get_play_time():
+	return play_time
+
+
+func set_play_time(new_time):
+	play_time = new_time
+	%PlayTimeLabel.text = "%5.2f" % play_time
+
+
+func reset_play_time():
+	set_play_time(0.0)
 
 
 # State Machine
@@ -190,6 +237,7 @@ func unload_level_state_scene(level_state_scene):
 			scene_to_be_removed = level_state_scene
 	if scene_to_be_removed != null:
 		remove_child(scene_to_be_removed)
+		await get_tree().process_frame
 
 
 func change_to_level_state(level_state):

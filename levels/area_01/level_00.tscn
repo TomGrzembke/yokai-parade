@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://bxb7rgxfvtxf2" path="res://levels/modules/player_spawn_point.tscn" id="16_riu0e"]
 [ext_resource type="Texture2D" uid="uid://chl3v23uvjvpm" path="res://assets/signs/p_sign_controllerusefire.png" id="16_rlxis"]
 [ext_resource type="Texture2D" uid="uid://byxc1err51yh0" path="res://assets/signs/p_sign_controlleruseair.png" id="18_xc5u8"]
-[ext_resource type="PackedScene" uid="uid://dcnspl24l4dn4" path="res://levels/area_01/giant_mountains_start.tscn" id="22_a1smv"]
+[ext_resource type="PackedScene" uid="uid://dcnspl24l4dn4" path="res://levels/modules/giant_mountains_start.tscn" id="22_a1smv"]
 
 [sub_resource type="Curve2D" id="Curve2D_j4ig6"]
 _data = {

@@ -9,4 +9,4 @@ func change_to_next_level_state():
 
 
 func reset_level():
-	await context.reset_level()
+	await context.load_currently_active_level()

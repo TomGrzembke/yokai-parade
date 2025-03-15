@@ -11,7 +11,8 @@ var current_level_index
 var first_level_index
 var level_count
 
-
+# TODO: Move all level (-index) changing stuff to new states for next_level and previous_level to avoid having to reset stuff on retry selection
+# FIXME: This currently also causes a bug when retrying the last level, or moving past the last level with '.' in debug mode, where level 4 gets repeated infinitely 
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 

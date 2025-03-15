@@ -136,6 +136,7 @@ func unload_game_state_scene(game_state_scene):
 			scene_to_be_removed = game_state_scene
 	if scene_to_be_removed != null:
 		remove_child(scene_to_be_removed)
+		await get_tree().process_frame
 
 
 func change_to_game_state(game_state):

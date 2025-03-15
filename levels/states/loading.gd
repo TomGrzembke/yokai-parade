@@ -14,6 +14,7 @@ func enter(p_previous_state):
 
 func exit():
 	super.exit()
+
 	context.set_game_paused(false)
 
 

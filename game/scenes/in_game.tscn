@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cisf071rha1ru"]
+[gd_scene load_steps=50 format=3 uid="uid://cisf071rha1ru"]
 
 [ext_resource type="Script" path="res://game/scenes/in_game.gd" id="1_jmwmp"]
 [ext_resource type="PackedScene" uid="uid://cv00eqe6lwt2h" path="res://components/state_machine/state_machine.tscn" id="2_7ssm8"]
@@ -31,6 +31,8 @@
 [ext_resource type="Script" path="res://levels/states/quit_game.gd" id="26_71ton"]
 [ext_resource type="Material" uid="uid://vmyjhk5ja4df" path="res://shader/ui_background.tres" id="27_xthkp"]
 [ext_resource type="Texture2D" uid="uid://cwdgdu5u54mes" path="res://ui/ingame/ui_ingame_tr_shadow.png" id="28_48u42"]
+[ext_resource type="Script" path="res://levels/scenes/player_camera.gd" id="28_k8okh"]
+[ext_resource type="Script" path="res://levels/level_hook.gd" id="28_vf224"]
 [ext_resource type="Material" uid="uid://diak12n0funuu" path="res://shader/ui_foreground.tres" id="29_157pf"]
 [ext_resource type="Texture2D" uid="uid://b1k56xq2f22ff" path="res://ui/ingame/ui_ingame_tr_backthin.png" id="29_w8n2c"]
 [ext_resource type="Texture2D" uid="uid://f8apw8d4yauy" path="res://ui/ingame/UI_ingame_tr_main.png" id="31_q8juq"]
@@ -46,6 +48,10 @@
 [ext_resource type="Texture2D" uid="uid://c0ucro4fp5xxe" path="res://ui/ingame/ui_ingame_ability_air.png" id="42_nebps"]
 [ext_resource type="Texture2D" uid="uid://de6ebs41cg745" path="res://ui/ingame/ui_ingame_ability_fire.png" id="43_v3yth"]
 
+[sub_resource type="Curve" id="Curve_c7jk8"]
+_data = [Vector2(0, 0), 0.0, 3.85371, 0, 0, Vector2(1, 1), 0.316434, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Curve" id="Curve_iou1a"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.870192, 0.0, 0, 0]
 point_count = 2
@@ -53,7 +59,6 @@ point_count = 2
 [node name="InGame" type="Node" node_paths=PackedStringArray("initial_level_state")]
 script = ExtResource("1_jmwmp")
 initial_level_state = NodePath("LevelStateMachine/Loading")
-is_debug_mode_active = true
 
 [node name="LevelStateMachine" parent="." instance=ExtResource("2_7ssm8")]
 unique_name_in_owner = true
@@ -135,12 +140,24 @@ script = ExtResource("15_a0dd1")
 [node name="QuitGame" type="Node" parent="LevelStateMachine"]
 script = ExtResource("26_71ton")
 
+[node name="LevelCoordinator" parent="." instance=ExtResource("3_45cmx")]
+unique_name_in_owner = true
+
 [node name="Main" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="LevelCoordinator" parent="Main" instance=ExtResource("3_45cmx")]
+[node name="LevelHook" type="Node" parent="Main"]
 unique_name_in_owner = true
-level_paths = Array[String](["res://levels/area_01/level_00.tscn", "res://levels/area_01/level_01.tscn", "res://levels/area_01/level_02.tscn", "res://levels/area_01/level_03.tscn", "res://levels/area_01/level_04.tscn"])
+process_mode = 3
+script = ExtResource("28_vf224")
+
+[node name="PlayerCamera" type="Camera2D" parent="Main"]
+unique_name_in_owner = true
+script = ExtResource("28_k8okh")
+offset_value = Vector2(100, -10)
+lerp_speed = 1.0
+minimum_change_distance = 450.0
+smooth_curve = SubResource("Curve_c7jk8")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
