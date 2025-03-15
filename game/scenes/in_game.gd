@@ -12,6 +12,7 @@ signal player_reached_goal
 
 var state_node
 var current_level_state_scene
+var player
 var play_time
 var last_checkpoint_position
 
@@ -109,15 +110,12 @@ func on_level_load_progress(progress):
 # Player
 
 func spawn_player():
-	var player = get_node_or_null("Player")
 	if player != null:
-		remove_child(player)
-		await get_tree().process_frame
-
-	assert(get_node_or_null("Player") == null, "Error: Player not cleared yet!")
+		player.queue_free()
 
 	var player_scene = preload("res://player/player.tscn")
 	player = player_scene.instantiate()
+
 	player.position = get_player_spawn_position()
 
 	player.player_ability_changed.connect(on_player_ability_changed)
@@ -126,7 +124,7 @@ func spawn_player():
 	player.player_reached_goal.connect(on_player_reached_goal)
 	level_cleared.connect(player.reload)
 
-	add_child.call_deferred(player)
+	%Main.add_child.call_deferred(player)
 	await player.tree_entered
 
 	var remote_transform = RemoteTransform2D.new()
@@ -145,8 +143,6 @@ func get_player_spawn_position():
 
 
 func set_player_controls_active(active):
-	var player = get_node_or_null("Player")
-
 	if player == null:
 		return
 
@@ -230,13 +226,9 @@ func load_level_state_scene(level_state_scene):
 	add_child(current_level_state_scene)
 
 
-func unload_level_state_scene(level_state_scene):
-	var scene_to_be_removed
-	for child in get_children():
-		if child == level_state_scene:
-			scene_to_be_removed = level_state_scene
-	if scene_to_be_removed != null:
-		remove_child(scene_to_be_removed)
+func unload_current_level_state_scene():
+	if current_level_state_scene != null:
+		current_level_state_scene.queue_free()
 		await get_tree().process_frame
 
 

@@ -8,6 +8,7 @@ signal level_cleared
 
 var currently_loading_level_path
 var current_level_packed_scene
+var current_level_scene
 
 
 func _physics_process(_delta):
@@ -49,9 +50,8 @@ func try_loading_level(level_path):
 
 
 func clear_current_level():
-	var current_level = get_current_level()
-	if current_level != null:
-		remove_child(current_level)
+	if current_level_scene != null:
+		current_level_scene.queue_free()
 		await get_tree().process_frame
 
 		level_cleared.emit()
@@ -60,22 +60,13 @@ func clear_current_level():
 func activate_current_level_packed_scene():
 	await clear_current_level()
 
-	var level_scene = current_level_packed_scene.instantiate()
+	current_level_scene = current_level_packed_scene.instantiate()
 
-	add_child(level_scene)
-
-
-func get_current_level():
-	var active_level_count = get_child_count()
-	if active_level_count == 0: return null
-	if active_level_count > 1:
-		printerr("Error: Invalid amount of level children in level hook: %s" % active_level_count)
-
-	return get_children().front()
+	add_child(current_level_scene)
 
 
 func get_initial_player_spawn_position():
-	var player_spawn_position = get_current_level().get_player_spawn_position()
+	var player_spawn_position = current_level_scene.get_player_spawn_position()
 
 	if player_spawn_position == null:
 		printerr("Error: Current level is missing a player spawn point!")
