@@ -24,7 +24,7 @@ func exit():
 	if state_scene == null:
 		return
 
-	context.unload_level_state_scene(state_scene)
+	await context.deactivate_level_state_scene()
 
 
 func change_state(next_level_state):

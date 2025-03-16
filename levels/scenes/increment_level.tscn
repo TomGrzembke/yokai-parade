@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwaqscts2civc"]
+
+[ext_resource type="AnimationLibrary" uid="uid://dk4cys2ms8tsl" path="res://assets/animations/state_transitions_long.res" id="1_nk4yl"]
+
+[sub_resource type="GDScript" id="GDScript_5a00l"]
+script/source = "extends Node
+
+
+var state_node
+
+
+func _ready():
+	await %AnimationPlayer.animation_finished
+
+	await state_node.increment_level()
+
+	change_to_next_level_state()
+
+
+# Level States
+
+func set_state_node(node):
+	state_node = node
+
+
+func change_to_next_level_state():
+	state_node.change_to_next_level_state()
+"
+
+[sub_resource type="Animation" id="Animation_bbe5r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Main:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ex5v1"]
+_data = {
+"RESET": SubResource("Animation_bbe5r")
+}
+
+[node name="IncrementLevel" type="Node"]
+script = SubResource("GDScript_5a00l")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Main" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Main"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_ex5v1"),
+"state_transitions_long": ExtResource("1_nk4yl")
+}
+autoplay = "state_transitions_long/hide_state_scene"

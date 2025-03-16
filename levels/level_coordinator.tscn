@@ -1,0 +1,10 @@
+[gd_scene load_steps=5 format=3 uid="uid://pc0lf6cifcic"]
+
+[ext_resource type="Script" path="res://levels/level_coordinator.gd" id="1_blmvj"]
+[ext_resource type="Script" path="res://levels/area_info.gd" id="2_hakua"]
+[ext_resource type="Resource" uid="uid://b2nnebw5i2pgg" path="res://levels/area_01/area_01_info.tres" id="3_ey3bn"]
+[ext_resource type="Resource" uid="uid://cbfdk82rahdm2" path="res://levels/area_01/area_02_info.tres" id="4_7qqrg"]
+
+[node name="LevelCoordinator" type="Node"]
+script = ExtResource("1_blmvj")
+area_infos = Array[ExtResource("2_hakua")]([ExtResource("3_ey3bn"), ExtResource("4_7qqrg")])

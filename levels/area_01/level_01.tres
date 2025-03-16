@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LevelInfo" load_steps=2 format=3 uid="uid://b4i6wlobuggd3"]
+
+[ext_resource type="Script" path="res://levels/level_info.gd" id="1_rotik"]
+
+[resource]
+script = ExtResource("1_rotik")
+name = "Level 1"
+description = ""
+level_path = "res://levels/area_01/level_01.tscn"

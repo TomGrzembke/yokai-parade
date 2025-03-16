@@ -15,7 +15,7 @@ func _ready():
 
 	await %AnimationPlayer.animation_finished
 	if state_node != null:
-		await state_node.load_level()
+		await state_node.load_current_level()
 
 
 func _process(delta):

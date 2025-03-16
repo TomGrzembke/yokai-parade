@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AreaInfo" load_steps=8 format=3 uid="uid://b2nnebw5i2pgg"]
+
+[ext_resource type="Script" path="res://levels/level_info.gd" id="1_gsrcw"]
+[ext_resource type="Resource" uid="uid://jpyrxeomecny" path="res://levels/area_01/level_00.tres" id="2_c417j"]
+[ext_resource type="Script" path="res://levels/area_info.gd" id="2_gca6v"]
+[ext_resource type="Resource" uid="uid://b4i6wlobuggd3" path="res://levels/area_01/level_01.tres" id="3_kqj1l"]
+[ext_resource type="Resource" uid="uid://cc1vm7hoqa4df" path="res://levels/area_01/level_02.tres" id="4_oxkk6"]
+[ext_resource type="Resource" uid="uid://crr4syxkimrek" path="res://levels/area_01/level_03.tres" id="5_67x44"]
+[ext_resource type="Resource" uid="uid://bdg2agfg4m3ic" path="res://levels/area_01/level_04.tres" id="6_g2b8n"]
+
+[resource]
+script = ExtResource("2_gca6v")
+name = "Area 1"
+description = "Mountain Range"
+colors = {}
+level_infos = Array[ExtResource("1_gsrcw")]([ExtResource("2_c417j"), ExtResource("3_kqj1l"), ExtResource("4_oxkk6"), ExtResource("5_67x44"), ExtResource("6_g2b8n")])

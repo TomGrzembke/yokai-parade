@@ -1,36 +1,32 @@
 extends Node
 
 
+signal level_load_progress(progress)
+signal level_cleared
 signal player_despawned
 signal player_reached_goal
-signal level_load_progress(progress)
 
 
 @export_category("Level States")
 @export var initial_level_state: LevelState
 
-@export_category("Debug Mode")
-@export var is_debug_mode_active = false
-
-
-var play_time
 var state_node
-var current_level_state_scene
+var current_level_index = 0
+var current_level_info
+var active_level_state_scene
+var player
+var play_time = 0.0
+var last_checkpoint_position
 
 
 func _ready():
-	%Levels.player_ability_changed.connect(on_player_ability_changed)
-	%Levels.player_despawned.connect(on_player_despawned)
-	%Levels.player_reached_goal.connect(on_player_reached_goal)
-	%Levels.level_load_progress.connect(on_level_load_progress)
+	%LevelHook.level_load_progress.connect(on_level_load_progress)
+	%LevelHook.level_cleared.connect(func (): level_cleared.emit())
 
-	if OS.has_feature("debug"):
-		%Levels.set_is_debug_level_active(is_debug_mode_active)
-
-	reset_play_time()
-	request_setting_next_level_path_index()
 	%LevelStateMachine.init(self, initial_level_state)
 
+
+# Options
 
 func set_window_fullscreen(active):
 	state_node.set_window_fullscreen(active)
@@ -48,6 +44,8 @@ func get_volume_audio_bus(bus_id):
 	return state_node.get_volume_audio_bus(bus_id)
 
 
+# Music
+
 func play_game_music():
 	state_node.play_game_music()
 
@@ -64,34 +62,95 @@ func set_music_volume(volume_db):
 	set_volume_audio_bus(1, volume_db)
 
 
+# Pausing
+
 func set_game_paused(should_pause):
 	get_tree().paused = should_pause
 
 
-func reset_play_time():
-	set_play_time(0.0)
+# Level Loading
+
+func get_current_level_info():
+	if current_level_info == null:
+		set_current_level_info(current_level_index)
+	return current_level_info
 
 
-func get_play_time():
-	return play_time
+func set_current_level_info(level_index):
+	var new_level_info = %LevelCoordinator.get_level_info(level_index)
+
+	if not new_level_info is Object \
+	and new_level_info == Error.ERR_PARAMETER_RANGE_ERROR:
+		return Error.ERR_PARAMETER_RANGE_ERROR
+
+	current_level_index = level_index
+	current_level_info = new_level_info
 
 
-func get_is_past_first_checkpoint():
-	return %Levels.get_is_past_first_checkpoint()
+func increment_current_level_index():
+	var new_level_index = current_level_index + 1
+	return set_current_level_info(new_level_index)
+
+
+func decrement_current_level_index():
+	var new_level_index = current_level_index - 1
+	return set_current_level_info(new_level_index)
+
+
+func load_current_level():
+	var result = await %LevelHook.load_level(get_current_level_info().level_path)
+	assert(result == Error.OK, "Loading level %s failed!" % current_level_info.name)
+
+	reset_last_checkpoint_position()
+	reset_play_time()
+	await spawn_player()
+
+
+func on_level_load_progress(progress):
+	level_load_progress.emit(progress)
+
+
+# Player
+
+func spawn_player():
+	if player != null:
+		player.queue_free()
+
+	var player_scene = preload("res://player/player.tscn")
+	player = player_scene.instantiate()
+
+	player.position = get_player_spawn_position()
+
+	player.player_ability_changed.connect(on_player_ability_changed)
+	player.player_despawned.connect(on_player_despawned)
+	player.player_reached_checkpoint.connect(on_player_reached_checkpoint)
+	player.player_reached_goal.connect(on_player_reached_goal)
+	level_cleared.connect(player.reload)
+
+	%Main.add_child.call_deferred(player)
+	await player.tree_entered
+
+	var remote_transform = RemoteTransform2D.new()
+	remote_transform.remote_path = %PlayerCamera.get_path()
+
+	player.set_cam_remote(remote_transform)
+
+
+func get_player_spawn_position():
+	var player_spawn_position = last_checkpoint_position
+
+	if player_spawn_position == null:
+		player_spawn_position = %LevelHook.get_initial_player_spawn_position()
+
+	return player_spawn_position
 
 
 func set_player_controls_active(active):
-	%Levels.set_player_controls_active(active)
+	if player == null:
+		return
 
+	player.set_controls_active(active)
 
-# UI
-
-func set_play_time(new_time):
-	play_time = new_time
-	%PlayTimeLabel.text = "%5.2f" % play_time
-
-
-# Signal Handlers
 
 func on_player_ability_changed(color):
 	%CurrentAbility.change_with_color(color)
@@ -101,60 +160,41 @@ func on_player_despawned():
 	player_despawned.emit()
 
 
+func on_player_reached_checkpoint(position):
+	last_checkpoint_position = position
+
+
 func on_player_reached_goal():
 	player_reached_goal.emit()
 
 
-func on_level_load_progress(progress):
-	level_load_progress.emit(progress)
+# Checkpoints
+
+func get_is_past_first_checkpoint():
+	return last_checkpoint_position != null
 
 
-# Level Loading
-
-func get_level_count():
-	return %Levels.get_level_path_count()
-
-
-func  get_first_level_index():
-	return %Levels.get_first_level_path_index()
-
-
-func get_current_level_index():
-	return %Levels.get_current_level_path_index()
-
-
-func get_requested_level_path_index():
-	return %Levels.get_requested_level_path_index()
-
-
-func request_setting_level_path_index(index):
-	%Levels.request_setting_level_path_index(index)
-
-
-func request_setting_previous_level_path_index():
-	%Levels.request_setting_previous_level_path_index()
-
-
-func request_setting_next_level_path_index():
-	%Levels.request_setting_next_level_path_index()
-
-
-func try_changing_to_requested_level():
-	reset_play_time()
-	return await %Levels.try_changing_to_requested_level()
-
-
-func spawn_player():
-	await %Levels.spawn_player()
+func reset_last_checkpoint_position():
+	last_checkpoint_position = null
 
 
 func reset_to_checkpoint():
-	await %Levels.reset_to_checkpoint()
+	await spawn_player()
 
 
-func reset_level():
-	await %Levels.reset_level()
-	reset_play_time()
+# Play Time
+
+func get_play_time():
+	return play_time
+
+
+func set_play_time(new_time):
+	play_time = new_time
+	%PlayTimeLabel.text = "%5.2f" % play_time
+
+
+func reset_play_time():
+	set_play_time(0.0)
 
 
 # State Machine
@@ -178,17 +218,14 @@ func _input(event):
 # Level State
 
 func load_level_state_scene(level_state_scene):
-	current_level_state_scene = level_state_scene
-	add_child(current_level_state_scene)
+	active_level_state_scene = level_state_scene
+	add_child(active_level_state_scene)
 
 
-func unload_level_state_scene(level_state_scene):
-	var scene_to_be_removed
-	for child in get_children():
-		if child == level_state_scene:
-			scene_to_be_removed = level_state_scene
-	if scene_to_be_removed != null:
-		remove_child(scene_to_be_removed)
+func deactivate_level_state_scene():
+	if active_level_state_scene != null:
+		active_level_state_scene.queue_free()
+		await get_tree().process_frame
 
 
 func change_to_level_state(level_state):

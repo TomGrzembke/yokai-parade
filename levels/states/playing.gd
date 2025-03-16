@@ -1,7 +1,8 @@
 extends LevelState
 
 
-@export var loading_level_state: LevelState
+@export var decrement_level_state: LevelState
+@export var increment_level_state: LevelState
 @export var paused_level_state: LevelState
 @export var reset_to_checkpoint_level_state: LevelState
 @export var reset_level_state: LevelState
@@ -37,12 +38,10 @@ func unhandled_input(event):
 		return
 
 	if event.is_action_pressed("load_previous_level"):
-		context.request_setting_previous_level_path_index()
-		return loading_level_state
+		return decrement_level_state
 
 	if event.is_action_pressed("load_next_level"):
-		context.request_setting_next_level_path_index()
-		return loading_level_state
+		return increment_level_state
 
 	if event.is_action_pressed("debug_screenshot_pause"):
 		context.set_game_paused(!get_tree().paused)
