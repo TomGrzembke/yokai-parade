@@ -103,6 +103,13 @@ func try_changing_to_requested_level():
 	return await %LevelCoordinator.try_changing_to_requested_level(%LevelHook)
 
 
+func load_currently_active_level():
+	await %LevelHook.activate_current_level_packed_scene()
+	reset_last_checkpoint_position()
+	reset_play_time()
+	await spawn_player()
+
+
 func on_level_load_progress(progress):
 	level_load_progress.emit(progress)
 
@@ -176,13 +183,6 @@ func reset_last_checkpoint_position():
 
 
 func reset_to_checkpoint():
-	await spawn_player()
-
-
-func load_currently_active_level():
-	await %LevelHook.activate_current_level_packed_scene()
-	reset_last_checkpoint_position()
-	reset_play_time()
 	await spawn_player()
 
 
