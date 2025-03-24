@@ -13,7 +13,6 @@ signal player_reached_goal
 var state_node
 var current_level_index = 0
 var current_level_info
-var active_level_state_scene
 var player
 var play_time = 0.0
 var last_checkpoint_position
@@ -216,17 +215,6 @@ func _input(event):
 
 
 # Level State
-
-func load_level_state_scene(level_state_scene):
-	active_level_state_scene = level_state_scene
-	add_child(active_level_state_scene)
-
-
-func deactivate_level_state_scene():
-	if active_level_state_scene != null:
-		active_level_state_scene.queue_free()
-		await get_tree().process_frame
-
 
 func change_to_level_state(level_state):
 	%LevelStateMachine.change_state(level_state)

@@ -15,7 +15,7 @@ func enter(p_previous_state):
 
 	state_scene = level_state_packed_scene.instantiate()
 	state_scene.set_state_node(self)
-	context.load_level_state_scene(state_scene)
+	context.add_child(state_scene)
 
 
 func exit():
@@ -24,7 +24,8 @@ func exit():
 	if state_scene == null:
 		return
 
-	await context.deactivate_level_state_scene()
+	state_scene.queue_free()
+	await get_tree().process_frame
 
 
 func change_state(next_level_state):

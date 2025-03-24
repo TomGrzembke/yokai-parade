@@ -29,6 +29,6 @@ grow_vertical = 2
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"state_transitions_short": ExtResource("2_mbhnm")
+&"state_transitions_short": ExtResource("2_mbhnm")
 }
 autoplay = "state_transitions_short/show_state_scene"

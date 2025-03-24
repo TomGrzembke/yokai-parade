@@ -27,5 +27,7 @@ func physics_process(_delta):
 
 
 func exit():
+	super.exit()
+
 	take_damage_component.set_did_take_damage(false)
 	attack_melee_component.set_deal_damage_active(true)
