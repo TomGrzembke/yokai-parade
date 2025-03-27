@@ -84,7 +84,7 @@ color = Color(0.4725, 0.55575, 0.75, 1)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_riqiw")
+&"": SubResource("AnimationLibrary_riqiw")
 }
 autoplay = "celebrate"
 

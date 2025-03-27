@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpmvciix33asm"]
+
+[ext_resource type="Script" uid="uid://c2kuavmaoltau" path="res://levels/scenes/starting_from_checkpoint.gd" id="1_xtbqu"]
+[ext_resource type="AnimationLibrary" uid="uid://2vjwp0u36wl8" path="res://assets/animations/state_transitions_short.res" id="2_2vam8"]
+
+[node name="StartingFromCheckpoint" type="Node"]
+script = ExtResource("1_xtbqu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Main" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FrontCover" type="ColorRect" parent="CanvasLayer/Main"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.470588, 0.556863, 0.74902, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"state_transitions_short": ExtResource("2_2vam8")
+}
+autoplay = "state_transitions_short/hide_state_scene"

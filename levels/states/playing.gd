@@ -6,14 +6,13 @@ extends LevelState
 @export var paused_level_state: LevelState
 @export var reset_to_checkpoint_level_state: LevelState
 @export var reset_level_state: LevelState
-@export var despawning_level_state: LevelState
 @export var finishing_level_state: LevelState
 
 
 func enter(p_previous_state):
 	super.enter(p_previous_state)
 
-	context.player_despawned.connect(func(): change_state(despawning_level_state))
+	context.player_despawned.connect(func(): change_state(reset_to_checkpoint_level_state))
 	context.player_reached_goal.connect(func(): change_state(finishing_level_state))
 
 	context.set_player_controls_active(true)

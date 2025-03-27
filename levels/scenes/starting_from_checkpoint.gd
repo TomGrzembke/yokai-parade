@@ -12,5 +12,4 @@ func set_state_node(node):
 
 func _ready():
 	await %AnimationPlayer.animation_finished
-	await state_node.reset_to_checkpoint()
 	state_node.change_to_next_level_state()
