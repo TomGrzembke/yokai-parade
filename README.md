@@ -19,6 +19,7 @@ level tileset and level object setup and enemies. Some sound effects were also c
 ## Noteworthy Aspects
 
 ### [Game Framework](./game)
+
 The game runs two nested state machines, one for the overall [game states](./game/game_state.gd) like startup or main menu, and another one within the in-game state that manages the [level states](/levels/level_state.gd) like loading, playing, paused and many more helper states.
 
 The code is split so that purely state- and transition-related logic is contained in scripts inside the states/ folders, while the scene-related functionality lives inside scripts of the same name in the scenes/ folder (tscn and script files).
@@ -30,6 +31,7 @@ Oh and also mind the little animation that runs stutter-free during the level lo
 exports of Godot don't support multi-threading (Browsers only support multi-threading when using the `Web Worker` API).
 
 ### [Enemies](./enemies)
+
 Enemies are also basically state machines, implementing the same split as described above. There are two 'elemental' types of enemies, fire and air, and each has a walking and flying variant. Both variants function very differently,
 ground-based movement uses physics and a cliff-detection while the flying variants use a `PathFollow2D`. Since PathFollow2D must be a **direct** child of a `Path` node with nothing in between, and I wanted to let the Level Designers easily draw paths in the levels,
 class inheritance could not be used to have common code in a parent class. Instead I made heavy use of 'components', that bundled functionality in Nodes with attached scripts, which could be attached to both variants of the enemies.
